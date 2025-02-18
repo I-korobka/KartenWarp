@@ -1,0 +1,270 @@
+2025-02-18 14:23:41,166 [INFO] KartenWarp: Logging started in C:\Github\TR_mod\.tools\KartenWarp\dev\temp\run_20250218_142341
+2025-02-18 14:23:41,166 [INFO] KartenWarp: Transformation logger configured
+2025-02-18 14:23:41,198 [DEBUG] KartenWarp: Extracted 100 localization keys from source code.
+2025-02-18 14:23:41,198 [DEBUG] KartenWarp: Updated de.json with 100 keys. Written to temp folder.
+2025-02-18 14:23:41,198 [DEBUG] KartenWarp: Updated en.json with 100 keys. Written to temp folder.
+2025-02-18 14:23:41,198 [DEBUG] KartenWarp: Updated ja.json with 100 keys. Written to temp folder.
+2025-02-18 14:23:41,207 [DEBUG] KartenWarp: Loaded localization from C:\Github\TR_mod\.tools\KartenWarp\dev\temp\ja.json
+2025-02-18 14:23:41,207 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-18 14:23:41,283 [DEBUG] KartenWarp: theme.py module loaded
+2025-02-18 14:23:41,283 [DEBUG] KartenWarp: Starting application
+2025-02-18 14:23:41,294 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-18 14:23:41,294 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-18 14:23:41,294 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-18 14:23:41,299 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-18 14:23:41,778 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-18 14:23:41,798 [DEBUG] KartenWarp: Menus created
+2025-02-18 14:23:41,798 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-18 14:23:41,798 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:23:41,843 [INFO] KartenWarp: Main window shown; entering event loop
+2025-02-18 14:23:41,861 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:23:45,158 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:05,305 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:07,673 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:07,688 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:07,688 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-18 14:25:07,688 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:25:07,693 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-18 14:25:07,693 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:25:07,724 [INFO] KartenWarp: Entered detached mode
+2025-02-18 14:25:07,724 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-18 14:25:07,726 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:07,726 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:08,492 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:09,272 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:09,272 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-18 14:25:09,272 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-18 14:25:09,272 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-18 14:25:10,251 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:10,251 [INFO] KartenWarp: Returned to integrated mode
+2025-02-18 14:25:10,253 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-18 14:25:10,253 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-18 14:25:12,562 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:13,960 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:25:13,960 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:13,960 [DEBUG] KartenWarp: Updating real points: []
+2025-02-18 14:25:13,975 [INFO] KartenWarp: Real map image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_real_map.png
+2025-02-18 14:25:17,085 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:18,303 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:25:18,303 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:18,303 [DEBUG] KartenWarp: Updating game points: []
+2025-02-18 14:25:18,303 [INFO] KartenWarp: Game image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_game.png
+2025-02-18 14:25:18,655 [DEBUG] KartenWarp: Zoom UI updated to 115.0%
+2025-02-18 14:25:18,655 [DEBUG] KartenWarp: Zoom factor set to 1.15
+2025-02-18 14:25:18,670 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-18 14:25:18,670 [DEBUG] KartenWarp: Zoom factor set to 1.3224999999999998
+2025-02-18 14:25:18,686 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:25:18,686 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999995
+2025-02-18 14:25:18,695 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:25:18,695 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999994
+2025-02-18 14:25:18,697 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-18 14:25:18,697 [DEBUG] KartenWarp: Zoom factor set to 2.0113571874999994
+2025-02-18 14:25:18,702 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-18 14:25:18,702 [DEBUG] KartenWarp: Zoom factor set to 2.313060765624999
+2025-02-18 14:25:18,718 [DEBUG] KartenWarp: Zoom UI updated to 266.0%
+2025-02-18 14:25:18,718 [DEBUG] KartenWarp: Zoom factor set to 2.6600198804687487
+2025-02-18 14:25:19,010 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:19,027 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:19,930 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:19,930 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:20,908 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:20,909 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:21,612 [DEBUG] KartenWarp: Panning started
+2025-02-18 14:25:21,834 [DEBUG] KartenWarp: Panning ended
+2025-02-18 14:25:22,398 [DEBUG] KartenWarp: Zoom UI updated to 115.0%
+2025-02-18 14:25:22,398 [DEBUG] KartenWarp: Zoom factor set to 1.15
+2025-02-18 14:25:22,414 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-18 14:25:22,414 [DEBUG] KartenWarp: Zoom factor set to 1.3224999999999998
+2025-02-18 14:25:22,445 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:25:22,445 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999995
+2025-02-18 14:25:22,497 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:25:22,498 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999994
+2025-02-18 14:25:22,677 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:22,677 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:22,677 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:23,114 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:23,114 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:24,734 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:24,734 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:25,737 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:25,737 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:26,430 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:25:26,430 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999998
+2025-02-18 14:25:26,448 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-18 14:25:26,448 [DEBUG] KartenWarp: Zoom factor set to 1.3225
+2025-02-18 14:25:26,494 [DEBUG] KartenWarp: Zoom UI updated to 115.0%
+2025-02-18 14:25:26,494 [DEBUG] KartenWarp: Zoom factor set to 1.1500000000000001
+2025-02-18 14:25:26,850 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-18 14:25:26,850 [DEBUG] KartenWarp: Zoom factor set to 2.313060765624999
+2025-02-18 14:25:26,866 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-18 14:25:26,866 [DEBUG] KartenWarp: Zoom factor set to 2.0113571874999994
+2025-02-18 14:25:26,914 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:25:26,914 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999997
+2025-02-18 14:25:26,930 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:25:26,930 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999998
+2025-02-18 14:25:29,199 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:29,199 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:29,199 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:31,788 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:31,788 [WARNING] KartenWarp: Insufficient points for transformation
+2025-02-18 14:25:35,820 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:35,820 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:35,820 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:38,488 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:38,488 [WARNING] KartenWarp: Insufficient points for transformation
+2025-02-18 14:25:43,956 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:43,956 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:43,956 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:45,831 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:45,837 [WARNING] KartenWarp: Insufficient points for transformation
+2025-02-18 14:25:48,308 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:48,308 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:49,184 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:49,184 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:49,184 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:50,441 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:50,441 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:51,604 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:51,620 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:51,620 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:25:54,160 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:25:54,175 [WARNING] KartenWarp: Insufficient points for transformation
+2025-02-18 14:25:55,972 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:25:55,972 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999997
+2025-02-18 14:25:56,279 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-18 14:25:56,279 [DEBUG] KartenWarp: Zoom factor set to 2.0113571874999994
+2025-02-18 14:25:57,374 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-18 14:25:57,374 [DEBUG] KartenWarp: Zoom factor set to 1.3225
+2025-02-18 14:25:57,389 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:25:57,389 [DEBUG] KartenWarp: Zoom factor set to 1.520875
+2025-02-18 14:25:57,473 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:25:57,474 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999999
+2025-02-18 14:25:57,894 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-18 14:25:57,894 [DEBUG] KartenWarp: Zoom factor set to 2.0113571875
+2025-02-18 14:25:57,926 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-18 14:25:57,926 [DEBUG] KartenWarp: Zoom factor set to 2.3130607656249995
+2025-02-18 14:25:57,974 [DEBUG] KartenWarp: Zoom UI updated to 266.0%
+2025-02-18 14:25:57,974 [DEBUG] KartenWarp: Zoom factor set to 2.660019880468749
+2025-02-18 14:25:58,604 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-18 14:25:58,604 [DEBUG] KartenWarp: Zoom factor set to 2.3130607656249995
+2025-02-18 14:25:58,684 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-18 14:25:58,684 [DEBUG] KartenWarp: Zoom factor set to 2.0113571875
+2025-02-18 14:25:58,765 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:25:58,765 [DEBUG] KartenWarp: Zoom factor set to 1.74900625
+2025-02-18 14:25:58,894 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:25:58,894 [DEBUG] KartenWarp: Zoom factor set to 1.5208750000000002
+2025-02-18 14:25:59,006 [DEBUG] KartenWarp: Zoom UI updated to 132.3%
+2025-02-18 14:25:59,006 [DEBUG] KartenWarp: Zoom factor set to 1.3225000000000002
+2025-02-18 14:26:03,875 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:03,891 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:03,891 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:04,228 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:04,806 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:05,340 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:05,597 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:05,821 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:06,059 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:06,266 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:06,481 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:06,688 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:07,126 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:34,683 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:37,408 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:37,408 [DEBUG] KartenWarp: Dark mode toggled to False
+2025-02-18 14:26:39,111 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:39,111 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:26:39,127 [DEBUG] KartenWarp: Dark mode toggled to True
+2025-02-18 14:26:41,413 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:41,417 [DEBUG] KartenWarp: OptionsDialog initialized
+2025-02-18 14:26:43,439 [DEBUG] KartenWarp: OptionsDialog accept triggered
+2025-02-18 14:26:43,455 [DEBUG] KartenWarp: Loaded localization from C:\Github\TR_mod\.tools\KartenWarp\dev\temp\ja.json
+2025-02-18 14:26:43,455 [DEBUG] KartenWarp: Language set to ja
+2025-02-18 14:26:43,455 [DEBUG] KartenWarp: Options saved
+2025-02-18 14:26:43,463 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:43,463 [DEBUG] KartenWarp: Menus created
+2025-02-18 14:26:43,463 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:26:43,463 [DEBUG] KartenWarp: Options dialog accepted and settings updated
+2025-02-18 14:26:44,398 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-18 14:26:44,398 [DEBUG] KartenWarp: Zoom factor set to 2.313060765624999
+2025-02-18 14:26:44,463 [DEBUG] KartenWarp: Zoom UI updated to 266.0%
+2025-02-18 14:26:44,463 [DEBUG] KartenWarp: Zoom factor set to 2.6600198804687487
+2025-02-18 14:26:44,543 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-18 14:26:44,543 [DEBUG] KartenWarp: Zoom factor set to 2.313060765624999
+2025-02-18 14:26:44,694 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:44,694 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:44,694 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:45,028 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:45,028 [DEBUG] KartenWarp: Undo executed
+2025-02-18 14:26:45,859 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:45,871 [DEBUG] KartenWarp: Undo executed
+2025-02-18 14:26:47,505 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:47,505 [DEBUG] KartenWarp: Redo executed
+2025-02-18 14:26:47,834 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:47,836 [DEBUG] KartenWarp: Redo executed
+2025-02-18 14:26:51,441 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:51,441 [DEBUG] KartenWarp: HistoryDialog initialized
+2025-02-18 14:26:51,441 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-18 14:26:52,922 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:52,938 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:52,938 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:52,938 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-18 14:26:52,941 [DEBUG] KartenWarp: Jumped to history index 5
+2025-02-18 14:26:54,112 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:54,112 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:54,112 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:54,112 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-18 14:26:54,112 [DEBUG] KartenWarp: Jumped to history index 3
+2025-02-18 14:26:55,978 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:55,978 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:55,978 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:55,978 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:26:55,978 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-18 14:26:55,978 [DEBUG] KartenWarp: Jumped to history index 6
+2025-02-18 14:26:56,720 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:26:56,720 [DEBUG] KartenWarp: History dialog opened
+2025-02-18 14:27:01,197 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:02,566 [INFO] KartenWarp: Scene export cancelled
+2025-02-18 14:27:02,566 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:04,119 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:05,293 [INFO] KartenWarp: Project load cancelled
+2025-02-18 14:27:05,293 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:06,530 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:07,689 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:08,612 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:08,628 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:27:08,628 [DEBUG] KartenWarp: Updating game points: []
+2025-02-18 14:27:08,628 [INFO] KartenWarp: Game image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_game.png
+2025-02-18 14:27:09,907 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:11,361 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:12,230 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:12,246 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:27:12,246 [DEBUG] KartenWarp: Updating real points: []
+2025-02-18 14:27:12,262 [INFO] KartenWarp: Real map image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_real_map.png
+2025-02-18 14:27:12,940 [DEBUG] KartenWarp: Zoom UI updated to 266.0%
+2025-02-18 14:27:12,940 [DEBUG] KartenWarp: Zoom factor set to 2.6600198804687487
+2025-02-18 14:27:12,956 [DEBUG] KartenWarp: Zoom UI updated to 305.9%
+2025-02-18 14:27:12,956 [DEBUG] KartenWarp: Zoom factor set to 3.0590228625390607
+2025-02-18 14:27:12,972 [DEBUG] KartenWarp: Zoom UI updated to 351.8%
+2025-02-18 14:27:12,972 [DEBUG] KartenWarp: Zoom factor set to 3.5178762919199196
+2025-02-18 14:27:13,004 [DEBUG] KartenWarp: Zoom UI updated to 404.6%
+2025-02-18 14:27:13,004 [DEBUG] KartenWarp: Zoom factor set to 4.0455577357079076
+2025-02-18 14:27:13,437 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:13,437 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:13,942 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:13,942 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:14,379 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:14,379 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:14,745 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:14,745 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:15,525 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:15,525 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:15,525 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:15,893 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:15,893 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:16,236 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:16,236 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:16,611 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:16,611 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-18 14:27:21,342 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:24,705 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:27:24,705 [WARNING] KartenWarp: Insufficient points for transformation

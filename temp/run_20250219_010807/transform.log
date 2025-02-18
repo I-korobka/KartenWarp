@@ -1,0 +1,28 @@
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp.Transform: Starting perform_tps_transform
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: Adaptive enabled: adjusted reg_lambda = 0.4166666666666667
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 01:08:10,055 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 01:08:10,055 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 01:08:10,057 [INFO] KartenWarp.Transform: TPS transform completed successfully
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp.Transform: Starting perform_tps_transform
+2025-02-19 01:08:12,312 [ERROR] KartenWarp.Transform: Game image not loaded
+2025-02-19 01:08:12,314 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: Adaptive enabled: adjusted reg_lambda = 8.533333333333335
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 01:08:12,316 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 01:08:12,316 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,317 [ERROR] KartenWarp.Transform: Insufficient correspondence points
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:12,318 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 01:08:12,318 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 01:08:12,318 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 01:08:12,319 [DEBUG] KartenWarp.Transform: Transformation performed successfully

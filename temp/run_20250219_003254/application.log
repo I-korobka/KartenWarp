@@ -1,0 +1,202 @@
+2025-02-19 00:32:54,292 [INFO] KartenWarp: Logging started in C:\Github\TR_mod\.tools\KartenWarp\dev\temp\run_20250219_003254
+2025-02-19 00:32:54,293 [INFO] KartenWarp: Transformation logger configured
+2025-02-19 00:32:54,852 [DEBUG] KartenWarp: Extracted 100 localization keys from source code.
+2025-02-19 00:32:54,874 [DEBUG] KartenWarp: Updated de.json with 100 keys. Written to temp folder.
+2025-02-19 00:32:54,895 [DEBUG] KartenWarp: Updated en.json with 100 keys. Written to temp folder.
+2025-02-19 00:32:54,913 [DEBUG] KartenWarp: Updated ja.json with 100 keys. Written to temp folder.
+2025-02-19 00:32:54,914 [DEBUG] KartenWarp: Loaded localization from C:\Github\TR_mod\.tools\KartenWarp\dev\temp\ja.json
+2025-02-19 00:32:54,934 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 00:32:55,238 [DEBUG] KartenWarp: theme.py module loaded
+2025-02-19 00:32:55,275 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 00:32:55,275 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 00:32:55,291 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 00:32:55,295 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 00:32:57,889 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 00:32:57,910 [DEBUG] KartenWarp: Menus created
+2025-02-19 00:32:57,910 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 00:32:57,910 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 00:32:57,995 [INFO] KartenWarp: Main window shown; entering event loop
+2025-02-19 00:32:57,995 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:00,276 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:00,287 [DEBUG] KartenWarp: Grid overlay toggled to False
+2025-02-19 00:33:01,105 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:01,115 [DEBUG] KartenWarp: Grid overlay toggled to True
+2025-02-19 00:33:06,276 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:06,289 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:06,289 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 00:33:06,289 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 00:33:06,289 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 00:33:06,289 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 00:33:06,326 [INFO] KartenWarp: Entered detached mode
+2025-02-19 00:33:06,326 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 00:33:06,326 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:06,326 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:07,462 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:08,369 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:08,369 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 00:33:08,375 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 00:33:08,375 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 00:33:09,275 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:09,275 [INFO] KartenWarp: Returned to integrated mode
+2025-02-19 00:33:09,275 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-19 00:33:09,275 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 00:33:11,176 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:12,625 [DEBUG] KartenWarp: Loading project from C:/Github/TR_mod/.tools/KartenWarp/dev/tester_project.kwproj
+2025-02-19 00:33:12,625 [INFO] KartenWarp: Project loaded successfully: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_project.kwproj
+2025-02-19 00:33:12,640 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 00:33:12,647 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:12,655 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 00:33:12,665 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: Updating game points: [[95, 67]]
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35]]
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20]]
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41]]
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44]]
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27]]
+2025-02-19 00:33:12,675 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49]]
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104]]
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95]]
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141]]
+2025-02-19 00:33:12,681 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149]]
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190]]
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176]]
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138]]
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138], [91, 119]]
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138], [91, 119], [84, 97]]
+2025-02-19 00:33:12,685 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,690 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138], [91, 119], [84, 97], [29, 99]]
+2025-02-19 00:33:12,705 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: []
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800]]
+2025-02-19 00:33:12,715 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,725 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606]]
+2025-02-19 00:33:12,725 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,725 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487]]
+2025-02-19 00:33:12,725 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,727 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375]]
+2025-02-19 00:33:12,727 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:12,727 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357]]
+2025-02-19 00:33:12,727 [INFO] KartenWarp: Project loaded successfully
+2025-02-19 00:33:13,126 [DEBUG] KartenWarp: Zoom UI updated to 115.0%
+2025-02-19 00:33:13,126 [DEBUG] KartenWarp: Zoom factor set to 1.15
+2025-02-19 00:33:13,126 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-19 00:33:13,126 [DEBUG] KartenWarp: Zoom factor set to 1.3224999999999998
+2025-02-19 00:33:13,151 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-19 00:33:13,151 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999995
+2025-02-19 00:33:13,167 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-19 00:33:13,167 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999994
+2025-02-19 00:33:13,214 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-19 00:33:13,214 [DEBUG] KartenWarp: Zoom factor set to 2.0113571874999994
+2025-02-19 00:33:13,480 [DEBUG] KartenWarp: Zoom UI updated to 231.3%
+2025-02-19 00:33:13,480 [DEBUG] KartenWarp: Zoom factor set to 2.313060765624999
+2025-02-19 00:33:13,485 [DEBUG] KartenWarp: Zoom UI updated to 266.0%
+2025-02-19 00:33:13,485 [DEBUG] KartenWarp: Zoom factor set to 2.6600198804687487
+2025-02-19 00:33:13,511 [DEBUG] KartenWarp: Zoom UI updated to 305.9%
+2025-02-19 00:33:13,511 [DEBUG] KartenWarp: Zoom factor set to 3.0590228625390607
+2025-02-19 00:33:13,515 [DEBUG] KartenWarp: Zoom UI updated to 351.8%
+2025-02-19 00:33:13,515 [DEBUG] KartenWarp: Zoom factor set to 3.5178762919199196
+2025-02-19 00:33:13,546 [DEBUG] KartenWarp: Zoom UI updated to 404.6%
+2025-02-19 00:33:13,546 [DEBUG] KartenWarp: Zoom factor set to 4.0455577357079076
+2025-02-19 00:33:14,265 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:14,265 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:14,275 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138], [91, 119], [84, 97], [29, 99], [159, 79]]
+2025-02-19 00:33:15,696 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:15,696 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:15,700 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138], [91, 119], [84, 97], [29, 99], [159, 79], [159, 79]]
+2025-02-19 00:33:17,385 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:17,385 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:17,390 [DEBUG] KartenWarp: Updating game points: [[95, 67], [69, 35], [106, 20], [142, 41], [179, 44], [224, 27], [289, 49], [276, 104], [295, 95], [235, 141], [181, 149], [169, 190], [129, 176], [105, 138], [91, 119], [84, 97], [29, 99], [159, 79], [159, 79], [159, 80]]
+2025-02-19 00:33:18,581 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:18,581 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:18,581 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:18,585 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398]]
+2025-02-19 00:33:19,306 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:19,306 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:19,315 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398]]
+2025-02-19 00:33:20,016 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:20,016 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:20,016 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389]]
+2025-02-19 00:33:20,270 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:20,270 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:20,275 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403]]
+2025-02-19 00:33:20,812 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:20,812 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:20,816 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335]]
+2025-02-19 00:33:21,440 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:21,440 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:21,445 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335]]
+2025-02-19 00:33:22,146 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:22,155 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:22,160 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374]]
+2025-02-19 00:33:23,571 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:23,571 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:23,577 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406]]
+2025-02-19 00:33:24,065 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:24,065 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:24,076 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406]]
+2025-02-19 00:33:24,766 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:24,766 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:24,775 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341]]
+2025-02-19 00:33:25,528 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:25,528 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:25,530 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339]]
+2025-02-19 00:33:26,045 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:26,045 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:26,051 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339], [635, 415]]
+2025-02-19 00:33:26,586 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:26,586 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:26,591 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339], [635, 415], [635, 415]]
+2025-02-19 00:33:27,682 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:27,682 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:27,689 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339], [635, 415], [635, 415], [598, 476]]
+2025-02-19 00:33:28,195 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:28,195 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:28,204 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339], [635, 415], [635, 415], [598, 476], [598, 476]]
+2025-02-19 00:33:28,905 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:28,905 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:28,917 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339], [635, 415], [635, 415], [598, 476], [598, 476], [570, 549]]
+2025-02-19 00:33:30,172 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:30,172 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 00:33:30,178 [DEBUG] KartenWarp: Updating real points: [[311, 239], [205, 75], [356, 3], [506, 101], [660, 120], [841, 22], [1133, 106], [1111, 386], [1175, 331], [930, 601], [701, 652], [647, 898], [449, 800], [334, 606], [276, 487], [245, 375], [19, 357], [505, 398], [504, 398], [513, 389], [500, 403], [578, 335], [578, 335], [586, 374], [588, 406], [588, 406], [647, 341], [647, 339], [635, 415], [635, 415], [598, 476], [598, 476], [570, 549], [572, 547]]
+2025-02-19 00:33:36,985 [DEBUG] KartenWarp: Active scene set
+2025-02-19 00:33:36,986 [INFO] KartenWarp: User confirmed exit. Closing application.

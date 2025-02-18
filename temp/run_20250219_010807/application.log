@@ -1,0 +1,550 @@
+2025-02-19 01:08:07,550 [INFO] KartenWarp: Logging started in C:\Github\TR_mod\.tools\KartenWarp\dev\temp\run_20250219_010807
+2025-02-19 01:08:07,552 [INFO] KartenWarp: Transformation logger configured
+2025-02-19 01:08:07,553 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 01:08:07,600 [DEBUG] KartenWarp: Extracted 100 localization keys from source code.
+2025-02-19 01:08:07,601 [DEBUG] KartenWarp: Updated de.json with 100 keys. Written to temp folder.
+2025-02-19 01:08:07,601 [DEBUG] KartenWarp: Updated en.json with 100 keys. Written to temp folder.
+2025-02-19 01:08:07,601 [DEBUG] KartenWarp: Updated ja.json with 100 keys. Written to temp folder.
+2025-02-19 01:08:07,603 [DEBUG] KartenWarp: Loaded localization from C:\Github\TR_mod\.tools\KartenWarp\dev\temp\ja.json
+2025-02-19 01:08:07,605 [DEBUG] KartenWarp: theme.py module loaded
+2025-02-19 01:08:07,614 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:07,614 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:07,615 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:07,616 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:08,805 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:08,823 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:08,823 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:08,823 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:08,911 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:08,912 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:08,912 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:08,912 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:08,912 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:08,972 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 01:08:09,001 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,001 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,004 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,005 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,049 [INFO] KartenWarp: Entered detached mode
+2025-02-19 01:08:09,049 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 01:08:09,049 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 01:08:09,050 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:09,052 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,052 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,052 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:09,054 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,056 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,062 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:09,062 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:09,062 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,096 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,096 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,097 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,097 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,097 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,134 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,134 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,142 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,143 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,214 [INFO] KartenWarp: Entered detached mode
+2025-02-19 01:08:09,214 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 01:08:09,214 [DEBUG] KartenWarp: Toggle mode key pressed in DetachedWindow
+2025-02-19 01:08:09,214 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 01:08:09,217 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 01:08:09,225 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 01:08:09,237 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 01:08:09,258 [INFO] KartenWarp: Returned to integrated mode
+2025-02-19 01:08:09,259 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-19 01:08:09,260 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 01:08:09,274 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:09,280 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,280 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,280 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:09,281 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,284 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,293 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:09,293 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:09,293 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,311 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,311 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,312 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,312 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,312 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,329 [DEBUG] KartenWarp: Undo executed in DetachedWindow
+2025-02-19 01:08:09,329 [DEBUG] KartenWarp: Redo executed in DetachedWindow
+2025-02-19 01:08:09,331 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,331 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,332 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,332 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,367 [INFO] KartenWarp: Entered detached mode
+2025-02-19 01:08:09,368 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 01:08:09,368 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 01:08:09,370 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:09,374 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,374 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,374 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:09,375 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,375 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,377 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:09,377 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:09,378 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,399 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,399 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,400 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,400 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,400 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,422 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,423 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,424 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:09,424 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:09,462 [INFO] KartenWarp: Entered detached mode
+2025-02-19 01:08:09,462 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 01:08:09,462 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 01:08:09,465 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:09,470 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,470 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,470 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:09,493 [DEBUG] KartenWarp: Updating game points: [[50, 50]]
+2025-02-19 01:08:09,493 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:09,494 [DEBUG] KartenWarp: Updating game points: [[50, 50], [100, 100]]
+2025-02-19 01:08:09,494 [DEBUG] KartenWarp: HistoryDialog initialized
+2025-02-19 01:08:09,494 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-19 01:08:09,515 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,515 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,515 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,515 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,515 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,515 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,737 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,737 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,737 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:09,738 [DEBUG] KartenWarp: Updating game points: [[50, 50]]
+2025-02-19 01:08:09,738 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:09,739 [DEBUG] KartenWarp: Updating game points: [[50, 50], [100, 100]]
+2025-02-19 01:08:09,739 [DEBUG] KartenWarp: HistoryDialog initialized
+2025-02-19 01:08:09,739 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-19 01:08:09,755 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:09,971 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:09,973 [DEBUG] KartenWarp: Updating game points: [[50, 50]]
+2025-02-19 01:08:09,973 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:09,974 [DEBUG] KartenWarp: Updating game points: [[50, 50]]
+2025-02-19 01:08:09,974 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-19 01:08:09,974 [DEBUG] KartenWarp: Jumped to history index 0
+2025-02-19 01:08:09,989 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:09,989 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:09,989 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:09,989 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,991 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:09,992 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:09,992 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:09,992 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,020 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,021 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,022 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,041 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,042 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,049 [DEBUG] KartenWarp: Updating real points: []
+2025-02-19 01:08:10,050 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,050 [DEBUG] KartenWarp: Updating game points: [[10, 10]]
+2025-02-19 01:08:10,050 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,050 [DEBUG] KartenWarp: Updating game points: [[10, 10], [20, 25]]
+2025-02-19 01:08:10,050 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,051 [DEBUG] KartenWarp: Updating game points: [[10, 10], [20, 25], [30, 30]]
+2025-02-19 01:08:10,051 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,051 [DEBUG] KartenWarp: Updating real points: [[15, 15]]
+2025-02-19 01:08:10,051 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp: Updating real points: [[15, 15], [25, 28]]
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp: Updating real points: [[15, 15], [25, 28], [35, 35]]
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp.Transform: Starting perform_tps_transform
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:10,052 [DEBUG] KartenWarp: Converting QImage to NumPy array
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: Adaptive enabled: adjusted reg_lambda = 0.4166666666666667
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 01:08:10,054 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 01:08:10,055 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 01:08:10,055 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 01:08:10,057 [INFO] KartenWarp.Transform: TPS transform completed successfully
+2025-02-19 01:08:10,057 [DEBUG] KartenWarp: Initializing ResultWindow
+2025-02-19 01:08:10,057 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,075 [INFO] KartenWarp: TPS transformation executed successfully
+2025-02-19 01:08:10,076 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,104 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,105 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,105 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,105 [DEBUG] KartenWarp: Updating game points: [[100, 200]]
+2025-02-19 01:08:10,105 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,106 [DEBUG] KartenWarp: Updating game points: [[100, 200], [300, 400]]
+2025-02-19 01:08:10,107 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,107 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,107 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,107 [DEBUG] KartenWarp: Updating game points: [[10, 20]]
+2025-02-19 01:08:10,107 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,107 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: Updating game points: [[10, 20]]
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: Updating game points: [[100, 200]]
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,108 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,109 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,109 [DEBUG] KartenWarp: Updating game points: [[10, 20]]
+2025-02-19 01:08:10,109 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,109 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40]]
+2025-02-19 01:08:10,109 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,110 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40], [50, 60]]
+2025-02-19 01:08:10,110 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,115 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40]]
+2025-02-19 01:08:10,115 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,116 [DEBUG] KartenWarp: Updating game points: [[10, 20]]
+2025-02-19 01:08:10,116 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,117 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40]]
+2025-02-19 01:08:10,117 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,119 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40], [50, 60]]
+2025-02-19 01:08:10,119 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,119 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,119 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,121 [DEBUG] KartenWarp: Updating game points: [[150, 250]]
+2025-02-19 01:08:10,124 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,125 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,125 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,125 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,126 [DEBUG] KartenWarp: Updating game points: [[100, 200]]
+2025-02-19 01:08:10,126 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,126 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,126 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,127 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,127 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,127 [DEBUG] KartenWarp: Updating game points: [[50, 51]]
+2025-02-19 01:08:10,127 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,128 [DEBUG] KartenWarp: Updating game points: [[50, 51], [50, 50]]
+2025-02-19 01:08:10,129 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,129 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,129 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,129 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,129 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,129 [DEBUG] KartenWarp: Updating game points: [[150, 250]]
+2025-02-19 01:08:10,130 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,131 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,131 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,131 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: Updating game points: [[10, 10]]
+2025-02-19 01:08:10,134 [DEBUG] KartenWarp: FeaturePointPresenter: Refreshing UI items.
+2025-02-19 01:08:10,135 [DEBUG] KartenWarp: Updating game points: [[10, 10], [20, 20]]
+2025-02-19 01:08:10,135 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 01:08:10,135 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,135 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,135 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,135 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,189 [DEBUG] KartenWarp: Panning started
+2025-02-19 01:08:10,190 [DEBUG] KartenWarp: Panning ended
+2025-02-19 01:08:10,207 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,207 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,208 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,267 [DEBUG] KartenWarp: Zoom factor set to 1.15
+2025-02-19 01:08:10,287 [ERROR] KartenWarp: Error loading localization; falling back to Japanese
+Traceback (most recent call last):
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\localization.py", line 66, in load_localization
+    with open(file_path, "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+ValueError: JSON Decode Error
+2025-02-19 01:08:10,289 [ERROR] KartenWarp: Error loading fallback localization. Using minimal built-in fallback.
+Traceback (most recent call last):
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\localization.py", line 78, in load_localization
+    with open(fallback_path, "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\localization.py", line 66, in load_localization
+    with open(file_path, "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+ValueError: JSON Decode Error
+2025-02-19 01:08:10,359 [ERROR] KartenWarp: Error loading localization; falling back to Japanese
+Traceback (most recent call last):
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\localization.py", line 66, in load_localization
+    with open(file_path, "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+FileNotFoundError
+2025-02-19 01:08:10,359 [ERROR] KartenWarp: Error loading fallback localization. Using minimal built-in fallback.
+Traceback (most recent call last):
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\localization.py", line 66, in load_localization
+    with open(file_path, "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+FileNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\localization.py", line 78, in load_localization
+    with open(fallback_path, "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+FileNotFoundError
+2025-02-19 01:08:10,365 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,365 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,365 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,365 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,366 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,367 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,367 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,367 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,396 [INFO] KartenWarp: Game image loading cancelled
+2025-02-19 01:08:10,397 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,413 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,413 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,413 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,415 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,418 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,435 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,435 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,435 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,486 [DEBUG] KartenWarp: OptionsDialog initialized
+2025-02-19 01:08:10,497 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,497 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,503 [DEBUG] KartenWarp: Options dialog accepted and settings updated
+2025-02-19 01:08:10,503 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,519 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,519 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,519 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,519 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,520 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,521 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,521 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,521 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,576 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:10,576 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,578 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:10,578 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,611 [INFO] KartenWarp: Entered detached mode
+2025-02-19 01:08:10,612 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 01:08:10,612 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 01:08:10,615 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 01:08:10,618 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 01:08:10,625 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 01:08:10,632 [INFO] KartenWarp: Returned to integrated mode
+2025-02-19 01:08:10,635 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-19 01:08:10,635 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,639 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,639 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,639 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,640 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,643 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,646 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,647 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,647 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,663 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,675 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,675 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,675 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,675 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,676 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,678 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,678 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,678 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,694 [INFO] KartenWarp: Project load cancelled
+2025-02-19 01:08:10,695 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,702 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,702 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,702 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,702 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,704 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,706 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,707 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,707 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,724 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:10,725 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,726 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 01:08:10,726 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,756 [INFO] KartenWarp: Entered detached mode
+2025-02-19 01:08:10,757 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 01:08:10,757 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 01:08:10,759 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 01:08:10,765 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-19 01:08:10,772 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 01:08:10,780 [INFO] KartenWarp: Returned to integrated mode
+2025-02-19 01:08:10,782 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-19 01:08:10,782 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,787 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,787 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,787 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,787 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,787 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,789 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,790 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,790 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,808 [WARNING] KartenWarp: Attempted to open history dialog with no active scene
+2025-02-19 01:08:10,809 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,817 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,817 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,817 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,817 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,818 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,820 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,820 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,820 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,842 [INFO] KartenWarp: Project save cancelled
+2025-02-19 01:08:10,842 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,849 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,849 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,849 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,850 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,851 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,852 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,852 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,853 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,872 [DEBUG] KartenWarp: Dark mode toggled to False
+2025-02-19 01:08:10,872 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,882 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,882 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,882 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,882 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,883 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,884 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,884 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,906 [DEBUG] KartenWarp: Grid overlay toggled to False
+2025-02-19 01:08:10,906 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,914 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,914 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:10,914 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:10,915 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,915 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-19 01:08:10,917 [DEBUG] KartenWarp: Menus created
+2025-02-19 01:08:10,917 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 01:08:10,938 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 01:08:10,938 [DEBUG] KartenWarp: Updating real points: []
+2025-02-19 01:08:10,938 [WARNING] KartenWarp: Insufficient points for transformation
+2025-02-19 01:08:10,939 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 01:08:10,947 [DEBUG] KartenWarp: OptionsDialog initialized
+2025-02-19 01:08:10,949 [DEBUG] KartenWarp: OptionsDialog accept triggered
+2025-02-19 01:08:10,949 [ERROR] KartenWarp: TPS regularization parameter invalid
+Traceback (most recent call last):
+  File "C:\Github\TR_mod\.tools\KartenWarp\dev\kartenwarp\ui\options_dialog.py", line 111, in accept
+    raise ValueError("Regularization parameter must be positive.")
+ValueError: Regularization parameter must be positive.
+2025-02-19 01:08:10,950 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,950 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40]]
+2025-02-19 01:08:10,950 [DEBUG] KartenWarp: Updating real points: [[50, 60], [70, 80]]
+2025-02-19 01:08:10,950 [DEBUG] KartenWarp: Saving project to C:\Users\I_kor\AppData\Local\Temp\tmp2sqt_0ja\test_project.kwproj
+2025-02-19 01:08:10,951 [INFO] KartenWarp: Project saved successfully: C:\Users\I_kor\AppData\Local\Temp\tmp2sqt_0ja\test_project.kwproj
+2025-02-19 01:08:10,951 [DEBUG] KartenWarp: Loading project from C:\Users\I_kor\AppData\Local\Temp\tmp2sqt_0ja\test_project.kwproj
+2025-02-19 01:08:10,958 [INFO] KartenWarp: Project loaded successfully: C:\Users\I_kor\AppData\Local\Temp\tmp2sqt_0ja\test_project.kwproj
+2025-02-19 01:08:10,960 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:10,960 [DEBUG] KartenWarp: Saving project to C:\Users\I_kor\AppData\Local\Temp\tmp7lpdtwo1\test_project.kwproj
+2025-02-19 01:08:10,960 [INFO] KartenWarp: Project saved successfully: C:\Users\I_kor\AppData\Local\Temp\tmp7lpdtwo1\test_project.kwproj
+2025-02-19 01:08:10,961 [DEBUG] KartenWarp: Loading project from C:\Users\I_kor\AppData\Local\Temp\tmp7lpdtwo1\test_project.kwproj
+2025-02-19 01:08:10,962 [INFO] KartenWarp: Project loaded successfully: C:\Users\I_kor\AppData\Local\Temp\tmp7lpdtwo1\test_project.kwproj
+2025-02-19 01:08:10,963 [DEBUG] KartenWarp: Initializing ResultWindow
+2025-02-19 01:08:10,963 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:10,979 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,979 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,980 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,981 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,981 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,981 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,981 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:10,981 [DEBUG] KartenWarp: Active scene set
+2025-02-19 01:08:11,015 [INFO] KartenWarp: Export cancelled by user
+2025-02-19 01:08:12,075 [INFO] KartenWarp: Exported scene to C:/temp/dummy_export.png
+2025-02-19 01:08:12,210 [DEBUG] KartenWarp: Initializing ResultWindow
+2025-02-19 01:08:12,211 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:12,311 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:12,311 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:12,311 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:12,311 [DEBUG] KartenWarp: Updating game points: [[10, 10], [20, 20], [30, 30]]
+2025-02-19 01:08:12,311 [DEBUG] KartenWarp: Updating real points: [[10, 10], [20, 20], [30, 30]]
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp: Converting QImage to NumPy array
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp: Updating game points: [[10, 10], [20, 20], [30, 30]]
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp: Updating real points: [[10, 10], [20, 20], [30, 30]]
+2025-02-19 01:08:12,312 [DEBUG] KartenWarp.Transform: Starting perform_tps_transform
+2025-02-19 01:08:12,312 [ERROR] KartenWarp.Transform: Game image not loaded
+2025-02-19 01:08:12,314 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 01:08:12,314 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,314 [DEBUG] KartenWarp: Converting QImage to NumPy array
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: Adaptive enabled: adjusted reg_lambda = 8.533333333333335
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 01:08:12,315 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 01:08:12,316 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 01:08:12,316 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,317 [ERROR] KartenWarp.Transform: Insufficient correspondence points
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp: Converting QImage to NumPy array
+2025-02-19 01:08:12,317 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 01:08:12,318 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 01:08:12,318 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 01:08:12,318 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 01:08:12,319 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 01:08:12,320 [DEBUG] KartenWarp: Exporting scene to C:\Users\I_kor\AppData\Local\Temp\tmpjnwju074
+2025-02-19 01:08:12,323 [INFO] KartenWarp: Scene exported as C:\Users\I_kor\AppData\Local\Temp\tmpjnwju074\exported_scene.png
+2025-02-19 01:08:12,326 [DEBUG] KartenWarp: Exporting scene to C:\Users\I_kor\AppData\Local\Temp\tmpk5bewcm7
+2025-02-19 01:08:12,328 [INFO] KartenWarp: Scene exported as C:\Users\I_kor\AppData\Local\Temp\tmpk5bewcm7\exported_scene_1.png
+2025-02-19 01:08:12,331 [DEBUG] KartenWarp: Exporting scene to C:\Users\I_kor\AppData\Local\Temp\tmpoxl46k0t\test_export.png
+2025-02-19 01:08:12,332 [INFO] KartenWarp: Scene exported as C:\Users\I_kor\AppData\Local\Temp\tmpoxl46k0t\test_export.png
+2025-02-19 01:08:12,333 [DEBUG] KartenWarp: Converting QImage to NumPy array

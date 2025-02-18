@@ -1,0 +1,50 @@
+2025-02-18 13:59:59,489 [INFO] KartenWarp: Logging started in C:\Github\TR_mod\.tools\KartenWarp\dev\temp\run_20250218_135959
+2025-02-18 13:59:59,489 [INFO] KartenWarp: Transformation logger configured
+2025-02-18 13:59:59,521 [DEBUG] KartenWarp: Extracted 100 localization keys from source code.
+2025-02-18 13:59:59,521 [DEBUG] KartenWarp: Updated de.json with 100 keys. Written to temp folder.
+2025-02-18 13:59:59,521 [DEBUG] KartenWarp: Updated en.json with 100 keys. Written to temp folder.
+2025-02-18 13:59:59,521 [DEBUG] KartenWarp: Updated ja.json with 100 keys. Written to temp folder.
+2025-02-18 13:59:59,537 [DEBUG] KartenWarp: Loaded localization from C:\Github\TR_mod\.tools\KartenWarp\dev\temp\ja.json
+2025-02-18 13:59:59,537 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-18 13:59:59,617 [DEBUG] KartenWarp: theme.py module loaded
+2025-02-18 13:59:59,617 [DEBUG] KartenWarp: Starting application
+2025-02-18 13:59:59,633 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-18 13:59:59,633 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-18 13:59:59,633 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-18 13:59:59,633 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-18 14:00:00,131 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-18 14:00:00,156 [DEBUG] KartenWarp: Menus created
+2025-02-18 14:00:00,156 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-18 14:00:00,156 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:00:00,259 [INFO] KartenWarp: Main window shown; entering event loop
+2025-02-18 14:00:00,259 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:04,623 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:04,643 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:04,643 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-18 14:00:04,643 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:00:04,655 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-18 14:00:04,655 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:00:04,692 [INFO] KartenWarp: Entered detached mode
+2025-02-18 14:00:04,692 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-18 14:00:04,695 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:04,697 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:05,863 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:06,787 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:06,787 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-18 14:00:06,787 [DEBUG] KartenWarp: DetachedWindow forced close, skipping confirm dialog
+2025-02-18 14:00:06,787 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-18 14:00:07,934 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:07,944 [INFO] KartenWarp: Returned to integrated mode
+2025-02-18 14:00:07,944 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-18 14:00:07,944 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-18 14:00:11,366 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:11,382 [DEBUG] KartenWarp: HistoryDialog initialized
+2025-02-18 14:00:11,382 [DEBUG] KartenWarp: Refreshing history dialog
+2025-02-18 14:00:12,317 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:12,317 [DEBUG] KartenWarp: History dialog opened
+2025-02-18 14:00:14,014 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:16,380 [DEBUG] KartenWarp: Loading project from C:/Github/TR_mod/.tools/KartenWarp/dev/tester_project.kwproj
+2025-02-18 14:00:16,380 [INFO] KartenWarp: Project loaded successfully: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_project.kwproj
+2025-02-18 14:00:16,392 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:00:16,392 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:00:16,392 [DEBUG] KartenWarp: Updating game points: []

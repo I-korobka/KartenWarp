@@ -1,0 +1,87 @@
+2025-02-18 14:03:19,424 [INFO] KartenWarp: Logging started in C:\Github\TR_mod\.tools\KartenWarp\dev\temp\run_20250218_140319
+2025-02-18 14:03:19,424 [INFO] KartenWarp: Transformation logger configured
+2025-02-18 14:03:19,453 [DEBUG] KartenWarp: Extracted 100 localization keys from source code.
+2025-02-18 14:03:19,453 [DEBUG] KartenWarp: Updated de.json with 100 keys. Written to temp folder.
+2025-02-18 14:03:19,453 [DEBUG] KartenWarp: Updated en.json with 100 keys. Written to temp folder.
+2025-02-18 14:03:19,453 [DEBUG] KartenWarp: Updated ja.json with 100 keys. Written to temp folder.
+2025-02-18 14:03:19,453 [DEBUG] KartenWarp: Loaded localization from C:\Github\TR_mod\.tools\KartenWarp\dev\temp\ja.json
+2025-02-18 14:03:19,453 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-18 14:03:19,548 [DEBUG] KartenWarp: theme.py module loaded
+2025-02-18 14:03:19,548 [DEBUG] KartenWarp: Starting application
+2025-02-18 14:03:19,558 [DEBUG] KartenWarp: SceneState.__init__
+2025-02-18 14:03:19,558 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-18 14:03:19,558 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-18 14:03:19,558 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-18 14:03:20,023 [DEBUG] KartenWarp: InteractiveView.__init__
+2025-02-18 14:03:20,035 [DEBUG] KartenWarp: Menus created
+2025-02-18 14:03:20,035 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-18 14:03:20,035 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-18 14:03:20,100 [INFO] KartenWarp: Main window shown; entering event loop
+2025-02-18 14:03:20,113 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:22,136 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:23,848 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:03:23,848 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:23,850 [DEBUG] KartenWarp: Updating game points: []
+2025-02-18 14:03:23,851 [INFO] KartenWarp: Game image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_game.png
+2025-02-18 14:03:25,013 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:25,998 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:03:25,998 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:26,014 [DEBUG] KartenWarp: Updating real points: []
+2025-02-18 14:03:26,014 [INFO] KartenWarp: Real map image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_real_map.png
+2025-02-18 14:03:27,730 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:28,739 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:29,565 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:29,569 [DEBUG] KartenWarp: Setting image in scene
+2025-02-18 14:03:29,573 [DEBUG] KartenWarp: Updating real points: []
+2025-02-18 14:03:29,573 [INFO] KartenWarp: Real map image loaded: C:/Github/TR_mod/.tools/KartenWarp/dev/tester_game.png
+2025-02-18 14:03:30,246 [DEBUG] KartenWarp: Zoom UI updated to 87.0%
+2025-02-18 14:03:30,247 [DEBUG] KartenWarp: Zoom factor set to 0.8695652173913044
+2025-02-18 14:03:30,268 [DEBUG] KartenWarp: Zoom UI updated to 75.6%
+2025-02-18 14:03:30,268 [DEBUG] KartenWarp: Zoom factor set to 0.7561436672967865
+2025-02-18 14:03:30,332 [DEBUG] KartenWarp: Zoom UI updated to 65.8%
+2025-02-18 14:03:30,332 [DEBUG] KartenWarp: Zoom factor set to 0.6575162324319883
+2025-02-18 14:03:30,619 [DEBUG] KartenWarp: Zoom UI updated to 75.6%
+2025-02-18 14:03:30,619 [DEBUG] KartenWarp: Zoom factor set to 0.7561436672967865
+2025-02-18 14:03:30,657 [DEBUG] KartenWarp: Zoom UI updated to 87.0%
+2025-02-18 14:03:30,657 [DEBUG] KartenWarp: Zoom factor set to 0.8695652173913044
+2025-02-18 14:03:30,740 [DEBUG] KartenWarp: Zoom UI updated to 100.0%
+2025-02-18 14:03:30,740 [DEBUG] KartenWarp: Zoom factor set to 1.0
+2025-02-18 14:03:32,510 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:32,527 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:32,527 [DEBUG] KartenWarp: Updating game points: [(116, 30)]
+2025-02-18 14:03:32,848 [DEBUG] KartenWarp: Zoom UI updated to 115.0%
+2025-02-18 14:03:32,848 [DEBUG] KartenWarp: Zoom factor set to 1.15
+2025-02-18 14:03:32,882 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-18 14:03:32,882 [DEBUG] KartenWarp: Zoom factor set to 1.3224999999999998
+2025-02-18 14:03:32,892 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:03:32,892 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999995
+2025-02-18 14:03:32,908 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:03:32,908 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999994
+2025-02-18 14:03:32,972 [DEBUG] KartenWarp: Zoom UI updated to 201.1%
+2025-02-18 14:03:32,972 [DEBUG] KartenWarp: Zoom factor set to 2.0113571874999994
+2025-02-18 14:03:33,290 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:33,306 [DEBUG] KartenWarp: Updating game points: [(116, 30), (161, 38)]
+2025-02-18 14:03:33,665 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:33,681 [DEBUG] KartenWarp: Updating game points: [(116, 30), (161, 38), (200, 40)]
+2025-02-18 14:03:34,005 [DEBUG] KartenWarp: Panning started
+2025-02-18 14:03:34,228 [DEBUG] KartenWarp: Panning ended
+2025-02-18 14:03:34,245 [DEBUG] KartenWarp: Zoom UI updated to 174.9%
+2025-02-18 14:03:34,245 [DEBUG] KartenWarp: Zoom factor set to 1.7490062499999997
+2025-02-18 14:03:34,245 [DEBUG] KartenWarp: Zoom UI updated to 152.1%
+2025-02-18 14:03:34,245 [DEBUG] KartenWarp: Zoom factor set to 1.5208749999999998
+2025-02-18 14:03:34,308 [DEBUG] KartenWarp: Zoom UI updated to 132.2%
+2025-02-18 14:03:34,308 [DEBUG] KartenWarp: Zoom factor set to 1.3225
+2025-02-18 14:03:34,698 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:34,698 [DEBUG] KartenWarp: Updating game points: [(116, 30), (161, 38), (200, 40), (162, 115)]
+2025-02-18 14:03:34,953 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:34,953 [DEBUG] KartenWarp: Updating game points: [(116, 30), (161, 38), (200, 40), (162, 115), (218, 122)]
+2025-02-18 14:03:35,201 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:35,201 [DEBUG] KartenWarp: Updating game points: [(116, 30), (161, 38), (200, 40), (162, 115), (218, 122), (242, 118)]
+2025-02-18 14:03:35,960 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:35,960 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:35,962 [DEBUG] KartenWarp: Updating real points: [(123, 21)]
+2025-02-18 14:03:36,179 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:36,179 [DEBUG] KartenWarp: Updating real points: [(123, 21), (164, 29)]
+2025-02-18 14:03:36,428 [DEBUG] KartenWarp: Active scene set
+2025-02-18 14:03:36,442 [DEBUG] KartenWarp: Updating real points: [(123, 21), (164, 29), (211, 33)]
+2025-02-18 14:03:39,912 [DEBUG] KartenWarp: Active scene set
