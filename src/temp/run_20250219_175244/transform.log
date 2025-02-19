@@ -1,8 +1,0 @@
-2025-02-19 17:52:45,776 [DEBUG] KartenWarp.Transform: Starting perform_transformation
-2025-02-19 17:52:45,777 [ERROR] KartenWarp.Transform: Insufficient correspondence points
-2025-02-19 17:52:45,777 [DEBUG] KartenWarp.Transform: Starting perform_transformation
-2025-02-19 17:52:45,778 [DEBUG] KartenWarp.Transform: Computing TPS parameters
-2025-02-19 17:52:45,779 [DEBUG] KartenWarp.Transform: TPS parameters computed
-2025-02-19 17:52:45,779 [DEBUG] KartenWarp.Transform: Applying TPS warp
-2025-02-19 17:52:45,780 [DEBUG] KartenWarp.Transform: TPS warp applied
-2025-02-19 17:52:45,781 [DEBUG] KartenWarp.Transform: Transformation performed successfully
