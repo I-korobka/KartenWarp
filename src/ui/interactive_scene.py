@@ -1,8 +1,9 @@
 # src/ui/interactive_scene.py
 import os
+import ast
 from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsTextItem, QMenu
 from PyQt5.QtGui import QPainterPath, QPen, QBrush, QColor
-from PyQt5.QtCore import QPointF, Qt
+from PyQt5.QtCore import QPointF, Qt, pyqtSignal
 from app_settings import tr, config
 from logger import logger
 
@@ -70,6 +71,8 @@ class DraggablePointItem(QGraphicsEllipseItem):
         event.accept()
 
 class InteractiveScene(QGraphicsScene):
+    activated = pyqtSignal(object)
+
     def __init__(self, state, image_type="game", parent=None):
         super().__init__(parent)
         logger.debug("InteractiveScene initialized for %s", image_type)
@@ -279,8 +282,7 @@ class InteractiveScene(QGraphicsScene):
             self.state.update_real_points(points)
 
     def focusInEvent(self, event):
-        if hasattr(self, "activated"):
-            self.activated.emit(self)
+        self.activated.emit(self)
         super().focusInEvent(event)
 
     def mousePressEvent(self, event):

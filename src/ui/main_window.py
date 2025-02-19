@@ -284,6 +284,24 @@ class MainWindow(QMainWindow):
                 self.statusBar().showMessage(tr("status_active_scene_real"), 3000)
         logger.debug("Active scene set")
     
+    def toggle_dark_mode(self):
+        current = config.get("display/dark_mode", False)
+        new_state = not current
+        config.set("display/dark_mode", new_state)
+        self.update_theme()
+        self.dark_mode_action.setChecked(new_state)
+        logger.debug("Dark mode toggled to %s", new_state)
+    
+    def toggle_grid_overlay(self):
+        current = config.get("display/grid_overlay", False)
+        new_state = not current
+        config.set("display/grid_overlay", new_state)
+        self.statusBar().showMessage(f"{tr('grid_overlay')} {'ON' if new_state else 'OFF'}", 2000)
+        self.grid_overlay_action.setChecked(new_state)
+        self.sceneA.update()
+        self.sceneB.update()
+        logger.debug("Grid overlay toggled to %s", new_state)
+
     def show_usage(self):
         message = tr("usage_text").format(
             load_game_image=tr("load_game_image"),
