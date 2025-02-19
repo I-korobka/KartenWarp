@@ -1,12 +1,11 @@
+# main.py
 import sys
 from PyQt5.QtWidgets import QApplication
 from ui import MainWindow
 from logger import setup_logger
-from app_settings import auto_update_localization_files  # 統合後の config.py から
+from app_settings import auto_update_localization_files
 
 setup_logger()
-
-# 起動時にローカライズ JSON ファイルを更新
 auto_update_localization_files()
 
 if __name__ == '__main__':
