@@ -2,7 +2,6 @@ import sys
 import os
 import cv2
 import numpy as np
-# import sip  # sipはエラーが出る場合はコメントアウトしてください
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QAction, QFileDialog,
     QGraphicsView, QVBoxLayout, QHBoxLayout, QWidget, QGraphicsScene, QMessageBox
@@ -158,7 +157,7 @@ class InteractiveScene(QGraphicsScene):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("地図変換ツール - フェーズ6 ユーザ補助機能付き")
+        self.setWindowTitle("地図変換ツール")
         self.resize(1200, 600)
         self.active_scene = None
 
@@ -376,7 +375,7 @@ class MainWindow(QMainWindow):
             "バージョン 1.0\n\n"
             "このツールは、2枚の画像間の対応点に基づくTPS変換を行い、\n"
             "変換結果のリアルタイムプレビューや各種補助機能を提供します。\n\n"
-            "（C) 2025 Your Name"
+            "（C) 2025 korobka"
         )
         QMessageBox.about(self, "アバウト", about_text)
 
