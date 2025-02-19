@@ -171,7 +171,7 @@ class OptionsDialog(QDialog):
         self.log_max_folders_spin = QSpinBox(self)
         self.log_max_folders_spin.setRange(1, 9999)
         self.log_max_folders_spin.setValue(config.get("logging/max_run_logs", 10))
-        self.log_max_folders_spin.setToolTip(tr("logging_max_run_folders_tooltip"))
+        self.log_max_folders_spin.setToolTip(tr("logging_max_run_logs_tooltip"))
         form_layout.addRow(tr("logging_max_run_logs") + ":", self.log_max_folders_spin)
         self.language_combo = QComboBox(self)
         languages = [("日本語", "ja"), ("English", "en"), ("Deutsch", "de")]

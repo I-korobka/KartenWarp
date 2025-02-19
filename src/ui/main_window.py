@@ -1,6 +1,6 @@
 # src/ui/main_window.py
 import os
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QFileDialog, QMessageBox, QDialog
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
 from logger import logger
@@ -9,7 +9,7 @@ from core import SceneState, save_project, load_project, perform_tps_transform, 
 from ui.interactive_scene import InteractiveScene
 from ui.interactive_view import ZoomableViewWidget
 from ui.menu_manager import MenuManager
-from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow
+from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -46,6 +46,15 @@ class MainWindow(QMainWindow):
             self.setStyleSheet(get_dark_mode_stylesheet())
         else:
             self.setStyleSheet("")
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, tr("confirm_exit_title"), tr("confirm_exit_message"), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            logger.info("User confirmed exit. Closing application.")
+            event.accept()
+        else:
+            logger.info("User canceled exit.")
+            event.ignore()
 
     # File menu actions
     def exit_application(self):
@@ -181,6 +190,14 @@ class MainWindow(QMainWindow):
         dialog = HistoryDialog(self.active_scene, self)
         dialog.exec_()
         logger.debug("History dialog opened")
+
+    def open_options_dialog(self):
+        dialog = OptionsDialog(self)
+        if dialog.exec_() == QDialog.Accepted:
+            self.statusBar().showMessage(tr("options_saved"), 3000)
+            self.menu_manager.create_menus()
+            self.update_theme()
+            logger.debug("Options dialog accepted and settings updated")
 
     # Tools menu actions
     def transform_images(self):

@@ -27,12 +27,19 @@ KartenWarp/
 │   │   ├── ja.json
 │   │   ├── en.json
 │   │   └── de.json
+│   ├── ui/            (GUI関係のファイルが入ったフォルダ)
+│   │   ├── __init__.py     (中身は from .main_window import MainWindow )
+│   │   ├── dialogs.py
+│   │   ├── interactive_scene.py
+│   │   ├── interactive_view.py
+│   │   ├── man_window.py
+│   │   └── menu_manager.py
+│   ├── __init__.py         (中身は空)
 │   ├── app_settings.py
 │   ├── core.py
 │   ├── logger.py
 │   ├── main.py
-│   ├── themes.py
-│   └── ui.py
+│   └── themes.py
 ├── temp/                (実行時に生成されるログ・一時ファイルなど)
 │   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
 ├── tests/              (テスト関連ファイルを格納するフォルダ)

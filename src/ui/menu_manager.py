@@ -60,7 +60,7 @@ class MenuManager:
         tools_menu.addAction(create_action(self.main_window, tr("toggle_mode"), self.main_window.toggle_mode, shortcut=toggle_mode_shortcut))
         tools_menu.addSeparator()
         tools_menu.addAction(create_action(self.main_window, tr("options"), self.main_window.open_options_dialog))
-
+    
     def _create_view_menu(self, mb):
         view_menu = mb.addMenu(tr("view_menu"))
         self.main_window.dark_mode_action = create_action(self.main_window, tr("dark_mode"), self.main_window.toggle_dark_mode)
@@ -71,7 +71,7 @@ class MenuManager:
         self.main_window.grid_overlay_action.setCheckable(True)
         self.main_window.grid_overlay_action.setChecked(config.get("display/grid_overlay", False))
         view_menu.addAction(self.main_window.grid_overlay_action)
-
+    
     def _create_help_menu(self, mb):
         help_menu = mb.addMenu(tr("help_menu"))
         help_menu.addAction(create_action(self.main_window, tr("usage"), self.main_window.show_usage))
