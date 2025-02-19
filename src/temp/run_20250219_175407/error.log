@@ -1,0 +1,42 @@
+2025-02-19 17:54:34,367 [ERROR] KartenWarp.Transform: Error in TPS transform
+Traceback (most recent call last):
+  File "C:\Github\KartenWarp\src\core.py", line 167, in perform_tps_transform
+    if not sceneA.game_pixmap:
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:54:34,368 [ERROR] KartenWarp: TPS transformation error: Regularization parameter setting and TPS parameter calculation failed: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:54:41,105 [ERROR] KartenWarp.Transform: Error in TPS transform
+Traceback (most recent call last):
+  File "C:\Github\KartenWarp\src\core.py", line 167, in perform_tps_transform
+    if not sceneA.game_pixmap:
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:54:41,109 [ERROR] KartenWarp: TPS transformation error: Regularization parameter setting and TPS parameter calculation failed: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:14,542 [ERROR] KartenWarp.Transform: Error in TPS transform
+Traceback (most recent call last):
+  File "C:\Github\KartenWarp\src\core.py", line 167, in perform_tps_transform
+    if not sceneA.game_pixmap:
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:14,543 [ERROR] KartenWarp: TPS transformation error: Regularization parameter setting and TPS parameter calculation failed: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:19,651 [ERROR] KartenWarp.Transform: Error in TPS transform
+Traceback (most recent call last):
+  File "C:\Github\KartenWarp\src\core.py", line 167, in perform_tps_transform
+    if not sceneA.game_pixmap:
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:19,652 [ERROR] KartenWarp: TPS transformation error: Regularization parameter setting and TPS parameter calculation failed: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:25,484 [ERROR] KartenWarp.Transform: Error in TPS transform
+Traceback (most recent call last):
+  File "C:\Github\KartenWarp\src\core.py", line 167, in perform_tps_transform
+    if not sceneA.game_pixmap:
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:25,485 [ERROR] KartenWarp: TPS transformation error: Regularization parameter setting and TPS parameter calculation failed: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:31,246 [ERROR] KartenWarp.Transform: Error in TPS transform
+Traceback (most recent call last):
+  File "C:\Github\KartenWarp\src\core.py", line 167, in perform_tps_transform
+    if not sceneA.game_pixmap:
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'InteractiveScene' object has no attribute 'game_pixmap'
+2025-02-19 17:55:31,247 [ERROR] KartenWarp: TPS transformation error: Regularization parameter setting and TPS parameter calculation failed: 'InteractiveScene' object has no attribute 'game_pixmap'

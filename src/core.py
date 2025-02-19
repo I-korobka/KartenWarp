@@ -164,17 +164,21 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
             reg_lambda = 1e-3
         adaptive = config.get("tps/adaptive", False)
 
-        if not sceneA.game_pixmap:
-            transform_logger.error("Game image not loaded")
+        # InteractiveScene.set_image() で state.game_pixmap に入れているなら、こちらも state を参照する
+        if not sceneA.state.game_pixmap:
             return None, "ゲーム画像が読み込まれていないか、対応点が不足しています"
 
-        width = sceneA.game_pixmap.width()
-        height = sceneA.game_pixmap.height()
+        width = sceneA.state.game_pixmap.width()
+        height = sceneA.state.game_pixmap.height()
         output_size = (width, height)
 
+        # sceneB からは state.real_qimage を取り出すなど、両者を合わせる
+        src_qimage = sceneB.state.real_qimage
+
+        # ここで TPS 変換を実行
         warped_np = perform_transformation(
             dest_points, src_points,
-            sceneB.real_qimage, output_size,
+            src_qimage, output_size,
             reg_lambda=reg_lambda, adaptive=adaptive
         )
     except Exception as e:

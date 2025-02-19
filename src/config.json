@@ -1,0 +1,35 @@
+{
+    "window": {
+        "default_width": 1600,
+        "default_height": 900
+    },
+    "export": {
+        "base_filename": "exported_scene",
+        "extension": ".png"
+    },
+    "project": {
+        "extension": ".kwproj"
+    },
+    "language": "ja",
+    "display": {
+        "dark_mode": true,
+        "grid_overlay": true
+    },
+    "keybindings": {
+        "undo": "Ctrl+Z",
+        "redo": "Ctrl+Y",
+        "toggle_mode": "F5"
+    },
+    "tps": {
+        "reg_lambda": "1e-3",
+        "adaptive": true
+    },
+    "logging": {
+        "max_run_logs": 20
+    },
+    "grid": {
+        "size": 50,
+        "color": "#C8C8C8",
+        "opacity": 0.2
+    }
+}

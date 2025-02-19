@@ -1,0 +1,174 @@
+2025-02-19 17:59:48,795 [INFO] KartenWarp: Logging started in C:\Github\KartenWarp\src\temp\run_20250219_175948
+2025-02-19 17:59:48,798 [INFO] KartenWarp: Transformation logger configured
+2025-02-19 17:59:48,888 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:48,888 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:48,889 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 17:59:48,889 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:49,316 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:49,325 [DEBUG] KartenWarp: Menus created
+2025-02-19 17:59:49,327 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 17:59:49,327 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:49,395 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:59:51,712 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:59:52,996 [DEBUG] KartenWarp: Loading project from C:/Github/KartenWarp/tester_project.kwproj
+2025-02-19 17:59:52,996 [INFO] KartenWarp: Project loaded successfully: C:/Github/KartenWarp/tester_project.kwproj
+2025-02-19 17:59:52,999 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 17:59:53,000 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:59:53,001 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 17:59:53,001 [DEBUG] KartenWarp: Updating game points: []
+2025-02-19 17:59:53,001 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(95.0, 67.0), 'pixel': (95, 67), 'desc': '[ゲーム画像] 点追加: (95, 67)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,001 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(95.0, 67.0), 'pixel': (95, 67), 'desc': '[ゲーム画像] 点追加: (95, 67)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,001 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0]]
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(69.0, 35.0), 'pixel': (69, 35), 'desc': '[ゲーム画像] 点追加: (69, 35)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(69.0, 35.0), 'pixel': (69, 35), 'desc': '[ゲーム画像] 点追加: (69, 35)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0]]
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 2, 'pos': PyQt5.QtCore.QPointF(106.0, 20.0), 'pixel': (106, 20), 'desc': '[ゲーム画像] 点追加: (106, 20)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 2, 'pos': PyQt5.QtCore.QPointF(106.0, 20.0), 'pixel': (106, 20), 'desc': '[ゲーム画像] 点追加: (106, 20)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,002 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,003 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0]]
+2025-02-19 17:59:53,003 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 3, 'pos': PyQt5.QtCore.QPointF(142.0, 41.0), 'pixel': (142, 41), 'desc': '[ゲーム画像] 点追加: (142, 41)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,003 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 3, 'pos': PyQt5.QtCore.QPointF(142.0, 41.0), 'pixel': (142, 41), 'desc': '[ゲーム画像] 点追加: (142, 41)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,003 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,003 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0]]
+2025-02-19 17:59:53,003 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 4, 'pos': PyQt5.QtCore.QPointF(179.0, 44.0), 'pixel': (179, 44), 'desc': '[ゲーム画像] 点追加: (179, 44)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,004 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 4, 'pos': PyQt5.QtCore.QPointF(179.0, 44.0), 'pixel': (179, 44), 'desc': '[ゲーム画像] 点追加: (179, 44)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,004 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,004 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0]]
+2025-02-19 17:59:53,004 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 5, 'pos': PyQt5.QtCore.QPointF(224.0, 27.0), 'pixel': (224, 27), 'desc': '[ゲーム画像] 点追加: (224, 27)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,004 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 5, 'pos': PyQt5.QtCore.QPointF(224.0, 27.0), 'pixel': (224, 27), 'desc': '[ゲーム画像] 点追加: (224, 27)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,004 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,005 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0]]
+2025-02-19 17:59:53,005 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 6, 'pos': PyQt5.QtCore.QPointF(289.0, 49.0), 'pixel': (289, 49), 'desc': '[ゲーム画像] 点追加: (289, 49)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,005 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 6, 'pos': PyQt5.QtCore.QPointF(289.0, 49.0), 'pixel': (289, 49), 'desc': '[ゲーム画像] 点追加: (289, 49)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,005 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0]]
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 7, 'pos': PyQt5.QtCore.QPointF(276.0, 104.0), 'pixel': (276, 104), 'desc': '[ゲーム画像] 点追加: (276, 104)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 7, 'pos': PyQt5.QtCore.QPointF(276.0, 104.0), 'pixel': (276, 104), 'desc': '[ゲーム画像] 点追加: (276, 104)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0]]
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 8, 'pos': PyQt5.QtCore.QPointF(295.0, 95.0), 'pixel': (295, 95), 'desc': '[ゲーム画像] 点追加: (295, 95)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 8, 'pos': PyQt5.QtCore.QPointF(295.0, 95.0), 'pixel': (295, 95), 'desc': '[ゲーム画像] 点追加: (295, 95)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,006 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,007 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0]]
+2025-02-19 17:59:53,007 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 9, 'pos': PyQt5.QtCore.QPointF(235.0, 141.0), 'pixel': (235, 141), 'desc': '[ゲーム画像] 点追加: (235, 141)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,007 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 9, 'pos': PyQt5.QtCore.QPointF(235.0, 141.0), 'pixel': (235, 141), 'desc': '[ゲーム画像] 点追加: (235, 141)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,007 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,008 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0]]
+2025-02-19 17:59:53,008 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 10, 'pos': PyQt5.QtCore.QPointF(181.0, 149.0), 'pixel': (181, 149), 'desc': '[ゲーム画像] 点追加: (181, 149)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,008 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 10, 'pos': PyQt5.QtCore.QPointF(181.0, 149.0), 'pixel': (181, 149), 'desc': '[ゲーム画像] 点追加: (181, 149)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,008 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,009 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0]]
+2025-02-19 17:59:53,009 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 11, 'pos': PyQt5.QtCore.QPointF(169.0, 190.0), 'pixel': (169, 190), 'desc': '[ゲーム画像] 点追加: (169, 190)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,009 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 11, 'pos': PyQt5.QtCore.QPointF(169.0, 190.0), 'pixel': (169, 190), 'desc': '[ゲーム画像] 点追加: (169, 190)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,009 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,010 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0], [169.0, 190.0]]
+2025-02-19 17:59:53,011 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 12, 'pos': PyQt5.QtCore.QPointF(129.0, 176.0), 'pixel': (129, 176), 'desc': '[ゲーム画像] 点追加: (129, 176)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,011 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 12, 'pos': PyQt5.QtCore.QPointF(129.0, 176.0), 'pixel': (129, 176), 'desc': '[ゲーム画像] 点追加: (129, 176)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,011 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,012 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0], [169.0, 190.0], [129.0, 176.0]]
+2025-02-19 17:59:53,012 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 13, 'pos': PyQt5.QtCore.QPointF(105.0, 138.0), 'pixel': (105, 138), 'desc': '[ゲーム画像] 点追加: (105, 138)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,012 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 13, 'pos': PyQt5.QtCore.QPointF(105.0, 138.0), 'pixel': (105, 138), 'desc': '[ゲーム画像] 点追加: (105, 138)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,012 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,013 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0], [169.0, 190.0], [129.0, 176.0], [105.0, 138.0]]
+2025-02-19 17:59:53,014 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 14, 'pos': PyQt5.QtCore.QPointF(91.0, 119.0), 'pixel': (91, 119), 'desc': '[ゲーム画像] 点追加: (91, 119)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,014 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 14, 'pos': PyQt5.QtCore.QPointF(91.0, 119.0), 'pixel': (91, 119), 'desc': '[ゲーム画像] 点追加: (91, 119)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,014 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,017 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0], [169.0, 190.0], [129.0, 176.0], [105.0, 138.0], [91.0, 119.0]]
+2025-02-19 17:59:53,017 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 15, 'pos': PyQt5.QtCore.QPointF(84.0, 97.0), 'pixel': (84, 97), 'desc': '[ゲーム画像] 点追加: (84, 97)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,017 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 15, 'pos': PyQt5.QtCore.QPointF(84.0, 97.0), 'pixel': (84, 97), 'desc': '[ゲーム画像] 点追加: (84, 97)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,017 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,021 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0], [169.0, 190.0], [129.0, 176.0], [105.0, 138.0], [91.0, 119.0], [84.0, 97.0]]
+2025-02-19 17:59:53,021 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 16, 'pos': PyQt5.QtCore.QPointF(29.0, 99.0), 'pixel': (29, 99), 'desc': '[ゲーム画像] 点追加: (29, 99)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,021 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 16, 'pos': PyQt5.QtCore.QPointF(29.0, 99.0), 'pixel': (29, 99), 'desc': '[ゲーム画像] 点追加: (29, 99)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,021 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,022 [DEBUG] KartenWarp: Updating game points: [[95.0, 67.0], [69.0, 35.0], [106.0, 20.0], [142.0, 41.0], [179.0, 44.0], [224.0, 27.0], [289.0, 49.0], [276.0, 104.0], [295.0, 95.0], [235.0, 141.0], [181.0, 149.0], [169.0, 190.0], [129.0, 176.0], [105.0, 138.0], [91.0, 119.0], [84.0, 97.0], [29.0, 99.0]]
+2025-02-19 17:59:53,039 [DEBUG] KartenWarp: Setting image in scene
+2025-02-19 17:59:53,046 [DEBUG] KartenWarp: Updating real points: []
+2025-02-19 17:59:53,046 [DEBUG] KartenWarp: Updating real points: []
+2025-02-19 17:59:53,046 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(311.0, 239.0), 'pixel': (311, 239), 'desc': '[実地図画像] 点追加: (311, 239)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,046 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(311.0, 239.0), 'pixel': (311, 239), 'desc': '[実地図画像] 点追加: (311, 239)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,046 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0]]
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(205.0, 75.0), 'pixel': (205, 75), 'desc': '[実地図画像] 点追加: (205, 75)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(205.0, 75.0), 'pixel': (205, 75), 'desc': '[実地図画像] 点追加: (205, 75)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0]]
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 2, 'pos': PyQt5.QtCore.QPointF(356.0, 3.0), 'pixel': (356, 3), 'desc': '[実地図画像] 点追加: (356, 3)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 2, 'pos': PyQt5.QtCore.QPointF(356.0, 3.0), 'pixel': (356, 3), 'desc': '[実地図画像] 点追加: (356, 3)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0]]
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 3, 'pos': PyQt5.QtCore.QPointF(506.0, 101.0), 'pixel': (506, 101), 'desc': '[実地図画像] 点追加: (506, 101)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,047 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 3, 'pos': PyQt5.QtCore.QPointF(506.0, 101.0), 'pixel': (506, 101), 'desc': '[実地図画像] 点追加: (506, 101)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,048 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,048 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0]]
+2025-02-19 17:59:53,048 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 4, 'pos': PyQt5.QtCore.QPointF(660.0, 120.0), 'pixel': (660, 120), 'desc': '[実地図画像] 点追加: (660, 120)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,048 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 4, 'pos': PyQt5.QtCore.QPointF(660.0, 120.0), 'pixel': (660, 120), 'desc': '[実地図画像] 点追加: (660, 120)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,048 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0]]
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 5, 'pos': PyQt5.QtCore.QPointF(841.0, 22.0), 'pixel': (841, 22), 'desc': '[実地図画像] 点追加: (841, 22)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 5, 'pos': PyQt5.QtCore.QPointF(841.0, 22.0), 'pixel': (841, 22), 'desc': '[実地図画像] 点追加: (841, 22)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0]]
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 6, 'pos': PyQt5.QtCore.QPointF(1133.0, 106.0), 'pixel': (1133, 106), 'desc': '[実地図画像] 点追加: (1133, 106)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 6, 'pos': PyQt5.QtCore.QPointF(1133.0, 106.0), 'pixel': (1133, 106), 'desc': '[実地図画像] 点追加: (1133, 106)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,049 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,050 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0]]
+2025-02-19 17:59:53,050 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 7, 'pos': PyQt5.QtCore.QPointF(1111.0, 386.0), 'pixel': (1111, 386), 'desc': '[実地図画像] 点追加: (1111, 386)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,050 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 7, 'pos': PyQt5.QtCore.QPointF(1111.0, 386.0), 'pixel': (1111, 386), 'desc': '[実地図画像] 点追加: (1111, 386)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,050 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,051 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0]]
+2025-02-19 17:59:53,051 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 8, 'pos': PyQt5.QtCore.QPointF(1175.0, 331.0), 'pixel': (1175, 331), 'desc': '[実地図画像] 点追加: (1175, 331)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,051 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 8, 'pos': PyQt5.QtCore.QPointF(1175.0, 331.0), 'pixel': (1175, 331), 'desc': '[実地図画像] 点追加: (1175, 331)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,051 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,051 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0]]
+2025-02-19 17:59:53,052 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 9, 'pos': PyQt5.QtCore.QPointF(930.0, 601.0), 'pixel': (930, 601), 'desc': '[実地図画像] 点追加: (930, 601)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,052 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 9, 'pos': PyQt5.QtCore.QPointF(930.0, 601.0), 'pixel': (930, 601), 'desc': '[実地図画像] 点追加: (930, 601)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,052 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,053 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0]]
+2025-02-19 17:59:53,053 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 10, 'pos': PyQt5.QtCore.QPointF(701.0, 652.0), 'pixel': (701, 652), 'desc': '[実地図画像] 点追加: (701, 652)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,053 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 10, 'pos': PyQt5.QtCore.QPointF(701.0, 652.0), 'pixel': (701, 652), 'desc': '[実地図画像] 点追加: (701, 652)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,053 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,054 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0]]
+2025-02-19 17:59:53,054 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 11, 'pos': PyQt5.QtCore.QPointF(647.0, 898.0), 'pixel': (647, 898), 'desc': '[実地図画像] 点追加: (647, 898)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,054 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 11, 'pos': PyQt5.QtCore.QPointF(647.0, 898.0), 'pixel': (647, 898), 'desc': '[実地図画像] 点追加: (647, 898)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,054 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,055 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0], [647.0, 898.0]]
+2025-02-19 17:59:53,055 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 12, 'pos': PyQt5.QtCore.QPointF(449.0, 800.0), 'pixel': (449, 800), 'desc': '[実地図画像] 点追加: (449, 800)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,055 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 12, 'pos': PyQt5.QtCore.QPointF(449.0, 800.0), 'pixel': (449, 800), 'desc': '[実地図画像] 点追加: (449, 800)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,055 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,056 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0], [647.0, 898.0], [449.0, 800.0]]
+2025-02-19 17:59:53,056 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 13, 'pos': PyQt5.QtCore.QPointF(334.0, 606.0), 'pixel': (334, 606), 'desc': '[実地図画像] 点追加: (334, 606)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,056 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 13, 'pos': PyQt5.QtCore.QPointF(334.0, 606.0), 'pixel': (334, 606), 'desc': '[実地図画像] 点追加: (334, 606)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,056 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,057 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0], [647.0, 898.0], [449.0, 800.0], [334.0, 606.0]]
+2025-02-19 17:59:53,057 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 14, 'pos': PyQt5.QtCore.QPointF(276.0, 487.0), 'pixel': (276, 487), 'desc': '[実地図画像] 点追加: (276, 487)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,057 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 14, 'pos': PyQt5.QtCore.QPointF(276.0, 487.0), 'pixel': (276, 487), 'desc': '[実地図画像] 点追加: (276, 487)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,057 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,058 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0], [647.0, 898.0], [449.0, 800.0], [334.0, 606.0], [276.0, 487.0]]
+2025-02-19 17:59:53,058 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 15, 'pos': PyQt5.QtCore.QPointF(245.0, 375.0), 'pixel': (245, 375), 'desc': '[実地図画像] 点追加: (245, 375)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,058 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 15, 'pos': PyQt5.QtCore.QPointF(245.0, 375.0), 'pixel': (245, 375), 'desc': '[実地図画像] 点追加: (245, 375)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,058 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,060 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0], [647.0, 898.0], [449.0, 800.0], [334.0, 606.0], [276.0, 487.0], [245.0, 375.0]]
+2025-02-19 17:59:53,060 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 16, 'pos': PyQt5.QtCore.QPointF(19.0, 357.0), 'pixel': (19, 357), 'desc': '[実地図画像] 点追加: (19, 357)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,060 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 16, 'pos': PyQt5.QtCore.QPointF(19.0, 357.0), 'pixel': (19, 357), 'desc': '[実地図画像] 点追加: (19, 357)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:53,060 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:53,062 [DEBUG] KartenWarp: Updating real points: [[311.0, 239.0], [205.0, 75.0], [356.0, 3.0], [506.0, 101.0], [660.0, 120.0], [841.0, 22.0], [1133.0, 106.0], [1111.0, 386.0], [1175.0, 331.0], [930.0, 601.0], [701.0, 652.0], [647.0, 898.0], [449.0, 800.0], [334.0, 606.0], [276.0, 487.0], [245.0, 375.0], [19.0, 357.0]]
+2025-02-19 17:59:53,062 [INFO] KartenWarp: Project loaded successfully
+2025-02-19 17:59:55,202 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:59:55,210 [DEBUG] KartenWarp.Transform: Starting perform_tps_transform
+2025-02-19 17:59:55,212 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 17:59:55,238 [DEBUG] KartenWarp: Converting QImage to NumPy array
+2025-02-19 17:59:55,253 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 17:59:55,254 [DEBUG] KartenWarp.Transform: Adaptive enabled: adjusted reg_lambda = 18.96295588235294
+2025-02-19 17:59:55,255 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 17:59:55,255 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 17:59:55,267 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 17:59:55,269 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 17:59:55,271 [INFO] KartenWarp: TPS transform completed successfully
+2025-02-19 17:59:55,272 [DEBUG] KartenWarp: Initializing ResultWindow
+2025-02-19 17:59:55,284 [INFO] KartenWarp: TPS transformation executed successfully
+2025-02-19 17:59:57,839 [DEBUG] KartenWarp: Active scene set
+2025-02-19 18:00:00,612 [DEBUG] KartenWarp: Active scene set
+2025-02-19 18:00:00,614 [INFO] KartenWarp: User confirmed exit. Closing application.

@@ -1,0 +1,14 @@
+2025-02-19 17:53:15,132 [INFO] KartenWarp: Logging started in C:\Github\KartenWarp\src\temp\run_20250219_175315
+2025-02-19 17:53:15,133 [INFO] KartenWarp: Transformation logger configured
+2025-02-19 17:53:15,241 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:53:15,242 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:53:15,242 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 17:53:15,242 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:53:15,724 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:53:15,733 [DEBUG] KartenWarp: Menus created
+2025-02-19 17:53:15,734 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 17:53:15,805 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:53:20,752 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:53:26,290 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:53:27,096 [DEBUG] KartenWarp: Active scene set
+2025-02-19 17:53:27,097 [INFO] KartenWarp: User confirmed exit. Closing application.

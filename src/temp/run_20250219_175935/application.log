@@ -1,0 +1,139 @@
+2025-02-19 17:59:35,277 [INFO] KartenWarp: Logging started in C:\Github\KartenWarp\src\temp\run_20250219_175935
+2025-02-19 17:59:35,277 [INFO] KartenWarp: Transformation logger configured
+2025-02-19 17:59:35,358 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:35,358 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:35,358 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 17:59:35,359 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:35,763 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:35,774 [DEBUG] KartenWarp: Menus created
+2025-02-19 17:59:35,776 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 17:59:35,776 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:35,843 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:35,844 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:35,845 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:35,845 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:35,845 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:35,865 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:35,865 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:35,866 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:35,866 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:35,903 [INFO] KartenWarp: Entered detached mode
+2025-02-19 17:59:35,904 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 17:59:35,904 [DEBUG] KartenWarp: Toggle mode key pressed in DetachedWindow
+2025-02-19 17:59:35,905 [DEBUG] KartenWarp: DetachedWindow forced close
+2025-02-19 17:59:35,908 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 17:59:35,910 [DEBUG] KartenWarp: DetachedWindow forced close
+2025-02-19 17:59:35,917 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 17:59:35,933 [INFO] KartenWarp: Returned to integrated mode
+2025-02-19 17:59:35,935 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-19 17:59:35,935 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 17:59:35,944 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 17:59:35,962 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:35,962 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:35,963 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 17:59:35,963 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:35,964 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:35,967 [DEBUG] KartenWarp: Menus created
+2025-02-19 17:59:35,967 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 17:59:35,967 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,011 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:36,012 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:36,012 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:36,012 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:36,012 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,033 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:36,034 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,036 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:36,036 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,080 [INFO] KartenWarp: Entered detached mode
+2025-02-19 17:59:36,080 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 17:59:36,080 [INFO] KartenWarp: DetachedWindow closed and mode toggled
+2025-02-19 17:59:36,082 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 17:59:36,084 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:36,084 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:36,085 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(100.0, 200.0), 'pixel': (100, 200), 'desc': '[ゲーム画像] 点追加: (100, 200)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,085 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(100.0, 200.0), 'pixel': (100, 200), 'desc': '[ゲーム画像] 点追加: (100, 200)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,085 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,086 [DEBUG] KartenWarp: Updating game points: [[100.0, 200.0]]
+2025-02-19 17:59:36,087 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(300.0, 400.0), 'pixel': (300, 400), 'desc': '[ゲーム画像] 点追加: (300, 400)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,087 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(300.0, 400.0), 'pixel': (300, 400), 'desc': '[ゲーム画像] 点追加: (300, 400)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,087 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,088 [DEBUG] KartenWarp: Updating game points: [[100.0, 200.0], [300.0, 400.0]]
+2025-02-19 17:59:36,088 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:36,088 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:36,088 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(10.0, 20.0), 'pixel': (10, 20), 'desc': '[ゲーム画像] 点追加: (10, 20)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,088 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 0, 'pos': PyQt5.QtCore.QPointF(10.0, 20.0), 'pixel': (10, 20), 'desc': '[ゲーム画像] 点追加: (10, 20)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,088 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,089 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0]]
+2025-02-19 17:59:36,089 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(30.0, 40.0), 'pixel': (30, 40), 'desc': '[ゲーム画像] 点追加: (30, 40)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,089 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 1, 'pos': PyQt5.QtCore.QPointF(30.0, 40.0), 'pixel': (30, 40), 'desc': '[ゲーム画像] 点追加: (30, 40)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,089 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,090 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0], [30.0, 40.0]]
+2025-02-19 17:59:36,090 [DEBUG] KartenWarp: Adding point: {'action': 'add', 'id': 2, 'pos': PyQt5.QtCore.QPointF(50.0, 60.0), 'pixel': (50, 60), 'desc': '[ゲーム画像] 点追加: (50, 60)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,090 [DEBUG] KartenWarp: Recording command: {'action': 'add', 'id': 2, 'pos': PyQt5.QtCore.QPointF(50.0, 60.0), 'pixel': (50, 60), 'desc': '[ゲーム画像] 点追加: (50, 60)', 'ellipse': None, 'text': None}
+2025-02-19 17:59:36,090 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,091 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0], [30.0, 40.0], [50.0, 60.0]]
+2025-02-19 17:59:36,091 [DEBUG] KartenWarp: Undo: new history index 1
+2025-02-19 17:59:36,092 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,092 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0], [30.0, 40.0]]
+2025-02-19 17:59:36,092 [DEBUG] KartenWarp: Undo: new history index 0
+2025-02-19 17:59:36,092 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,093 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0]]
+2025-02-19 17:59:36,093 [DEBUG] KartenWarp: Redo: new history index 1
+2025-02-19 17:59:36,093 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,093 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0], [30.0, 40.0]]
+2025-02-19 17:59:36,093 [DEBUG] KartenWarp: Redo: new history index 2
+2025-02-19 17:59:36,093 [DEBUG] KartenWarp: Rebuilding scene
+2025-02-19 17:59:36,094 [DEBUG] KartenWarp: Updating game points: [[10.0, 20.0], [30.0, 40.0], [50.0, 60.0]]
+2025-02-19 17:59:36,142 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:36,142 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:36,143 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 17:59:36,144 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:36,145 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:36,152 [DEBUG] KartenWarp: Menus created
+2025-02-19 17:59:36,152 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 17:59:36,152 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,194 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:36,195 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,198 [DEBUG] KartenWarp: DetachedWindow initialized
+2025-02-19 17:59:36,198 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,246 [INFO] KartenWarp: Entered detached mode
+2025-02-19 17:59:36,247 [DEBUG] KartenWarp: Mode toggled to 分離モード
+2025-02-19 17:59:36,247 [DEBUG] KartenWarp: DetachedWindow forced close
+2025-02-19 17:59:36,249 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 17:59:36,252 [DEBUG] KartenWarp: DetachedWindow forced close
+2025-02-19 17:59:36,260 [DEBUG] KartenWarp: DetachedWindow force closed
+2025-02-19 17:59:36,271 [INFO] KartenWarp: Returned to integrated mode
+2025-02-19 17:59:36,273 [DEBUG] KartenWarp: Mode toggled to 統合モード
+2025-02-19 17:59:36,273 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 17:59:36,288 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:36,288 [DEBUG] KartenWarp: InteractiveScene initialized for game
+2025-02-19 17:59:36,288 [DEBUG] KartenWarp: InteractiveScene initialized for real
+2025-02-19 17:59:36,289 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:36,291 [DEBUG] KartenWarp: InteractiveView initialized
+2025-02-19 17:59:36,296 [DEBUG] KartenWarp: Menus created
+2025-02-19 17:59:36,296 [DEBUG] KartenWarp: MainWindow initialized
+2025-02-19 17:59:36,296 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,340 [INFO] KartenWarp: User confirmed exit. Closing application.
+2025-02-19 17:59:36,360 [DEBUG] KartenWarp: Initializing SceneState
+2025-02-19 17:59:36,360 [DEBUG] KartenWarp: Updating game points: [[10, 20], [30, 40]]
+2025-02-19 17:59:36,360 [DEBUG] KartenWarp: Updating real points: [[50, 60], [70, 80]]
+2025-02-19 17:59:36,360 [DEBUG] KartenWarp: Saving project to C:\Users\I_kor\AppData\Local\Temp\tmp7105pupr\test_project.kwproj
+2025-02-19 17:59:36,361 [INFO] KartenWarp: Project saved successfully: C:\Users\I_kor\AppData\Local\Temp\tmp7105pupr\test_project.kwproj
+2025-02-19 17:59:36,361 [DEBUG] KartenWarp: Loading project from C:\Users\I_kor\AppData\Local\Temp\tmp7105pupr\test_project.kwproj
+2025-02-19 17:59:36,363 [INFO] KartenWarp: Project loaded successfully: C:\Users\I_kor\AppData\Local\Temp\tmp7105pupr\test_project.kwproj
+2025-02-19 17:59:36,366 [DEBUG] KartenWarp: Getting dark mode stylesheet
+2025-02-19 17:59:36,367 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 17:59:36,367 [ERROR] KartenWarp.Transform: Insufficient correspondence points
+2025-02-19 17:59:36,369 [DEBUG] KartenWarp.Transform: Starting perform_transformation
+2025-02-19 17:59:36,370 [DEBUG] KartenWarp: Converting QImage to NumPy array
+2025-02-19 17:59:36,370 [DEBUG] KartenWarp.Transform: Computing TPS parameters
+2025-02-19 17:59:36,371 [DEBUG] KartenWarp.Transform: TPS parameters computed
+2025-02-19 17:59:36,371 [DEBUG] KartenWarp.Transform: Applying TPS warp
+2025-02-19 17:59:36,373 [DEBUG] KartenWarp.Transform: TPS warp applied
+2025-02-19 17:59:36,374 [DEBUG] KartenWarp.Transform: Transformation performed successfully
+2025-02-19 17:59:36,377 [DEBUG] KartenWarp: Exporting scene to C:\Users\I_kor\AppData\Local\Temp\tmp2xeplcp9
+2025-02-19 17:59:36,380 [INFO] KartenWarp: Scene exported as C:\Users\I_kor\AppData\Local\Temp\tmp2xeplcp9\exported_scene.png
+2025-02-19 17:59:36,380 [DEBUG] KartenWarp: Exporting scene to C:\Users\I_kor\AppData\Local\Temp\tmp2xeplcp9\test_export.png
+2025-02-19 17:59:36,382 [INFO] KartenWarp: Scene exported as C:\Users\I_kor\AppData\Local\Temp\tmp2xeplcp9\test_export.png
+2025-02-19 17:59:36,383 [DEBUG] KartenWarp: Converting QImage to NumPy array
