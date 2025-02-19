@@ -20,8 +20,26 @@ KartenWarp は、2 枚の画像間の対応点に基づいて Thin Plate Spline 
 - **エクスポート機能**  
   変換結果を PNG 形式でエクスポート。
 
-- **ダークモード**  
-  ユーザーの好みに応じたテーマ設定が可能。
+## ディレクトリ構造(AIアシスタント向け)
+KartenWarp/
+├── src/            (ソースコートが入ったフォルダ)
+│   ├── locales/            (ローカライズ用 JSON ファイルが入ったフォルダ)
+│   │   ├── ja.json
+│   │   ├── en.json
+│   │   └── de.json
+│   ├── main.py
+│   ├── config.py
+│   ├── logger.py
+│   ├── core.py
+│   ├── ui.py
+│   └── themes.py
+├── temp/                (実行時に生成されるログ・一時ファイルなど)
+│   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
+├── tests/              (テスト関連ファイルを格納するフォルダ)
+│   └── tests.py
+├── .coveragerc          (カバレッジ設定ファイル)
+├── README.md
+└── requirements.txt
 
 ## インストール方法
 

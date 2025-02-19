@@ -2,5 +2,5 @@
 /temp
 .coverage
 .vscode/settings.json
-kartenwarp/settings.json
 *.pyc
+src/config.json
