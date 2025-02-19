@@ -8,7 +8,7 @@ from PyQt5.QtGui import QPixmap, QImage, QPainter, QPainterPath, QPen, QBrush, Q
 from PyQt5.QtCore import Qt, pyqtSignal, QPointF, QPoint, QEvent, QCoreApplication
 import os
 from logger import logger
-from config import config, tr, set_language
+from app_settings import config, tr, set_language
 from core import SceneState, save_project, load_project, export_scene, perform_tps_transform, qimage_to_numpy, create_action
 from themes import get_dark_mode_stylesheet
 

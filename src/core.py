@@ -5,7 +5,7 @@ import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 from logger import logger, transform_logger
-from config import config, tr
+from app_settings import config, tr
 
 # --- データモデル ---
 class SceneState:

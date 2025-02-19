@@ -1,7 +1,7 @@
 import os
 import logging
 import datetime
-from config import config
+from app_settings import config
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMP_DIR = os.path.join(PROJECT_ROOT, "temp")

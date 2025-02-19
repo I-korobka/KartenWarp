@@ -83,7 +83,6 @@
     "status_real_map_image_loaded": "実地図画像を読み込みました",
     "status_redo_executed": "Redo実行",
     "status_undo_executed": "Undo実行",
-    "test_dynamic_key": "test_{some_dynamic_value}",
     "toggle_mode": "統合⇔分離切替",
     "toggle_mode_key": "モード切替 キーバインド",
     "tools_menu": "ツール",

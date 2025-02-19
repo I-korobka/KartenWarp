@@ -28,7 +28,7 @@ from core import (
     SceneState, save_project, load_project, perform_transformation, perform_tps_transform,
     compute_tps_parameters, apply_tps_warp, qimage_to_numpy, export_scene
 )
-from config import load_localization, set_language, tr, config
+from app_settings import load_localization, set_language, tr, config
 from themes import get_dark_mode_stylesheet
 from ui import (
     MainWindow, HistoryDialog, ResultWindow, InteractiveView, ZoomableViewWidget,

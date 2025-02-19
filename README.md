@@ -27,12 +27,12 @@ KartenWarp/
 │   │   ├── ja.json
 │   │   ├── en.json
 │   │   └── de.json
-│   ├── main.py
-│   ├── config.py
-│   ├── logger.py
+│   ├── app_settings.py
 │   ├── core.py
-│   ├── ui.py
-│   └── themes.py
+│   ├── logger.py
+│   ├── main.py
+│   ├── themes.py
+│   └── ui.py
 ├── temp/                (実行時に生成されるログ・一時ファイルなど)
 │   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
 ├── tests/              (テスト関連ファイルを格納するフォルダ)
