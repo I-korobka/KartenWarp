@@ -3,8 +3,9 @@ import logging
 import datetime
 from config import config
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMP_DIR = os.path.join(PROJECT_ROOT, "temp")
+
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR)
 
