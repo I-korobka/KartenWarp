@@ -83,17 +83,21 @@ LOCALIZATION = {}
 
 def load_localization():
     language = config.get("language", "ja")
-    # プロジェクトルート（例：src の親）ではなく、ユーザーの設定ディレクトリ直下の temp フォルダーを参照する
+    # プロジェクトルートではなく、ユーザーの設定ディレクトリ直下の temp フォルダーを参照する
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     temp_dir = os.path.join(project_root, "temp")
     file_path = os.path.join(temp_dir, f"{language}.json")
     if not os.path.exists(file_path):
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        locales_dir = os.path.join(current_dir, "locales")
+        # 環境変数 DUMMY_LOCALES が設定されていればそちらを使用
+        locales_dir = os.environ.get("DUMMY_LOCALES", os.path.join(current_dir, "locales"))
         file_path = os.path.join(locales_dir, f"{language}.json")
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             localization = json.load(f)
+        # 必須キーを補完する（app_title は必須）
+        if "app_title" not in localization:
+            localization["app_title"] = "KartenWarp"
         if "test_dynamic_key" not in localization:
             localization["test_dynamic_key"] = "test_{some_dynamic_value}"
         return localization
@@ -112,7 +116,7 @@ def tr(key):
         print("[WARNING] tr() received non-string key:", key)
     return LOCALIZATION.get(key, key)
 
-# --- ローカライズキー抽出と更新の機能（旧 localization_util.py の機能も統合） ---
+# --- ローカライズキー抽出と更新の機能 ---
 def extract_localization_keys_from_file(file_path):
     keys = set()
     try:
@@ -158,8 +162,10 @@ def update_localization_files(root_dir):
     print("Extracted", len(needed_keys), "localization keys.")
     
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    locales_dir = os.path.join(current_dir, "locales")
-    project_root = os.path.dirname(current_dir)
+    # DUMMY_LOCALES が設定されていればそちらを使用
+    locales_dir = os.environ.get("DUMMY_LOCALES", os.path.join(current_dir, "locales"))
+    # 修正: 引数の root_dir をプロジェクトルートとして利用
+    project_root = root_dir
     temp_dir = os.path.join(project_root, "temp")
     if not os.path.exists(temp_dir):
         os.makedirs(temp_dir)
