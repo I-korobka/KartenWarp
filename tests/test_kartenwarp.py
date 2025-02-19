@@ -158,8 +158,9 @@ def test_detached_window_event_filter(qtbot, app_instance: QCoreApplication | QA
     # キー F5 (toggle_mode) をシミュレート
     toggle_key = config.get("keybindings/toggle_mode", "F5")
     seq = QKeySequence(toggle_key)
-    key_event = QKeyEvent(QEvent.KeyPress, seq[0], Qt.NoModifier, "")
-    qtbot.keyClick(window, seq.toString())
+    # 修正前: qtbot.keyClick(window, seq.toString())
+    # 修正後: キーコード（整数）を渡す
+    qtbot.keyClick(window, seq[0])
     window.close()
     main_window.close()
 

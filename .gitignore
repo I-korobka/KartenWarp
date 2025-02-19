@@ -4,3 +4,4 @@
 .vscode/settings.json
 *.pyc
 src/config.json
+report.xml
