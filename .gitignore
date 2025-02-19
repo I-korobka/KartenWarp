@@ -5,3 +5,4 @@
 *.pyc
 src/config.json
 report.xml
+coverage.txt
