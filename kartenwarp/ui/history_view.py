@@ -1,3 +1,4 @@
+# kartenwarp/ui/history_view.py
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QListWidget, QPushButton, QHBoxLayout, QMessageBox
 from kartenwarp.localization import tr
 from log_config import logger
@@ -30,7 +31,7 @@ class HistoryDialog(QDialog):
         self.list_widget.clear()
         history = self.scene.get_history()
         for i, cmd in enumerate(history):
-            item_text = f"{i}: {cmd.get('desc', cmd.get('action'))}"
+            item_text = f"{i}: {cmd['desc']}"
             self.list_widget.addItem(item_text)
         current_index = self.scene.get_history_index()
         if 0 <= current_index < self.list_widget.count():

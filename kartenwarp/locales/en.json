@@ -1,6 +1,6 @@
 {
     "about": "About",
-    "about_text": "KartenWarp\nVersion 1.0\n\nThis tool performs a TPS transformation based on corresponding points between two images, providing a real-time preview of the transformation result and various support functions (such as moving points by dragging).\n\n(C) 2025 korobka",
+    "about_text": "KartenWarp\nVersion 1.2\n\nThis tool performs a TPS transformation based on corresponding points between two images, providing a real-time preview of the transformation result and various support functions (such as moving points by dragging).\n\n(C) 2025 korobka",
     "app_title": "KartenWarp",
     "cancel_loading": "Loading cancelled",
     "close": "Close",
@@ -83,7 +83,6 @@
     "status_real_map_image_loaded": "Real map image loaded",
     "status_redo_executed": "Redo executed",
     "status_undo_executed": "Undo executed",
-    "test_dynamic_key": "test_dynamic_key",
     "toggle_mode": "Toggle Integrated/Detached Mode",
     "toggle_mode_key": "Toggle Mode Keybinding",
     "tools_menu": "Tools",

@@ -1,6 +1,6 @@
 {
     "about": "Über",
-    "about_text": "KartenWarp\nVersion 1.0\n\nDieses Tool führt eine TPS-Transformation basierend auf entsprechenden Punkten zwischen zwei Bildern durch und bietet eine Echtzeitvorschau des Transformationsergebnisses sowie verschiedene Hilfsfunktionen (wie das Verschieben von Punkten per Drag & Drop).\n\n(C) 2025 korobka",
+    "about_text": "KartenWarp\nVersion 1.2\n\nDieses Tool führt eine TPS-Transformation basierend auf entsprechenden Punkten zwischen zwei Bildern durch und bietet eine Echtzeitvorschau des Transformationsergebnisses sowie verschiedene Hilfsfunktionen (wie das Verschieben von Punkten per Drag & Drop).\n\n(C) 2025 korobka",
     "app_title": "KartenWarp",
     "cancel_loading": "Laden abgebrochen",
     "close": "Schließen",
@@ -83,7 +83,6 @@
     "status_real_map_image_loaded": "Echtkartenbild geladen",
     "status_redo_executed": "Redo ausgeführt",
     "status_undo_executed": "Undo ausgeführt",
-    "test_dynamic_key": "test_dynamic_key",
     "toggle_mode": "Integrierten/Getrennten Modus wechseln",
     "toggle_mode_key": "Moduswechsel-Tastenkürzel",
     "tools_menu": "Extras",

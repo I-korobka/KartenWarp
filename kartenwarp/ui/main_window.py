@@ -1,4 +1,5 @@
 # main_window.py
+# kartenwarp/ui/main_window.py
 import os
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QAction, QFileDialog,
@@ -10,6 +11,7 @@ from kartenwarp.localization import tr
 from kartenwarp.config_manager import config_manager
 from kartenwarp.data_model import SceneState
 from kartenwarp.core.scenes import InteractiveScene
+from kartenwarp.domain.feature_point import FeaturePointManager
 from kartenwarp.ui.interactive_view import ZoomableViewWidget
 from kartenwarp.ui.options_dialog import OptionsDialog
 from kartenwarp.core import project_io
@@ -40,8 +42,11 @@ class MainWindow(QMainWindow):
         self.resize(width, height)
         self.active_scene = None
         self.state = SceneState()
-        self.sceneA = InteractiveScene(self.state, image_type="game")
-        self.sceneB = InteractiveScene(self.state, image_type="real")
+        # 依存性注入：各シーン用の FeaturePointManager を外部で生成
+        self.fp_manager_game = FeaturePointManager()
+        self.fp_manager_real = FeaturePointManager()
+        self.sceneA = InteractiveScene(self.state, image_type="game", fp_manager=self.fp_manager_game)
+        self.sceneB = InteractiveScene(self.state, image_type="real", fp_manager=self.fp_manager_real)
         self.sceneA.activated.connect(self.set_active_scene)
         self.sceneB.activated.connect(self.set_active_scene)
         self.viewA = ZoomableViewWidget(self.sceneA)
@@ -376,7 +381,6 @@ class MainWindow(QMainWindow):
             pixmap = QPixmap(game_path)
             qimage = QImage(game_path)
             self.sceneA.set_image(pixmap, qimage, file_path=game_path)
-            self.sceneA.clear_points()
             for p in project_data.get("game_points", []):
                 from PyQt5.QtCore import QPointF
                 self.sceneA.add_point(QPointF(p[0], p[1]))
@@ -387,7 +391,6 @@ class MainWindow(QMainWindow):
             pixmap = QPixmap(real_path)
             qimage = QImage(real_path)
             self.sceneB.set_image(pixmap, qimage, file_path=real_path)
-            self.sceneB.clear_points()
             for p in project_data.get("real_points", []):
                 from PyQt5.QtCore import QPointF
                 self.sceneB.add_point(QPointF(p[0], p[1]))

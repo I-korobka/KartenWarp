@@ -1,6 +1,6 @@
 {
     "about": "アバウト",
-    "about_text": "KartenWarp\nバージョン 1.1\n\nこのツールは、2枚の画像間の対応点に基づくTPS変換を行い、\n変換結果のリアルタイムプレビューや各種補助機能（ドラッグでの点移動など）を提供します。\n\n（C) 2025 korobka",
+    "about_text": "KartenWarp\nバージョン 1.2\n\nこのツールは、2枚の画像間の対応点に基づくTPS変換を行い、\n変換結果のリアルタイムプレビューや各種補助機能（ドラッグでの点移動など）を提供します。\n\n（C) 2025 korobka",
     "app_title": "KartenWarp",
     "cancel_loading": "読み込みキャンセル",
     "close": "閉じる",
@@ -83,7 +83,6 @@
     "status_real_map_image_loaded": "実地図画像を読み込みました",
     "status_redo_executed": "Redo実行",
     "status_undo_executed": "Undo実行",
-    "test_dynamic_key": "test_{some_dynamic_value}",
     "toggle_mode": "統合⇔分離切替",
     "toggle_mode_key": "モード切替 キーバインド",
     "tools_menu": "ツール",

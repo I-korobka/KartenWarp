@@ -1,38 +1,28 @@
+#!/usr/bin/env python
 import os
 import sys
-# tester.py が tests/ フォルダ内にあるので、親ディレクトリ（プロジェクトルート）をパスに追加する
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 import tempfile
 import shutil
-import json
 import unittest
 import numpy as np
 from unittest.mock import patch, MagicMock
 
-from PyQt5.QtWidgets import (
-    QApplication, QDialog, QMessageBox, QMainWindow, QWidget, QFileDialog,
-    QGraphicsScene, QDialogButtonBox
-)
-from PyQt5.QtGui import QPixmap, QImage, QWheelEvent, QKeyEvent, QKeySequence
+from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QMainWindow, QWidget, QFileDialog, QGraphicsScene, QDialogButtonBox
+from PyQt5.QtGui import QPixmap, QImage, QWheelEvent, QKeyEvent, QKeySequence, QMouseEvent
 from PyQt5.QtCore import Qt, QPoint, QPointF, QEvent, QCoreApplication
 from PyQt5.QtTest import QTest
 
-# グローバルパッチ：すべてのダイアログの exec_ を Accepted、QMessageBox.question は常に Yes を返す
+# Global patches for dialogs
 QDialog.exec_ = lambda self: QDialog.Accepted
 QMessageBox.question = lambda *args, **kwargs: QMessageBox.Yes
 
-# グローバル QApplication の生成（シングルトン）
 _app = QApplication.instance() or QApplication(sys.argv)
 
-# プロジェクト内モジュールのインポート
+# Import project modules
 from log_config import logger, cleanup_old_log_dirs, RUN_LOG_DIR, TEMP_DIR
 from kartenwarp.data_model import SceneState
 from kartenwarp.core import project_io, transformation, scenes
-from kartenwarp.localization import (
-    load_localization, set_language, tr,
-    extract_localization_keys_from_file, extract_all_localization_keys
-)
+from kartenwarp.localization import load_localization, set_language, tr, extract_localization_keys_from_file, extract_all_localization_keys
 from kartenwarp.theme import get_dark_mode_stylesheet
 from kartenwarp.ui.main_window import MainWindow
 from kartenwarp.ui.history_view import HistoryDialog
@@ -41,23 +31,16 @@ from kartenwarp.ui.interactive_view import InteractiveView, ZoomableViewWidget
 from kartenwarp.ui.detached_window import DetachedWindow
 from kartenwarp.ui.options_dialog import OptionsDialog
 from kartenwarp.utils import export_scene, qimage_to_numpy, create_action
-from kartenwarp.core.transformation import (
-    perform_transformation, perform_tps_transform,
-    compute_tps_parameters, apply_tps_warp
-)
+from kartenwarp.core.transformation import perform_transformation, perform_tps_transform, compute_tps_parameters, apply_tps_warp
 from kartenwarp.core.scenes import InteractiveScene
+from kartenwarp.domain.feature_point import FeaturePointManager
 
-# ------------------------------------------------------------------------------
-# 共通のベーステストクラス（QApplication インスタンスの共通セットアップ）
-# ------------------------------------------------------------------------------
 class QAppTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance()
 
-# ------------------------------------------------------------------------------
-# 1) Transformation Engine のテスト
-# ------------------------------------------------------------------------------
+# 1) Transformation Engine Tests
 class TestTransformationEngine(QAppTestCase):
     def setUp(self):
         self.width, self.height = 100, 100
@@ -73,7 +56,6 @@ class TestTransformationEngine(QAppTestCase):
             self.src_image, self.output_size,
             reg_lambda=1e-3, adaptive=False
         )
-        # numpy.ndarray であること、形状が正しいことをチェック
         self.assertIsInstance(result, np.ndarray)
         self.assertEqual(result.shape, (self.height, self.width, 3))
 
@@ -95,9 +77,7 @@ class TestTransformationEngine(QAppTestCase):
         self.assertIsInstance(result, np.ndarray)
         self.assertEqual(result.shape, (self.height, self.width, 3))
 
-# ------------------------------------------------------------------------------
-# 2) Project IO のテスト
-# ------------------------------------------------------------------------------
+# 2) Project IO Tests
 class TestProjectIO(QAppTestCase):
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp()
@@ -131,14 +111,12 @@ class TestProjectIO(QAppTestCase):
         self.assertEqual(loaded["game_points"], [])
         self.assertEqual(loaded["real_points"], [])
 
-# ------------------------------------------------------------------------------
-# 3) InteractiveScene のテスト（add/undo/redo/move/delete/set_image）
-# ------------------------------------------------------------------------------
+# 3) InteractiveScene Tests
 class TestInteractiveScene(QAppTestCase):
     def setUp(self):
         self.state = SceneState()
         self.scene = InteractiveScene(self.state, image_type="game")
-
+    
     def test_add_and_history(self):
         self.scene.add_point(QPointF(100, 200))
         self.scene.add_point(QPointF(300, 400))
@@ -147,7 +125,7 @@ class TestInteractiveScene(QAppTestCase):
         self.assertEqual(self.state.game_points[1], [300, 400])
         self.assertEqual(len(self.scene.get_history()), 2)
         self.assertEqual(self.scene.get_history_index(), 1)
-
+    
     def test_undo_redo(self):
         for pt in [QPointF(10, 20), QPointF(30, 40), QPointF(50, 60)]:
             self.scene.add_point(pt)
@@ -160,17 +138,18 @@ class TestInteractiveScene(QAppTestCase):
         self.assertEqual(len(self.state.game_points), 2)
         self.scene.redo()
         self.assertEqual(len(self.state.game_points), 3)
-
+    
     def test_delete_and_move(self):
         self.scene.add_point(QPointF(10, 20))
-        cmd = self.scene.get_history()[0]
-        self.scene.record_delete_command(cmd)
+        # 取得した特徴点オブジェクトを利用
+        fp = list(self.scene.fp_manager.feature_points.values())[0]
+        self.scene.record_delete_command(fp)
         self.assertEqual(len(self.state.game_points), 0)
         self.scene.add_point(QPointF(10, 20))
-        cmd = self.scene.get_history()[0]
-        self.scene.record_move_command(cmd, QPointF(100, 200))
+        fp = list(self.scene.fp_manager.feature_points.values())[0]
+        self.scene.record_move_command(fp, QPointF(100, 200))
         self.assertEqual(self.state.game_points[0], [100, 200])
-
+    
     def test_set_image_resets_state(self):
         pixmap = QPixmap(100, 100)
         qimg = QImage(100, 100, QImage.Format_RGB32)
@@ -181,9 +160,7 @@ class TestInteractiveScene(QAppTestCase):
         self.assertEqual(len(self.scene.get_history()), 0)
         self.assertEqual(self.scene.get_history_index(), -1)
 
-# ------------------------------------------------------------------------------
-# 4) MainWindow とその追加動作のテスト
-# ------------------------------------------------------------------------------
+# 4) MainWindow and Additional Actions Tests
 class TestMainWindow(QAppTestCase):
     def setUp(self):
         self.window = MainWindow()
@@ -206,16 +183,14 @@ class TestMainWindow(QAppTestCase):
 
     def test_options_dialog(self):
         self.window.open_options_dialog()
-        self.assertTrue(True, "オプションダイアログがクラッシュせずに開いた")
+        self.assertTrue(True, "Options dialog opened without crashing")
 
     def test_menu_actions(self):
         with patch.object(QFileDialog, 'getOpenFileName', return_value=("", "")):
             self.window.open_image_A()
             self.assertIn("キャンセル", self.window.statusBar().currentMessage())
 
-# ------------------------------------------------------------------------------
-# 5) 統合テスト（MainWindow 経由で TPS 変換までの流れ）
-# ------------------------------------------------------------------------------
+# 5) Integration Test (MainWindow to TPS Transformation)
 class TestIntegration(QAppTestCase):
     def setUp(self):
         self.window = MainWindow()
@@ -230,12 +205,8 @@ class TestIntegration(QAppTestCase):
         QPixmap(100, 100).save(dummy_game)
         QPixmap(100, 100).save(dummy_real)
         try:
-            self.window.sceneA.set_image(
-                QPixmap(dummy_game), QImage(dummy_game), file_path=dummy_game
-            )
-            self.window.sceneB.set_image(
-                QPixmap(dummy_real), QImage(dummy_real), file_path=dummy_real
-            )
+            self.window.sceneA.set_image(QPixmap(dummy_game), QImage(dummy_game), file_path=dummy_game)
+            self.window.sceneB.set_image(QPixmap(dummy_real), QImage(dummy_real), file_path=dummy_real)
             for pt in [QPointF(10, 10), QPointF(20, 25), QPointF(30, 30)]:
                 self.window.sceneA.add_point(pt)
             for pt in [QPointF(15, 15), QPointF(25, 28), QPointF(35, 35)]:
@@ -246,9 +217,7 @@ class TestIntegration(QAppTestCase):
             if os.path.exists(dummy_game): os.remove(dummy_game)
             if os.path.exists(dummy_real): os.remove(dummy_real)
 
-# ------------------------------------------------------------------------------
-# 6) HistoryDialog のテスト
-# ------------------------------------------------------------------------------
+# 6) HistoryDialog Tests
 class TestHistoryDialog(QAppTestCase):
     def setUp(self):
         self.state = SceneState()
@@ -277,9 +246,7 @@ class TestHistoryDialog(QAppTestCase):
         QTest.mouseClick(self.dialog.jump_button, Qt.LeftButton)
         self.assertEqual(self.scene.get_history_index(), 0)
 
-# ------------------------------------------------------------------------------
-# 7) ResultWindow のテスト
-# ------------------------------------------------------------------------------
+# 7) ResultWindow Tests
 class TestResultWindow(QAppTestCase):
     def setUp(self):
         pixmap = QPixmap(100, 100)
@@ -305,9 +272,7 @@ class TestResultWindow(QAppTestCase):
             QTest.qWait(100)
             mock_exp.assert_called_once()
 
-# ------------------------------------------------------------------------------
-# 8) InteractiveView のテスト
-# ------------------------------------------------------------------------------
+# 8) InteractiveView Tests
 class TestInteractiveView(QAppTestCase):
     def setUp(self):
         self.main_win = QMainWindow()
@@ -337,9 +302,7 @@ class TestInteractiveView(QAppTestCase):
         QTest.mouseRelease(self.view.viewport(), Qt.MiddleButton, pos=QPoint(70, 70))
         self.assertFalse(self.view._panning)
 
-# ------------------------------------------------------------------------------
-# 9) Localization 関連のテスト（キー抽出・fallback 等）
-# ------------------------------------------------------------------------------
+# 9) Localization Tests
 class TestLocalization(QAppTestCase):
     def test_missing_file_fallback(self):
         with patch('kartenwarp.localization.os.path.exists', return_value=False), \
@@ -368,9 +331,7 @@ class TestLocalization(QAppTestCase):
         keys = extract_all_localization_keys(".")
         self.assertIsInstance(keys, set)
 
-# ------------------------------------------------------------------------------
-# 10) Theme のテスト（QSettings の代わりに config_manager を利用）
-# ------------------------------------------------------------------------------
+# 10) Theme Tests
 class TestTheme(QAppTestCase):
     def test_get_dark_mode_stylesheet(self):
         from kartenwarp.config_manager import config_manager
@@ -378,9 +339,7 @@ class TestTheme(QAppTestCase):
         css = get_dark_mode_stylesheet()
         self.assertIn("background-color: #2e2e2e;", css)
 
-# ------------------------------------------------------------------------------
-# 11) Utils.export_scene のテスト
-# ------------------------------------------------------------------------------
+# 11) Utils.export_scene Tests
 class TestUtilsExportScene(QAppTestCase):
     def setUp(self):
         self.scene = QGraphicsScene()
@@ -407,9 +366,7 @@ class TestUtilsExportScene(QAppTestCase):
             self.assertNotEqual(output, base)
             self.assertIn("_1.png", output)
 
-# ------------------------------------------------------------------------------
-# 12) DetachedWindow のテスト
-# ------------------------------------------------------------------------------
+# 12) DetachedWindow Tests
 class TestDetachedWindow(QAppTestCase):
     def setUp(self):
         self.main_window = MainWindow()
@@ -451,9 +408,7 @@ class TestDetachedWindow(QAppTestCase):
             mock_toggle.assert_called_once()
         self.assertFalse(self.window.isVisible())
 
-# ------------------------------------------------------------------------------
-# 13) ConfigManager のテスト（正常系・エラー系）
-# ------------------------------------------------------------------------------
+# 13) ConfigManager Tests
 class TestConfigManager(QAppTestCase):
     def test_get_default_config(self):
         from kartenwarp.config_manager import config_manager
@@ -483,9 +438,7 @@ class TestConfigManagerError(QAppTestCase):
         from kartenwarp.config_manager import config_manager
         self.assertIsNotNone(config_manager.get("window/default_width", None))
 
-# ------------------------------------------------------------------------------
-# 14) TPS Transform エラー系テスト
-# ------------------------------------------------------------------------------
+# 14) TPS Transform Error Tests
 class TestTPSTransformError(QAppTestCase):
     def setUp(self):
         self.dummy_image = QImage(50, 50, QImage.Format_RGB888)
@@ -511,9 +464,7 @@ class TestTPSTransformError(QAppTestCase):
                     reg_lambda=1e-3, adaptive=False
                 )
 
-# ------------------------------------------------------------------------------
-# 15) LogConfig の古いログディレクトリ削除テスト
-# ------------------------------------------------------------------------------
+# 15) LogConfig Cleanup Tests
 class TestLogConfigCleanup(QAppTestCase):
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp()
@@ -537,9 +488,7 @@ class TestLogConfigCleanup(QAppTestCase):
         remaining = [d for d in os.listdir(self.temp_dir) if d.startswith("run_")]
         self.assertLessEqual(len(remaining), 2)
 
-# ------------------------------------------------------------------------------
-# 16) OptionsDialog のテスト
-# ------------------------------------------------------------------------------
+# 16) OptionsDialog Tests
 class TestOptionsDialog(QAppTestCase):
     def setUp(self):
         self.dialog = OptionsDialog()
@@ -553,9 +502,7 @@ class TestOptionsDialog(QAppTestCase):
             self.dialog.accept()
             mock_critical.assert_called_once()
 
-# ------------------------------------------------------------------------------
-# 17) Utils 関数のテスト（qimage_to_numpy, create_action）
-# ------------------------------------------------------------------------------
+# 17) Utils Functions Tests
 class TestUtilsFunctions(QAppTestCase):
     def test_qimage_to_numpy(self):
         image = QImage(10, 10, QImage.Format_RGB32)
@@ -576,8 +523,72 @@ class TestUtilsFunctions(QAppTestCase):
         action.trigger()
         self.assertTrue(dummy_called)
 
-# ------------------------------------------------------------------------------
-# メイン：unittest を実行
-# ------------------------------------------------------------------------------
+# 18) FeaturePointManager Tests
+class TestFeaturePointManager(unittest.TestCase):
+    def setUp(self):
+        self.manager = FeaturePointManager()
+
+    def test_add_feature_point(self):
+        fp = self.manager.add_feature_point(10, 20)
+        self.assertEqual(fp.x, 10)
+        self.assertEqual(fp.y, 20)
+        self.assertIn(fp.id, self.manager.feature_points)
+        self.assertEqual(len(self.manager.history), 1)
+
+    def test_move_feature_point(self):
+        fp = self.manager.add_feature_point(10, 20)
+        old_id = fp.id
+        self.manager.move_feature_point(old_id, 30, 40)
+        fp_after = self.manager.feature_points[old_id]
+        self.assertEqual(fp_after.x, 30)
+        self.assertEqual(fp_after.y, 40)
+        self.assertEqual(len(self.manager.history), 2)
+
+    def test_delete_feature_point(self):
+        fp = self.manager.add_feature_point(10, 20)
+        old_id = fp.id
+        self.manager.delete_feature_point(old_id)
+        self.assertNotIn(old_id, self.manager.feature_points)
+        self.assertEqual(len(self.manager.history), 2)
+
+    def test_undo_redo(self):
+        fp1 = self.manager.add_feature_point(10, 20)
+        fp2 = self.manager.add_feature_point(30, 40)
+        self.assertEqual(len(self.manager.history), 2)
+        self.manager.undo()
+        self.assertNotIn(fp2.id, self.manager.feature_points)
+        self.manager.undo()
+        self.assertNotIn(fp1.id, self.manager.feature_points)
+        self.manager.redo()
+        self.assertIn(fp1.id, self.manager.feature_points)
+        self.manager.redo()
+        self.assertIn(fp2.id, self.manager.feature_points)
+
+class TestInteractiveSceneDuplicate(QAppTestCase):
+    def test_duplicate_point_prevention(self):
+        state = SceneState()
+        scene = InteractiveScene(state, image_type="game")
+        # 最初の点追加
+        scene.add_point(QPointF(100, 200))
+        count1 = len(state.game_points)
+        # ほぼ同じ座標で追加しようとする（端数が丸められて同一ピクセルになる）
+        scene.add_point(QPointF(100.2, 200.3))
+        count2 = len(state.game_points)
+        self.assertEqual(count1, count2, "同じピクセル内に新規点が追加されてはならない")
+    
+    def test_click_on_existing_point(self):
+        state = SceneState()
+        scene = InteractiveScene(state, image_type="game")
+        # 最初の点追加
+        scene.add_point(QPointF(150, 250))
+        count_before = len(state.game_points)
+        # 既存の点の上をクリック
+        view = ZoomableViewWidget(scene)
+        # シンプルなマウスイベント生成
+        event = QMouseEvent(QEvent.MouseButtonPress, QPointF(150, 250), Qt.LeftButton, Qt.LeftButton, Qt.NoModifier)
+        scene.mousePressEvent(event)
+        count_after = len(state.game_points)
+        self.assertEqual(count_before, count_after, "既存点上でのクリックで新規点が追加されるべきではない")
+
 if __name__ == '__main__':
     unittest.main()
