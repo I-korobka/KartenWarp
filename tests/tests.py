@@ -215,7 +215,7 @@ class TestLoggerCleanup(QAppTestCase):
             self.run_dirs.append(d)
         self._patch = patch('logger.TEMP_DIR', self.temp_dir)
         self._patch.start()
-        self._patch_get = patch('config.config.get', return_value=2)
+        self._patch_get = patch('app_settings.config.get', return_value=2)
         self.mock_get = self._patch_get.start()
 
     def tearDown(self):
