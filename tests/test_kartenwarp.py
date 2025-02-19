@@ -9,6 +9,14 @@ import shutil
 import numpy as np
 import pytest
 
+# テスト実行中に使用する一時ディレクトリを作成し、環境変数に設定する
+_temp_config_dir = tempfile.mkdtemp(prefix="kartenwarp_test_config_")
+os.environ["KARTENWARP_CONFIG_DIR"] = _temp_config_dir
+
+def teardown_module(module):
+    # テスト終了後に一時ディレクトリをクリーンアップする
+    shutil.rmtree(_temp_config_dir, ignore_errors=True)
+
 from PyQt5.QtWidgets import (
     QApplication, QDialog, QMessageBox, QMainWindow, QWidget, QFileDialog, 
     QGraphicsScene, QLineEdit, QCheckBox, QSpinBox, QDoubleSpinBox, QComboBox,

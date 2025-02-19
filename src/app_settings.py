@@ -6,15 +6,20 @@ from datetime import datetime
 
 # --- ユーザー設定ディレクトリの取得 ---
 def get_user_config_dir():
-    if sys.platform.startswith("win"):
-        # Windows: %APPDATA%\KartenWarp
-        config_dir = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "KartenWarp")
-    elif sys.platform.startswith("darwin"):
-        # macOS: ~/Library/Application Support/KartenWarp
-        config_dir = os.path.join(os.path.expanduser("~"), "Library", "Application Support", "KartenWarp")
+    # テスト時など、環境変数 "KARTENWARP_CONFIG_DIR" が設定されていればそのディレクトリを使用する
+    test_config_dir = os.environ.get("KARTENWARP_CONFIG_DIR")
+    if test_config_dir:
+        config_dir = test_config_dir
     else:
-        # Linuxおよびその他: ~/.config/KartenWarp
-        config_dir = os.path.join(os.path.expanduser("~"), ".config", "KartenWarp")
+        if sys.platform.startswith("win"):
+            # Windows: %APPDATA%\KartenWarp
+            config_dir = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "KartenWarp")
+        elif sys.platform.startswith("darwin"):
+            # macOS: ~/Library/Application Support/KartenWarp
+            config_dir = os.path.join(os.path.expanduser("~"), "Library", "Application Support", "KartenWarp")
+        else:
+            # Linuxおよびその他: ~/.config/KartenWarp
+            config_dir = os.path.join(os.path.expanduser("~"), ".config", "KartenWarp")
     os.makedirs(config_dir, exist_ok=True)
     return config_dir
 
@@ -83,19 +88,14 @@ LOCALIZATION = {}
 
 def load_localization():
     language = config.get("language", "ja")
-    # プロジェクトルートではなく、ユーザーの設定ディレクトリ直下の temp フォルダーを参照する
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    temp_dir = os.path.join(project_root, "temp")
-    file_path = os.path.join(temp_dir, f"{language}.json")
-    if not os.path.exists(file_path):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        # 環境変数 DUMMY_LOCALES が設定されていればそちらを使用
-        locales_dir = os.environ.get("DUMMY_LOCALES", os.path.join(current_dir, "locales"))
-        file_path = os.path.join(locales_dir, f"{language}.json")
+    # 常に src/locales フォルダからローカライズファイルを読み込む
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    locales_dir = os.path.join(current_dir, "locales")
+    file_path = os.path.join(locales_dir, f"{language}.json")
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             localization = json.load(f)
-        # 必須キーを補完する（app_title は必須）
+        # 必須キーの補完（例: app_title と test_dynamic_key）
         if "app_title" not in localization:
             localization["app_title"] = "KartenWarp"
         if "test_dynamic_key" not in localization:
@@ -164,7 +164,7 @@ def update_localization_files(root_dir):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # DUMMY_LOCALES が設定されていればそちらを使用
     locales_dir = os.environ.get("DUMMY_LOCALES", os.path.join(current_dir, "locales"))
-    # 修正: 引数の root_dir をプロジェクトルートとして利用
+    # 渡された root_dir をプロジェクトルートとして利用
     project_root = root_dir
     temp_dir = os.path.join(project_root, "temp")
     if not os.path.exists(temp_dir):
