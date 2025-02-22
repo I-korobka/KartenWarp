@@ -20,8 +20,46 @@ KartenWarp は、2 枚の画像間の対応点に基づいて Thin Plate Spline 
 - **エクスポート機能**  
   変換結果を PNG 形式でエクスポート。
 
-- **ダークモード**  
-  ユーザーの好みに応じたテーマ設定が可能。
+## AIアシスタント向けの内容
+
+### ディレクトリ構造
+
+KartenWarp/
+├── src/            (ソースコートが入ったフォルダ)
+│   ├── locales/            (ローカライズ用 JSON ファイルが入ったフォルダ)
+│   │   ├── ja.json
+│   │   ├── en.json
+│   │   └── de.json
+│   ├── ui/            (GUI関係のファイルが入ったフォルダ)
+│   │   ├── __init__.py     (中身は from .main_window import MainWindow )
+│   │   ├── dialogs.py
+│   │   ├── interactive_scene.py
+│   │   ├── interactive_view.py
+│   │   ├── man_window.py
+│   │   └── menu_manager.py
+│   ├── __init__.py         (中身は空)
+│   ├── app_settings.py
+│   ├── core.py
+│   ├── logger.py
+│   ├── main.py
+│   └── themes.py
+├── temp/                (実行時に生成されるログ・一時ファイルなど)
+│   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
+├── tests/              (テスト関連ファイルを格納するフォルダ)
+│   └── test_kartenwarp.py
+├── .coveragerc          (カバレッジ設定ファイル)
+├── README.md
+└── requirements.txt
+
+### ローカライズに関する注意事項
+
+1.GUIに表示する文字列は必ず tr() 関数を通して取得すること。
+  直接 LOCALIZATION 辞書にアクセスしてはならない。
+2.tr() に渡すキーは必ず定数（リテラル文字列）で記述すること。
+  もし動的に生成する必要がある場合は、事前にそのキーを locales に登録し、
+  tr("固定キー").format(…) のように、定数部分をキーとして扱うこと。
+3.新規コード追加時やリファクタリング時には、必ず AST 解析ツールの警告に注意すること。
+  非定数のキーが使用されている場合は、警告が出力されるので、コードの見直しを行うこと。
 
 ## インストール方法
 
