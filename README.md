@@ -23,7 +23,7 @@ KartenWarp は、2 枚の画像間の対応点に基づいて Thin Plate Spline 
 ## AIアシスタント向けの内容
 
 ### ディレクトリ構造
-
+```bash
 KartenWarp/
 ├── src/            (ソースコートが入ったフォルダ)
 │   ├── locales/            (ローカライズ用 JSON ファイルが入ったフォルダ)
@@ -50,7 +50,7 @@ KartenWarp/
 ├── .coveragerc          (カバレッジ設定ファイル)
 ├── README.md
 └── requirements.txt
-
+```
 ### ローカライズに関する注意事項
 
 1.GUIに表示する文字列は必ず tr() 関数を通して取得すること。
