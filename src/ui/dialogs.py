@@ -2,13 +2,14 @@
 import os
 from PyQt5.QtWidgets import (QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QListWidget, QPushButton,
                              QMessageBox, QToolBar, QAction, QFileDialog, QDialogButtonBox, QLineEdit, QCheckBox,
-                             QFormLayout, QComboBox, QSpinBox, QDoubleSpinBox, QWidget, QGraphicsView, QGraphicsScene)
+                             QFormLayout, QComboBox, QSpinBox, QDoubleSpinBox, QWidget, QGraphicsView, QGraphicsScene, QLabel)
 from PyQt5.QtGui import QKeySequence, QPixmap, QImage
 from PyQt5.QtCore import Qt, QEvent
 from app_settings import config, tr, set_language
 from themes import get_dark_mode_stylesheet
 from logger import logger
 from core import export_scene
+from project import Project
 from PyQt5.QtWidgets import QShortcut
 
 class DetachedWindow(QMainWindow):
@@ -248,37 +249,27 @@ class ResultWindow(QWidget):
         QMessageBox.information(self, tr("export_success_title"), tr("export_success_message").format(output_filename=output_filename))
         logger.info("Exported scene to %s", output_filename)
 
-from PyQt5.QtWidgets import (
-    QDialog, QVBoxLayout, QFormLayout, QLineEdit, QHBoxLayout, QPushButton,
-    QFileDialog, QMessageBox, QDialogButtonBox
-)
-from app_settings import tr
-from project import Project
-
 class NewProjectDialog(QDialog):
     """
     新規プロジェクト作成用ダイアログ
 
     ユーザーからプロジェクト名、ゲーム画像ファイル、実地図画像ファイルを取得し、
-    入力チェックを行った上で Project オブジェクトを生成します。
+    入力チェック後に Project オブジェクトを生成します。
+    プロジェクト名は初期状態は空欄とし、空欄の場合はローカライズされたデフォルト名を採用します。
     """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle(tr("new_project_title"))
         self.project = None
 
-        # メインレイアウトの構築
         layout = QVBoxLayout(self)
-
-        # 入力フォームの作成
         form_layout = QFormLayout()
 
-        # プロジェクト名の入力欄
+        # プロジェクト名（初期状態は空欄）
         self.name_edit = QLineEdit(self)
-        self.name_edit.setText(tr("default_project_name"))  # 例："新規プロジェクト"
         form_layout.addRow(tr("project_name") + ":", self.name_edit)
 
-        # ゲーム画像ファイルの入力欄とブラウズボタン
+        # ゲーム画像の入力欄とブラウズボタン
         self.game_image_edit = QLineEdit(self)
         self.game_image_button = QPushButton(tr("browse"), self)
         self.game_image_button.clicked.connect(self.browse_game_image)
@@ -287,7 +278,7 @@ class NewProjectDialog(QDialog):
         game_layout.addWidget(self.game_image_button)
         form_layout.addRow(tr("game_image") + ":", game_layout)
 
-        # 実地図画像ファイルの入力欄とブラウズボタン
+        # 実地図画像の入力欄とブラウズボタン
         self.real_image_edit = QLineEdit(self)
         self.real_image_button = QPushButton(tr("browse"), self)
         self.real_image_button.clicked.connect(self.browse_real_image)
@@ -298,16 +289,13 @@ class NewProjectDialog(QDialog):
 
         layout.addLayout(form_layout)
 
-        # OK / Cancel ボタンの作成
+        # OK / Cancel ボタン
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.validate_and_accept)
         button_box.rejected.connect(self.reject)
         layout.addWidget(button_box)
 
     def browse_game_image(self):
-        """
-        ゲーム画像ファイルを選択するためのファイルダイアログを表示
-        """
         file_path, _ = QFileDialog.getOpenFileName(
             self, tr("select_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
         )
@@ -315,9 +303,6 @@ class NewProjectDialog(QDialog):
             self.game_image_edit.setText(file_path)
 
     def browse_real_image(self):
-        """
-        実地図画像ファイルを選択するためのファイルダイアログを表示
-        """
         file_path, _ = QFileDialog.getOpenFileName(
             self, tr("select_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
         )
@@ -325,31 +310,71 @@ class NewProjectDialog(QDialog):
             self.real_image_edit.setText(file_path)
 
     def validate_and_accept(self):
-        """
-        入力内容の検証を行い、問題なければ Project オブジェクトを生成してダイアログを閉じる
-        """
         name = self.name_edit.text().strip()
         game_image = self.game_image_edit.text().strip()
         real_image = self.real_image_edit.text().strip()
 
+        # 空欄の場合、ローカライズされたデフォルト名を採用
         if not name:
-            QMessageBox.warning(self, tr("input_error_title"), tr("project_name_required"))
-            return
-        if not game_image:
-            QMessageBox.warning(self, tr("input_error_title"), tr("game_image_required"))
-            return
-        if not real_image:
-            QMessageBox.warning(self, tr("input_error_title"), tr("real_map_image_required"))
-            return
-
-        # Project オブジェクトの生成（保存先は後で決定するため、ここでは省略）
-        self.project = Project(name=name, game_image_path=game_image, real_image_path=real_image)
+            name = tr("default_project_name")
+        # 画像指定は任意（空欄でもOK）
+        # プロジェクト作成は進める
+        self.project = Project(name=name, game_image_path=game_image or None, real_image_path=real_image or None)
+        logger.debug("New project created in dialog: %s", name)
         self.accept()
 
     def get_project(self):
-        """
-        作成された Project オブジェクトを返す
-
-        :return: Project オブジェクト（ダイアログが承認された場合のみ有効）
-        """
         return self.project
+
+# --- プロジェクト選択ダイアログ ---
+class ProjectSelectionDialog(QDialog):
+    """
+    プログラム起動時に、既存プロジェクトを開くか新規プロジェクトを作成するかを選択するダイアログ
+
+    ボタンに応じて、既存プロジェクトのファイル選択ダイアログを呼び出すか、
+    NewProjectDialog を表示して新規プロジェクトを作成します。
+    """
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(tr("project_selection_title"))
+        layout = QVBoxLayout(self)
+        prompt_label = QLabel(tr("project_selection_prompt"), self)
+        layout.addWidget(prompt_label)
+
+        button_box = QDialogButtonBox(self)
+        self.new_button = QPushButton(tr("new_project"), self)
+        self.open_button = QPushButton(tr("open_project"), self)
+        self.cancel_button = QPushButton(tr("cancel"), self)
+        button_box.addButton(self.new_button, QDialogButtonBox.AcceptRole)
+        button_box.addButton(self.open_button, QDialogButtonBox.ActionRole)
+        button_box.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+        layout.addWidget(button_box)
+
+        self.new_button.clicked.connect(self.new_project)
+        self.open_button.clicked.connect(self.open_project)
+        self.cancel_button.clicked.connect(self.reject)
+
+        self.selected_project = None
+
+    def new_project(self):
+        dlg = NewProjectDialog(self)
+        if dlg.exec_() == QDialog.Accepted:
+            self.selected_project = dlg.get_project()
+            self.accept()
+
+    def open_project(self):
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})"
+        )
+        if file_name:
+            try:
+                self.selected_project = Project.load(file_name)
+                self.accept()
+            except Exception as e:
+                QMessageBox.critical(
+                    self, tr("project_open_error_title"),
+                    tr("project_open_error_message").format(error=str(e))
+                )
+
+    def get_project(self):
+        return self.selected_project

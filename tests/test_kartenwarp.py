@@ -83,7 +83,7 @@ def test_save_and_load_project(tmp_path: Path):
     state.real_image_path = "/path/to/real_image.png"
     state.update_game_points([[10, 20], [30, 40]])
     state.update_real_points([[50, 60], [70, 80]])
-    test_file = tmp_path / "test_project.kwproj"
+    test_file = tmp_path / "test_project.kw"
     save_project(state, str(test_file))
     assert test_file.exists()
     loaded = load_project(str(test_file))

@@ -1,3 +1,4 @@
+# src/core.py
 import os
 import json
 import numpy as np
@@ -164,18 +165,18 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
             reg_lambda = 1e-3
         adaptive = config.get("tps/adaptive", False)
 
-        # InteractiveScene.set_image() で state.game_pixmap に入れているなら、こちらも state を参照する
-        if not sceneA.state.game_pixmap:
+        # ここを修正：sceneA.state ではなく、sceneA.project を参照する
+        if not sceneA.project.game_pixmap:
             return None, "ゲーム画像が読み込まれていないか、対応点が不足しています"
 
-        width = sceneA.state.game_pixmap.width()
-        height = sceneA.state.game_pixmap.height()
+        width = sceneA.project.game_pixmap.width()
+        height = sceneA.project.game_pixmap.height()
         output_size = (width, height)
 
-        # sceneB からは state.real_qimage を取り出すなど、両者を合わせる
-        src_qimage = sceneB.state.real_qimage
+        # sceneB も同様に修正
+        src_qimage = sceneB.project.real_qimage
 
-        # ここで TPS 変換を実行
+        # TPS変換実行
         warped_np = perform_transformation(
             dest_points, src_points,
             src_qimage, output_size,
@@ -200,7 +201,6 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
         transform_logger.exception("Error converting transformed image")
         return None, f"Image transformation failed: {str(e)}"
 
-# --- ユーティリティ ---
 def qimage_to_numpy(qimage: QImage) -> np.ndarray:
     logger.debug("Converting QImage to NumPy array")
     qimage = qimage.convertToFormat(QImage.Format_RGB32)

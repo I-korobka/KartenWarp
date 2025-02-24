@@ -1,5 +1,6 @@
 # src/ui/main_window.py
 import os
+import sys
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QFileDialog, QMessageBox, QDialog
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
@@ -9,24 +10,33 @@ from core import perform_tps_transform, export_scene
 from ui.interactive_scene import InteractiveScene
 from ui.interactive_view import ZoomableViewWidget
 from ui.menu_manager import MenuManager
-from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog, NewProjectDialog
+from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog, ProjectSelectionDialog, NewProjectDialog
 from project import Project
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.mode = tr("mode_integrated")
-        self.setWindowTitle(f"{tr('app_title')} - {self.mode}")
+        self.project = None
+
+        # 起動時にプロジェクト選択ダイアログを表示
+        psd = ProjectSelectionDialog(self)
+        if psd.exec_() == QDialog.Accepted:
+            self.project = psd.get_project()
+            if self.project is None:
+                sys.exit(0)
+        else:
+            sys.exit(0)
+
+        # プロジェクト名をウィンドウタイトルに反映
+        self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
         width = config.get("window/default_width", 1600)
         height = config.get("window/default_height", 900)
         self.resize(width, height)
-        
-        # プロジェクトは初期状態では None
-        self.project = None
 
-        # InteractiveScene は初期状態ではプロジェクトなしで生成し、後で設定する
-        self.sceneA = InteractiveScene(project=None, image_type="game")
-        self.sceneB = InteractiveScene(project=None, image_type="real")
+        # InteractiveScene はプロジェクトを渡して生成
+        self.sceneA = InteractiveScene(project=self.project, image_type="game")
+        self.sceneB = InteractiveScene(project=self.project, image_type="real")
         self.sceneA.activated.connect(self.set_active_scene)
         self.sceneB.activated.connect(self.set_active_scene)
         self.viewA = ZoomableViewWidget(self.sceneA)
@@ -39,14 +49,21 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.splitter)
         self.setCentralWidget(self.integrated_widget)
         self.detached_windows = []
-        self.statusBar().showMessage(tr("status_ready"), 3000)
+        self.statusBar().showMessage(tr("status_ready") + f"  [{self.project.name}]", 3000)
         self.menu_manager = MenuManager(self)
         self.menu_manager.create_menus()
         logger.debug("MainWindow initialized")
         self.update_theme()
 
-        if self.project is None:
-            self.statusBar().showMessage(tr("no_project_message"), 3000)
+        # プロジェクト作成時に指定された画像があれば自動で読み込む
+        if self.project.game_image_path and os.path.exists(self.project.game_image_path):
+            pixmap = QPixmap(self.project.game_image_path)
+            qimage = QImage(self.project.game_image_path)
+            self.sceneA.set_image(pixmap, qimage, file_path=self.project.game_image_path)
+        if self.project.real_image_path and os.path.exists(self.project.real_image_path):
+            pixmap = QPixmap(self.project.real_image_path)
+            qimage = QImage(self.project.real_image_path)
+            self.sceneB.set_image(pixmap, qimage, file_path=self.project.real_image_path)
 
     def update_theme(self):
         from themes import get_dark_mode_stylesheet
@@ -56,8 +73,10 @@ class MainWindow(QMainWindow):
             self.setStyleSheet("")
 
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, tr("confirm_exit_title"), tr("confirm_exit_message"),
-                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        reply = QMessageBox.question(
+            self, tr("confirm_exit_title"), tr("confirm_exit_message"),
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No
+        )
         if reply == QMessageBox.Yes:
             logger.info("User confirmed exit. Closing application.")
             event.accept()
@@ -67,14 +86,26 @@ class MainWindow(QMainWindow):
 
     # --- New Project 関連 ---
     def create_new_project(self):
+        # メニューバーからの「新規プロジェクトを作成」は、NewProjectDialog を表示する
         dlg = NewProjectDialog(self)
         if dlg.exec_() == QDialog.Accepted:
             new_proj = dlg.get_project()
             if new_proj:
                 self.project = new_proj
-                # 新規プロジェクトを各シーンに設定
+                # 各シーンにプロジェクトを反映
                 self.sceneA.set_project(new_proj)
                 self.sceneB.set_project(new_proj)
+                # 画像が指定されている場合は自動で読み込む
+                if new_proj.game_image_path and os.path.exists(new_proj.game_image_path):
+                    pixmap = QPixmap(new_proj.game_image_path)
+                    qimage = QImage(new_proj.game_image_path)
+                    self.sceneA.set_image(pixmap, qimage, file_path=new_proj.game_image_path)
+                if new_proj.real_image_path and os.path.exists(new_proj.real_image_path):
+                    pixmap = QPixmap(new_proj.real_image_path)
+                    qimage = QImage(new_proj.real_image_path)
+                    self.sceneB.set_image(pixmap, qimage, file_path=new_proj.real_image_path)
+                # プロジェクト名をウィンドウタイトルに反映
+                self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
                 self.statusBar().showMessage(tr("new_project_created"), 3000)
                 logger.info("New project created: %s", self.project.name)
         else:
@@ -91,12 +122,16 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name, _ = QFileDialog.getOpenFileName(self, tr("load_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, tr("load_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
+        )
         if file_name:
             if self.sceneA.image_loaded:
-                ret = QMessageBox.question(self, tr("confirm_reset_title"),
-                                           tr("confirm_reset").format(image_type=tr("game_image")),
-                                           QMessageBox.Ok | QMessageBox.Cancel)
+                ret = QMessageBox.question(
+                    self, tr("confirm_reset_title"),
+                    tr("confirm_reset").format(image_type=tr("game_image")),
+                    QMessageBox.Ok | QMessageBox.Cancel
+                )
                 if ret != QMessageBox.Ok:
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
                     logger.info("Game image loading cancelled")
@@ -117,12 +152,16 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name, _ = QFileDialog.getOpenFileName(self, tr("load_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, tr("load_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
+        )
         if file_name:
             if self.sceneB.image_loaded:
-                ret = QMessageBox.question(self, tr("confirm_reset_title"),
-                                           tr("confirm_reset").format(image_type=tr("real_map_image")),
-                                           QMessageBox.Ok | QMessageBox.Cancel)
+                ret = QMessageBox.question(
+                    self, tr("confirm_reset_title"),
+                    tr("confirm_reset").format(image_type=tr("real_map_image")),
+                    QMessageBox.Ok | QMessageBox.Cancel
+                )
                 if ret != QMessageBox.Ok:
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
                     logger.info("Real map image loading cancelled")
@@ -143,8 +182,10 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name, _ = QFileDialog.getSaveFileName(self, tr("save_project"), "",
-                                                   f"Project Files (*{config.get('project/extension', '.kw')})")
+        file_name, _ = QFileDialog.getSaveFileName(
+            self, tr("save_project"), "",
+            f"Project Files (*{config.get('project/extension', '.kw')})"
+        )
         if not file_name:
             self.statusBar().showMessage(tr("save_cancelled"), 2000)
             logger.info("Project save cancelled")
@@ -154,13 +195,18 @@ class MainWindow(QMainWindow):
             self.statusBar().showMessage(tr("project_saved").format(filename=file_name), 3000)
             logger.info("Project saved: %s", file_name)
         except Exception as e:
-            QMessageBox.critical(self, tr("save_error_title"), tr("save_error_message").format(error=str(e)))
+            QMessageBox.critical(
+                self, tr("save_error_title"),
+                tr("save_error_message").format(error=str(e))
+            )
             logger.exception("Error saving project")
             self.statusBar().showMessage(tr("save_error_message").format(error=str(e)), 3000)
 
     def load_project(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, tr("load_project"), "",
-                                                   f"Project Files (*{config.get('project/extension', '.kw')})")
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, tr("load_project"), "",
+            f"Project Files (*{config.get('project/extension', '.kw')})"
+        )
         if not file_name:
             self.statusBar().showMessage(tr("load_cancelled"), 2000)
             logger.info("Project load cancelled")
@@ -191,9 +237,13 @@ class MainWindow(QMainWindow):
             else:
                 QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
             self.statusBar().showMessage(tr("project_loaded"), 3000)
+            self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
             logger.info("Project loaded successfully")
         except Exception as e:
-            QMessageBox.critical(self, tr("load_error_title"), tr("load_error_message").format(error=str(e)))
+            QMessageBox.critical(
+                self, tr("load_error_title"),
+                tr("load_error_message").format(error=str(e))
+            )
             logger.exception("Error loading project")
 
     def export_scene_gui(self):
@@ -310,7 +360,7 @@ class MainWindow(QMainWindow):
         winB.show()
         self.detached_windows.extend([winA, winB])
         self.mode = tr("mode_detached")
-        self.setWindowTitle(f"{tr('app_title')} - {self.mode}")
+        self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
         self.statusBar().showMessage(tr("mode_switch_message").format(mode=self.mode), 3000)
         logger.info("Entered detached mode")
 
@@ -328,7 +378,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.integrated_widget)
         self.integrated_widget.update()
         self.mode = tr("mode_integrated")
-        self.setWindowTitle(f"{tr('app_title')} - {self.mode}")
+        self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
         self.statusBar().showMessage(tr("mode_switch_message").format(mode=self.mode), 3000)
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle(tr("mode_switch_title"))

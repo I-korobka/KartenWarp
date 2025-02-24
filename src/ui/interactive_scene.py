@@ -3,7 +3,7 @@ import os
 import ast
 from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsTextItem, QMenu
 from PyQt5.QtGui import QPainterPath, QPen, QBrush, QColor
-from PyQt5.QtCore import QPointF, Qt, pyqtSignal
+from PyQt5.QtCore import QPointF, Qt, pyqtSignal, QTimer
 from app_settings import tr, config
 from logger import logger
 
@@ -337,8 +337,9 @@ class InteractiveScene(QGraphicsScene):
         self.pixmap_item = self.addPixmap(pixmap)
         self.pixmap_item.setAcceptedMouseButtons(Qt.NoButton)
         rect = self.pixmap_item.boundingRect()
-        margin_x = rect.width() * 0.1
-        margin_y = rect.height() * 0.1
+        margin_ratio = config.get("scene/margin_ratio", 0.01)
+        margin_x = rect.width() * margin_ratio
+        margin_y = rect.height() * margin_ratio
         extended_rect = rect.adjusted(-margin_x, -margin_y, margin_x, margin_y)
         self.setSceneRect(extended_rect)
         self.image_loaded = True
@@ -355,6 +356,9 @@ class InteractiveScene(QGraphicsScene):
                 if file_path:
                     self.project.real_image_path = file_path
         if view:
+            view.resetTransform()
+            # 300ms遅延させてから fitInView() を呼ぶことで、ウィンドウのサイズが確定した状態で実行する
+            QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
 
     def get_points(self):
