@@ -32,6 +32,8 @@ class MenuManager:
 
     def _create_file_menu(self, mb):
         file_menu = mb.addMenu(tr("file_menu"))
+        # New Project アクションを先頭に追加
+        file_menu.addAction(create_action(self.main_window, tr("new_project"), self.main_window.new_project_action))
         file_menu.addAction(create_action(self.main_window, tr("load_game_image"), self.main_window.open_image_A))
         file_menu.addAction(create_action(self.main_window, tr("load_real_map_image"), self.main_window.open_image_B))
         file_menu.addSeparator()

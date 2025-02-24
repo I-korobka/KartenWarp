@@ -247,3 +247,109 @@ class ResultWindow(QWidget):
         output_filename = export_scene(self.scene, file_path)
         QMessageBox.information(self, tr("export_success_title"), tr("export_success_message").format(output_filename=output_filename))
         logger.info("Exported scene to %s", output_filename)
+
+from PyQt5.QtWidgets import (
+    QDialog, QVBoxLayout, QFormLayout, QLineEdit, QHBoxLayout, QPushButton,
+    QFileDialog, QMessageBox, QDialogButtonBox
+)
+from app_settings import tr
+from project import Project
+
+class NewProjectDialog(QDialog):
+    """
+    新規プロジェクト作成用ダイアログ
+
+    ユーザーからプロジェクト名、ゲーム画像ファイル、実地図画像ファイルを取得し、
+    入力チェックを行った上で Project オブジェクトを生成します。
+    """
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(tr("new_project_title"))
+        self.project = None
+
+        # メインレイアウトの構築
+        layout = QVBoxLayout(self)
+
+        # 入力フォームの作成
+        form_layout = QFormLayout()
+
+        # プロジェクト名の入力欄
+        self.name_edit = QLineEdit(self)
+        self.name_edit.setText(tr("default_project_name"))  # 例："新規プロジェクト"
+        form_layout.addRow(tr("project_name") + ":", self.name_edit)
+
+        # ゲーム画像ファイルの入力欄とブラウズボタン
+        self.game_image_edit = QLineEdit(self)
+        self.game_image_button = QPushButton(tr("browse"), self)
+        self.game_image_button.clicked.connect(self.browse_game_image)
+        game_layout = QHBoxLayout()
+        game_layout.addWidget(self.game_image_edit)
+        game_layout.addWidget(self.game_image_button)
+        form_layout.addRow(tr("game_image") + ":", game_layout)
+
+        # 実地図画像ファイルの入力欄とブラウズボタン
+        self.real_image_edit = QLineEdit(self)
+        self.real_image_button = QPushButton(tr("browse"), self)
+        self.real_image_button.clicked.connect(self.browse_real_image)
+        real_layout = QHBoxLayout()
+        real_layout.addWidget(self.real_image_edit)
+        real_layout.addWidget(self.real_image_button)
+        form_layout.addRow(tr("real_map_image") + ":", real_layout)
+
+        layout.addLayout(form_layout)
+
+        # OK / Cancel ボタンの作成
+        button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        button_box.accepted.connect(self.validate_and_accept)
+        button_box.rejected.connect(self.reject)
+        layout.addWidget(button_box)
+
+    def browse_game_image(self):
+        """
+        ゲーム画像ファイルを選択するためのファイルダイアログを表示
+        """
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, tr("select_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
+        )
+        if file_path:
+            self.game_image_edit.setText(file_path)
+
+    def browse_real_image(self):
+        """
+        実地図画像ファイルを選択するためのファイルダイアログを表示
+        """
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, tr("select_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
+        )
+        if file_path:
+            self.real_image_edit.setText(file_path)
+
+    def validate_and_accept(self):
+        """
+        入力内容の検証を行い、問題なければ Project オブジェクトを生成してダイアログを閉じる
+        """
+        name = self.name_edit.text().strip()
+        game_image = self.game_image_edit.text().strip()
+        real_image = self.real_image_edit.text().strip()
+
+        if not name:
+            QMessageBox.warning(self, tr("input_error_title"), tr("project_name_required"))
+            return
+        if not game_image:
+            QMessageBox.warning(self, tr("input_error_title"), tr("game_image_required"))
+            return
+        if not real_image:
+            QMessageBox.warning(self, tr("input_error_title"), tr("real_map_image_required"))
+            return
+
+        # Project オブジェクトの生成（保存先は後で決定するため、ここでは省略）
+        self.project = Project(name=name, game_image_path=game_image, real_image_path=real_image)
+        self.accept()
+
+    def get_project(self):
+        """
+        作成された Project オブジェクトを返す
+
+        :return: Project オブジェクト（ダイアログが承認された場合のみ有効）
+        """
+        return self.project

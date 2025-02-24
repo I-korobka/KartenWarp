@@ -10,7 +10,9 @@ from logger import logger
 class DraggablePointItem(QGraphicsEllipseItem):
     def __init__(self, command, *args, **kwargs):
         super().__init__(-3, -3, 6, 6, *args, **kwargs)
-        self.setFlags(QGraphicsEllipseItem.ItemIsMovable | QGraphicsEllipseItem.ItemSendsGeometryChanges | QGraphicsEllipseItem.ItemIsSelectable)
+        self.setFlags(QGraphicsEllipseItem.ItemIsMovable | 
+                      QGraphicsEllipseItem.ItemSendsGeometryChanges | 
+                      QGraphicsEllipseItem.ItemIsSelectable)
         self.setFlag(QGraphicsEllipseItem.ItemIgnoresTransformations, True)
         self.setAcceptHoverEvents(True)
         self.setCursor(Qt.OpenHandCursor)
@@ -73,10 +75,11 @@ class DraggablePointItem(QGraphicsEllipseItem):
 class InteractiveScene(QGraphicsScene):
     activated = pyqtSignal(object)
 
-    def __init__(self, state, image_type="game", parent=None):
+    def __init__(self, project=None, image_type="game", parent=None):
         super().__init__(parent)
         logger.debug("InteractiveScene initialized for %s", image_type)
-        self.state = state
+        # プロジェクトオブジェクト。まだセットされていない場合は None。
+        self.project = project  
         self.image_type = image_type
         self.history_log = []
         self.history_index = -1
@@ -86,6 +89,10 @@ class InteractiveScene(QGraphicsScene):
         self.pixmap_item = None
         self.image_qimage = None
         self.occupied_pixels = {}
+
+    def set_project(self, project):
+        """ 外部から Project オブジェクトを設定する """
+        self.project = project
 
     def drawForeground(self, painter, rect):
         if config.get("display/grid_overlay", False):
@@ -172,7 +179,7 @@ class InteractiveScene(QGraphicsScene):
                     self.occupied_pixels.pop((px, py), None)
                     del self.points_dict[cmd["id"]]
         self.update_indices()
-        self._update_state()
+        self._update_project_state()
 
     def jump_to_history(self, index):
         logger.debug("Jump to history index: %s", index)
@@ -189,6 +196,9 @@ class InteractiveScene(QGraphicsScene):
         self.rebuild_scene()
 
     def add_point(self, pos):
+        if self.project is None:
+            logger.warning("No project set in InteractiveScene. Operation aborted.")
+            return
         from PyQt5.QtCore import QPointF
         px = int(round(pos.x()))
         py = int(round(pos.y()))
@@ -211,6 +221,9 @@ class InteractiveScene(QGraphicsScene):
         self.record_command(command)
 
     def record_move_command(self, command, new_pos):
+        if self.project is None:
+            logger.warning("No project set in InteractiveScene. Operation aborted.")
+            return
         old_pixel = command["pixel"]
         new_px = int(round(new_pos.x()))
         new_py = int(round(new_pos.y()))
@@ -231,6 +244,9 @@ class InteractiveScene(QGraphicsScene):
         self.record_command(move_command)
 
     def record_delete_command(self, command):
+        if self.project is None:
+            logger.warning("No project set in InteractiveScene. Operation aborted.")
+            return
         image_label = tr("game_image") if self.image_type == "game" else tr("real_map_image")
         delete_command = {
             "action": "delete",
@@ -270,16 +286,21 @@ class InteractiveScene(QGraphicsScene):
             if c and "text" in c and c["text"] is not None:
                 c["text"].setPlainText(str(idx))
 
-    def _update_state(self):
+    def _update_project_state(self):
+        """
+        InteractiveScene 内での特徴点情報を Project オブジェクトに反映する
+        """
+        if self.project is None:
+            return
         points = []
         for cmd in self.history_log:
             if cmd["action"] == "add" and cmd["id"] in self.points_dict:
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
         if self.image_type == "game":
-            self.state.update_game_points(points)
+            self.project.game_points = points
         else:
-            self.state.update_real_points(points)
+            self.project.real_points = points
 
     def focusInEvent(self, event):
         self.activated.emit(self)
@@ -322,18 +343,17 @@ class InteractiveScene(QGraphicsScene):
         self.setSceneRect(extended_rect)
         self.image_loaded = True
         self.image_qimage = qimage
-        if self.image_type == "game":
-            self.state.update_game_points([])
-            self.state.game_pixmap = pixmap
-            self.state.game_qimage = qimage
-            if file_path:
-                self.state.game_image_path = file_path
-        else:
-            self.state.update_real_points([])
-            self.state.real_pixmap = pixmap
-            self.state.real_qimage = qimage
-            if file_path:
-                self.state.real_image_path = file_path
+        if self.project is not None:
+            if self.image_type == "game":
+                self.project.game_pixmap = pixmap
+                self.project.game_qimage = qimage
+                if file_path:
+                    self.project.game_image_path = file_path
+            else:
+                self.project.real_pixmap = pixmap
+                self.project.real_qimage = qimage
+                if file_path:
+                    self.project.real_image_path = file_path
         if view:
             view.viewport().setUpdatesEnabled(True)
 
@@ -348,4 +368,4 @@ class InteractiveScene(QGraphicsScene):
         self.history_index = -1
         self.point_id_counter = 0
         self.occupied_pixels.clear()
-        self._update_state()
+        self._update_project_state()

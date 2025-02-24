@@ -5,11 +5,12 @@ from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
 from logger import logger
 from app_settings import config, tr
-from core import SceneState, save_project, load_project, perform_tps_transform, export_scene
+from core import perform_tps_transform, export_scene
 from ui.interactive_scene import InteractiveScene
 from ui.interactive_view import ZoomableViewWidget
 from ui.menu_manager import MenuManager
-from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog
+from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog, NewProjectDialog
+from project import Project
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -19,9 +20,13 @@ class MainWindow(QMainWindow):
         width = config.get("window/default_width", 1600)
         height = config.get("window/default_height", 900)
         self.resize(width, height)
-        self.state = SceneState()
-        self.sceneA = InteractiveScene(self.state, image_type="game")
-        self.sceneB = InteractiveScene(self.state, image_type="real")
+        
+        # プロジェクトは初期状態では None
+        self.project = None
+
+        # InteractiveScene は初期状態ではプロジェクトなしで生成し、後で設定する
+        self.sceneA = InteractiveScene(project=None, image_type="game")
+        self.sceneB = InteractiveScene(project=None, image_type="real")
         self.sceneA.activated.connect(self.set_active_scene)
         self.sceneB.activated.connect(self.set_active_scene)
         self.viewA = ZoomableViewWidget(self.sceneA)
@@ -40,6 +45,9 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow initialized")
         self.update_theme()
 
+        if self.project is None:
+            self.statusBar().showMessage(tr("no_project_message"), 3000)
+
     def update_theme(self):
         from themes import get_dark_mode_stylesheet
         if config.get("display/dark_mode", False):
@@ -48,7 +56,8 @@ class MainWindow(QMainWindow):
             self.setStyleSheet("")
 
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, tr("confirm_exit_title"), tr("confirm_exit_message"), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        reply = QMessageBox.question(self, tr("confirm_exit_title"), tr("confirm_exit_message"),
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             logger.info("User confirmed exit. Closing application.")
             event.accept()
@@ -56,15 +65,38 @@ class MainWindow(QMainWindow):
             logger.info("User canceled exit.")
             event.ignore()
 
-    # File menu actions
+    # --- New Project 関連 ---
+    def create_new_project(self):
+        dlg = NewProjectDialog(self)
+        if dlg.exec_() == QDialog.Accepted:
+            new_proj = dlg.get_project()
+            if new_proj:
+                self.project = new_proj
+                # 新規プロジェクトを各シーンに設定
+                self.sceneA.set_project(new_proj)
+                self.sceneB.set_project(new_proj)
+                self.statusBar().showMessage(tr("new_project_created"), 3000)
+                logger.info("New project created: %s", self.project.name)
+        else:
+            self.statusBar().showMessage(tr("new_project_cancelled"), 3000)
+
+    def new_project_action(self):
+        self.create_new_project()
+
+    # --- ファイルメニュー系 ---
     def exit_application(self):
         self.close()
 
     def open_image_A(self):
+        if self.project is None:
+            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            return
         file_name, _ = QFileDialog.getOpenFileName(self, tr("load_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_name:
             if self.sceneA.image_loaded:
-                ret = QMessageBox.question(self, tr("confirm_reset_title"), tr("confirm_reset").format(image_type=tr("game_image")), QMessageBox.Ok | QMessageBox.Cancel)
+                ret = QMessageBox.question(self, tr("confirm_reset_title"),
+                                           tr("confirm_reset").format(image_type=tr("game_image")),
+                                           QMessageBox.Ok | QMessageBox.Cancel)
                 if ret != QMessageBox.Ok:
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
                     logger.info("Game image loading cancelled")
@@ -76,15 +108,21 @@ class MainWindow(QMainWindow):
                 self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
             self.statusBar().showMessage(tr("status_game_image_loaded"), 3000)
             logger.info("Game image loaded: %s", file_name)
+            self.project.update_game_image(file_name)
         else:
             self.statusBar().showMessage(tr("cancel_loading"), 2000)
             logger.info("Game image loading cancelled")
 
     def open_image_B(self):
+        if self.project is None:
+            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            return
         file_name, _ = QFileDialog.getOpenFileName(self, tr("load_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_name:
             if self.sceneB.image_loaded:
-                ret = QMessageBox.question(self, tr("confirm_reset_title"), tr("confirm_reset").format(image_type=tr("real_map_image")), QMessageBox.Ok | QMessageBox.Cancel)
+                ret = QMessageBox.question(self, tr("confirm_reset_title"),
+                                           tr("confirm_reset").format(image_type=tr("real_map_image")),
+                                           QMessageBox.Ok | QMessageBox.Cancel)
                 if ret != QMessageBox.Ok:
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
                     logger.info("Real map image loading cancelled")
@@ -96,64 +134,72 @@ class MainWindow(QMainWindow):
                 self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
             self.statusBar().showMessage(tr("status_real_map_image_loaded"), 3000)
             logger.info("Real map image loaded: %s", file_name)
+            self.project.update_real_image(file_name)
         else:
             self.statusBar().showMessage(tr("cancel_loading"), 2000)
             logger.info("Real map image loading cancelled")
 
     def save_project(self):
-        file_name, _ = QFileDialog.getSaveFileName(self, tr("save_project"), "", f"Project Files (*{config.get('project/extension', '.kwproj')})")
+        if self.project is None:
+            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            return
+        file_name, _ = QFileDialog.getSaveFileName(self, tr("save_project"), "",
+                                                   f"Project Files (*{config.get('project/extension', '.kw')})")
         if not file_name:
             self.statusBar().showMessage(tr("save_cancelled"), 2000)
             logger.info("Project save cancelled")
             return
-        if not file_name.endswith(config.get("project/extension", ".kwproj")):
-            file_name += config.get("project/extension", ".kwproj")
         try:
-            save_project(self.state, file_name)
+            self.project.save(file_name)
             self.statusBar().showMessage(tr("project_saved").format(filename=file_name), 3000)
             logger.info("Project saved: %s", file_name)
         except Exception as e:
             QMessageBox.critical(self, tr("save_error_title"), tr("save_error_message").format(error=str(e)))
             logger.exception("Error saving project")
-            self.statusBar().showMessage("Error saving project", 3000)
+            self.statusBar().showMessage(tr("save_error_message").format(error=str(e)), 3000)
 
     def load_project(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kwproj')})")
+        file_name, _ = QFileDialog.getOpenFileName(self, tr("load_project"), "",
+                                                   f"Project Files (*{config.get('project/extension', '.kw')})")
         if not file_name:
             self.statusBar().showMessage(tr("load_cancelled"), 2000)
             logger.info("Project load cancelled")
             return
         try:
-            project_data = load_project(file_name)
+            project = Project.load(file_name)
+            self.project = project
+            self.sceneA.set_project(project)
+            self.sceneB.set_project(project)
+            if project.game_image_path and os.path.exists(project.game_image_path):
+                pixmap = QPixmap(project.game_image_path)
+                qimage = QImage(project.game_image_path)
+                self.sceneA.set_image(pixmap, qimage, file_path=project.game_image_path)
+                self.sceneA.clear_points()
+                for p in project.game_points:
+                    from PyQt5.QtCore import QPointF
+                    self.sceneA.add_point(QPointF(p[0], p[1]))
+            else:
+                QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
+            if project.real_image_path and os.path.exists(project.real_image_path):
+                pixmap = QPixmap(project.real_image_path)
+                qimage = QImage(project.real_image_path)
+                self.sceneB.set_image(pixmap, qimage, file_path=project.real_image_path)
+                self.sceneB.clear_points()
+                for p in project.real_points:
+                    from PyQt5.QtCore import QPointF
+                    self.sceneB.add_point(QPointF(p[0], p[1]))
+            else:
+                QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
+            self.statusBar().showMessage(tr("project_loaded"), 3000)
+            logger.info("Project loaded successfully")
         except Exception as e:
             QMessageBox.critical(self, tr("load_error_title"), tr("load_error_message").format(error=str(e)))
-            return
-        game_path = project_data.get("game_image_path")
-        if game_path and os.path.exists(game_path):
-            pixmap = QPixmap(game_path)
-            qimage = QImage(game_path)
-            self.sceneA.set_image(pixmap, qimage, file_path=game_path)
-            self.sceneA.clear_points()
-            for p in project_data.get("game_points", []):
-                from PyQt5.QtCore import QPointF
-                self.sceneA.add_point(QPointF(p[0], p[1]))
-        else:
-            QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
-        real_path = project_data.get("real_image_path")
-        if real_path and os.path.exists(real_path):
-            pixmap = QPixmap(real_path)
-            qimage = QImage(real_path)
-            self.sceneB.set_image(pixmap, qimage, file_path=real_path)
-            self.sceneB.clear_points()
-            for p in project_data.get("real_points", []):
-                from PyQt5.QtCore import QPointF
-                self.sceneB.add_point(QPointF(p[0], p[1]))
-        else:
-            QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
-        self.statusBar().showMessage(tr("project_loaded"), 3000)
-        logger.info("Project loaded successfully")
+            logger.exception("Error loading project")
 
     def export_scene_gui(self):
+        if self.project is None:
+            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            return
         file_path, _ = QFileDialog.getSaveFileName(self, tr("export_select_file"), "", "PNGファイル (*.png)")
         if not file_path:
             self.statusBar().showMessage(tr("export_cancelled"), 3000)
@@ -163,24 +209,23 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(tr("export_success").format(output_filename=output_filename), 3000)
         logger.info("Scene exported: %s", output_filename)
 
-    # Edit menu actions
     def undo_active(self):
-        if hasattr(self, "active_scene") and self.active_scene:
-            self.active_scene.undo()
-            self.statusBar().showMessage(tr("status_undo_executed"), 2000)
-            logger.debug("Undo executed")
-        else:
+        if not hasattr(self, "active_scene") or not self.active_scene:
             self.statusBar().showMessage(tr("error_no_active_scene_message"), 2000)
             logger.warning("Undo requested but no active scene")
+            return
+        self.active_scene.undo()
+        self.statusBar().showMessage(tr("status_undo_executed"), 2000)
+        logger.debug("Undo executed")
 
     def redo_active(self):
-        if hasattr(self, "active_scene") and self.active_scene:
-            self.active_scene.redo()
-            self.statusBar().showMessage(tr("status_redo_executed"), 2000)
-            logger.debug("Redo executed")
-        else:
+        if not hasattr(self, "active_scene") or not self.active_scene:
             self.statusBar().showMessage(tr("error_no_active_scene_message"), 2000)
             logger.warning("Redo requested but no active scene")
+            return
+        self.active_scene.redo()
+        self.statusBar().showMessage(tr("status_redo_executed"), 2000)
+        logger.debug("Redo executed")
 
     def open_history_dialog(self):
         if not hasattr(self, "active_scene") or not self.active_scene:
@@ -199,10 +244,12 @@ class MainWindow(QMainWindow):
             self.update_theme()
             logger.debug("Options dialog accepted and settings updated")
 
-    # Tools menu actions
     def transform_images(self):
-        ptsA = self.state.game_points
-        ptsB = self.state.real_points
+        if self.project is None:
+            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            return
+        ptsA = self.project.game_points
+        ptsB = self.project.real_points
         if len(ptsA) != len(ptsB) or len(ptsA) < 3:
             self.statusBar().showMessage(tr("error_insufficient_points"), 3000)
             logger.warning("Insufficient points for transformation")
