@@ -39,6 +39,7 @@ KartenWarp/
 │   │   └── menu_manager.py
 │   ├── __init__.py         (中身は空)
 │   ├── app_settings.py
+│   ├── common.py
 │   ├── core.py
 │   ├── logger.py
 │   ├── main.py
