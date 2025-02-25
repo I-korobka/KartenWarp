@@ -1,9 +1,10 @@
 # src/app_settings.py
-import json
 import os
 import sys
 import ast
 from datetime import datetime
+import json
+from common import load_json, save_json  # 共通の JSON 関数をインポート
 
 # --- 不変（GUIで変更不可）な設定キーのリスト ---
 IMMUTABLE_KEYS = [
@@ -72,8 +73,7 @@ class Config:
     def load(self):
         if os.path.exists(CONFIG_FILE):
             try:
-                with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-                    self.config = json.load(f)
+                self.config = load_json(CONFIG_FILE)
             except Exception as e:
                 print("Error loading config, using defaults:", e)
                 self.config = DEFAULT_CONFIG.copy()
@@ -85,8 +85,7 @@ class Config:
 
     def save(self):
         try:
-            with open(CONFIG_FILE, "w", encoding="utf-8") as f:
-                json.dump(self.config, f, indent=4, ensure_ascii=False)
+            save_json(CONFIG_FILE, self.config)
         except Exception as e:
             print("Error saving config:", e)
 

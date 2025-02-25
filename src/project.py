@@ -5,15 +5,14 @@ Project モジュール
 このモジュールは、KartenWarp におけるプロジェクト管理機能を提供します。
 プロジェクトは、ゲーム画像・実地図画像、各画像に対する特徴点情報、及び
 その他必要な設定（将来的な拡張用）をまとめたものです。
-
 本改修では、プロジェクト名は保存時にファイル名から決定し、.kw ファイルには
 プロジェクト名を含めません。
 """
 
-import json
 import os
 from app_settings import config
 from logger import logger
+from common import save_json, load_json
 
 DEFAULT_PROJECT_EXTENSION = ".kw"
 CURRENT_PROJECT_VERSION = 1
@@ -59,8 +58,7 @@ class Project:
 
         data = self.to_dict()
         try:
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
+            save_json(file_path, data)
             logger.info("プロジェクトを保存しました: %s", file_path)
             self.file_path = file_path
             # ファイル名からプロジェクト名を決定（拡張子除く）
@@ -74,12 +72,8 @@ class Project:
         """
         辞書データから Project オブジェクトを生成します。
         バージョン管理に応じた変換処理もここで実施できます。
-
-        :param data: プロジェクトの状態を表す辞書
-        :return: Project オブジェクト
         """
         version = data.get("version", 1)
-        # 将来のバージョンアップに伴う変換処理は version に応じてここで行う
         project = cls(
             game_image_path=data.get("game_image_path"),
             real_image_path=data.get("real_image_path")
@@ -96,8 +90,7 @@ class Project:
         読み込んだ後、ファイル名からプロジェクト名を設定します。
         """
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+            data = load_json(file_path)
             project = cls.from_dict(data)
             logger.info("プロジェクトを読み込みました: %s", file_path)
             project.file_path = file_path
