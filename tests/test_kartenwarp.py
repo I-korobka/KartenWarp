@@ -55,7 +55,7 @@ def app_instance(qapp):
     return QApplication.instance() or QApplication([])
 
 # ---------------
-# 1. Core モジュールのテスト（既存テスト）
+# 1. Core モジュールのテスト
 # ---------------
 def test_perform_transformation_valid(app_instance):
     width, height = 100, 100
@@ -78,19 +78,21 @@ def test_perform_transformation_insufficient_points(app_instance):
         perform_transformation(insufficient, insufficient, src_image, output_size, reg_lambda=1e-3, adaptive=False)
 
 def test_save_and_load_project(tmp_path: Path):
-    state = SceneState()
-    state.game_image_path = "/path/to/game_image.png"
-    state.real_image_path = "/path/to/real_image.png"
-    state.update_game_points([[10, 20], [30, 40]])
-    state.update_real_points([[50, 60], [70, 80]])
+    from project import Project
+    project = Project(name="Test Project", game_image_path="/path/to/game_image.png", real_image_path="/path/to/real_image.png")
+    project.add_game_point(10, 20)
+    project.add_game_point(30, 40)
+    project.add_real_point(50, 60)
+    project.add_real_point(70, 80)
     test_file = tmp_path / "test_project.kw"
-    save_project(state, str(test_file))
+    project.save(str(test_file))
     assert test_file.exists()
-    loaded = load_project(str(test_file))
-    assert loaded["game_image_path"] == "/path/to/game_image.png"
-    assert loaded["real_image_path"] == "/path/to/real_image.png"
-    assert loaded["game_points"] == [[10, 20], [30, 40]]
-    assert loaded["real_points"] == [[50, 60], [70, 80]]
+    loaded_project = Project.load(str(test_file))
+    assert loaded_project.name == "Test Project"
+    assert loaded_project.game_image_path == "/path/to/game_image.png"
+    assert loaded_project.real_image_path == "/path/to/real_image.png"
+    assert loaded_project.game_points == [[10, 20], [30, 40]]
+    assert loaded_project.real_points == [[50, 60], [70, 80]]
 
 def test_qimage_to_numpy(app_instance):
     image = QImage(10, 10, QImage.Format_RGB32)
@@ -347,7 +349,7 @@ def test_result_window_export(qtbot, app_instance, tmp_path, monkeypatch):
     os.remove(str(temp_export))
 
 # ---------------
-# 7. MainWindow の追加テスト（既存テストに加えて）
+# 7. MainWindow の追加テスト
 # ---------------
 def test_main_window_title_and_status(qtbot, app_instance):
     main_window = MainWindow()
@@ -370,7 +372,7 @@ def test_main_window_toggle_mode(qtbot, app_instance):
     main_window.close()
 
 # ---------------
-# 8. DetachedWindow のイベントフィルタのテスト（既存テスト）
+# 8. DetachedWindow のイベントフィルタのテスト
 # ---------------
 def test_detached_window_event_filter(qtbot, app_instance):
     main_window = MainWindow()
@@ -386,6 +388,21 @@ def test_detached_window_event_filter(qtbot, app_instance):
     qtbot.keyClick(window, seq[0])
     window.close()
     main_window.close()
+
+# ---------------
+# 9. 更新処理が正しく反映されるか
+# ---------------
+def test_update_project_points(tmp_path: Path):
+    from project import Project
+    project = Project(name="Test Project")
+    # ゲーム側の点を更新
+    new_game_points = [[15, 25], [35, 45]]
+    project.update_game_points(new_game_points)
+    assert project.game_points == new_game_points
+    # 実地図側の点を更新
+    new_real_points = [[55, 65], [75, 85]]
+    project.update_real_points(new_real_points)
+    assert project.real_points == new_real_points
 
 # ---------------
 # 終了処理（必要に応じて）

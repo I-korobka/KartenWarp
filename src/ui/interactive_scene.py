@@ -78,7 +78,6 @@ class InteractiveScene(QGraphicsScene):
     def __init__(self, project=None, image_type="game", parent=None):
         super().__init__(parent)
         logger.debug("InteractiveScene initialized for %s", image_type)
-        # プロジェクトオブジェクト。まだセットされていない場合は None。
         self.project = project  
         self.image_type = image_type
         self.history_log = []
@@ -288,7 +287,8 @@ class InteractiveScene(QGraphicsScene):
 
     def _update_project_state(self):
         """
-        InteractiveScene 内での特徴点情報を Project オブジェクトに反映する
+        InteractiveScene 内での特徴点情報を Project オブジェクトに反映します。
+        Project の更新メソッドを利用して状態を一元管理します。
         """
         if self.project is None:
             return
@@ -298,9 +298,9 @@ class InteractiveScene(QGraphicsScene):
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
         if self.image_type == "game":
-            self.project.game_points = points
+            self.project.update_game_points(points)
         else:
-            self.project.real_points = points
+            self.project.update_real_points(points)
 
     def focusInEvent(self, event):
         self.activated.emit(self)
@@ -322,7 +322,7 @@ class InteractiveScene(QGraphicsScene):
             super().mousePressEvent(event)
 
     def set_image(self, pixmap, qimage, file_path=None):
-        from PyQt5.QtCore import QCoreApplication
+        from PyQt5.QtCore import QCoreApplication, QTimer
         logger.debug("Setting image in scene")
         view = self.views()[0] if self.views() else None
         if view:
@@ -344,32 +344,17 @@ class InteractiveScene(QGraphicsScene):
         self.setSceneRect(extended_rect)
         self.image_loaded = True
         self.image_qimage = qimage
+        # プロジェクトへの画像情報更新（Project のインターフェースを使用）
         if self.project is not None:
             if self.image_type == "game":
-                self.project.game_pixmap = pixmap
-                self.project.game_qimage = qimage
                 if file_path:
-                    self.project.game_image_path = file_path
+                    self.project.update_game_image(file_path)
+                self.project.set_game_image(pixmap, qimage)
             else:
-                self.project.real_pixmap = pixmap
-                self.project.real_qimage = qimage
                 if file_path:
-                    self.project.real_image_path = file_path
+                    self.project.update_real_image(file_path)
+                self.project.set_real_image(pixmap, qimage)
         if view:
             view.resetTransform()
-            # 300ms遅延させてから fitInView() を呼ぶことで、ウィンドウのサイズが確定した状態で実行する
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
-
-    def get_points(self):
-        return [[cmd["pos"].x(), cmd["pos"].y()] for cmd in self.points_dict.values()]
-
-    def clear_points(self):
-        for cmd in list(self.points_dict.values()):
-            self._remove_point_item(cmd)
-        self.points_dict.clear()
-        self.history_log = []
-        self.history_index = -1
-        self.point_id_counter = 0
-        self.occupied_pixels.clear()
-        self._update_project_state()

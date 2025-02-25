@@ -255,7 +255,9 @@ class NewProjectDialog(QDialog):
 
     ユーザーからプロジェクト名、ゲーム画像ファイル、実地図画像ファイルを取得し、
     入力チェック後に Project オブジェクトを生成します。
-    プロジェクト名は初期状態は空欄とし、空欄の場合はローカライズされたデフォルト名を採用します。
+    プロジェクト名が空欄の場合は、ローカライズされたデフォルト名を採用します。
+
+    ※プロジェクトの作成は、project.py の Project クラスのインターフェースを利用します。
     """
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -265,11 +267,9 @@ class NewProjectDialog(QDialog):
         layout = QVBoxLayout(self)
         form_layout = QFormLayout()
 
-        # プロジェクト名（初期状態は空欄）
         self.name_edit = QLineEdit(self)
         form_layout.addRow(tr("project_name") + ":", self.name_edit)
 
-        # ゲーム画像の入力欄とブラウズボタン
         self.game_image_edit = QLineEdit(self)
         self.game_image_button = QPushButton(tr("browse"), self)
         self.game_image_button.clicked.connect(self.browse_game_image)
@@ -278,7 +278,6 @@ class NewProjectDialog(QDialog):
         game_layout.addWidget(self.game_image_button)
         form_layout.addRow(tr("game_image") + ":", game_layout)
 
-        # 実地図画像の入力欄とブラウズボタン
         self.real_image_edit = QLineEdit(self)
         self.real_image_button = QPushButton(tr("browse"), self)
         self.real_image_button.clicked.connect(self.browse_real_image)
@@ -289,7 +288,6 @@ class NewProjectDialog(QDialog):
 
         layout.addLayout(form_layout)
 
-        # OK / Cancel ボタン
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.validate_and_accept)
         button_box.rejected.connect(self.reject)
@@ -314,11 +312,8 @@ class NewProjectDialog(QDialog):
         game_image = self.game_image_edit.text().strip()
         real_image = self.real_image_edit.text().strip()
 
-        # 空欄の場合、ローカライズされたデフォルト名を採用
         if not name:
             name = tr("default_project_name")
-        # 画像指定は任意（空欄でもOK）
-        # プロジェクト作成は進める
         self.project = Project(name=name, game_image_path=game_image or None, real_image_path=real_image or None)
         logger.debug("New project created in dialog: %s", name)
         self.accept()
@@ -326,13 +321,12 @@ class NewProjectDialog(QDialog):
     def get_project(self):
         return self.project
 
-# --- プロジェクト選択ダイアログ ---
 class ProjectSelectionDialog(QDialog):
     """
     プログラム起動時に、既存プロジェクトを開くか新規プロジェクトを作成するかを選択するダイアログ
 
-    ボタンに応じて、既存プロジェクトのファイル選択ダイアログを呼び出すか、
-    NewProjectDialog を表示して新規プロジェクトを作成します。
+    新規プロジェクト作成の場合は NewProjectDialog を、既存プロジェクトの場合は
+    ファイル選択ダイアログを利用して、project.py の Project.load() を呼び出します。
     """
     def __init__(self, parent=None):
         super().__init__(parent)

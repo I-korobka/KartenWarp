@@ -28,13 +28,12 @@ class MainWindow(QMainWindow):
         else:
             sys.exit(0)
 
-        # プロジェクト名をウィンドウタイトルに反映
         self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
         width = config.get("window/default_width", 1600)
         height = config.get("window/default_height", 900)
         self.resize(width, height)
 
-        # InteractiveScene はプロジェクトを渡して生成
+        # InteractiveScene は Project オブジェクトを渡して生成
         self.sceneA = InteractiveScene(project=self.project, image_type="game")
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
         self.sceneA.activated.connect(self.set_active_scene)
@@ -55,7 +54,7 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow initialized")
         self.update_theme()
 
-        # プロジェクト作成時に指定された画像があれば自動で読み込む
+        # 自動画像読み込み（プロジェクトに指定された場合）
         if self.project.game_image_path and os.path.exists(self.project.game_image_path):
             pixmap = QPixmap(self.project.game_image_path)
             qimage = QImage(self.project.game_image_path)
@@ -84,18 +83,14 @@ class MainWindow(QMainWindow):
             logger.info("User canceled exit.")
             event.ignore()
 
-    # --- New Project 関連 ---
     def create_new_project(self):
-        # メニューバーからの「新規プロジェクトを作成」は、NewProjectDialog を表示する
         dlg = NewProjectDialog(self)
         if dlg.exec_() == QDialog.Accepted:
             new_proj = dlg.get_project()
             if new_proj:
                 self.project = new_proj
-                # 各シーンにプロジェクトを反映
                 self.sceneA.set_project(new_proj)
                 self.sceneB.set_project(new_proj)
-                # 画像が指定されている場合は自動で読み込む
                 if new_proj.game_image_path and os.path.exists(new_proj.game_image_path):
                     pixmap = QPixmap(new_proj.game_image_path)
                     qimage = QImage(new_proj.game_image_path)
@@ -104,7 +99,6 @@ class MainWindow(QMainWindow):
                     pixmap = QPixmap(new_proj.real_image_path)
                     qimage = QImage(new_proj.real_image_path)
                     self.sceneB.set_image(pixmap, qimage, file_path=new_proj.real_image_path)
-                # プロジェクト名をウィンドウタイトルに反映
                 self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
                 self.statusBar().showMessage(tr("new_project_created"), 3000)
                 logger.info("New project created: %s", self.project.name)
@@ -114,7 +108,6 @@ class MainWindow(QMainWindow):
     def new_project_action(self):
         self.create_new_project()
 
-    # --- ファイルメニュー系 ---
     def exit_application(self):
         self.close()
 
@@ -143,10 +136,8 @@ class MainWindow(QMainWindow):
                 self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
             self.statusBar().showMessage(tr("status_game_image_loaded"), 3000)
             logger.info("Game image loaded: %s", file_name)
-            self.project.update_game_image(file_name)
         else:
             self.statusBar().showMessage(tr("cancel_loading"), 2000)
-            logger.info("Game image loading cancelled")
 
     def open_image_B(self):
         if self.project is None:
@@ -173,10 +164,8 @@ class MainWindow(QMainWindow):
                 self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
             self.statusBar().showMessage(tr("status_real_map_image_loaded"), 3000)
             logger.info("Real map image loaded: %s", file_name)
-            self.project.update_real_image(file_name)
         else:
             self.statusBar().showMessage(tr("cancel_loading"), 2000)
-            logger.info("Real map image loading cancelled")
 
     def save_project(self):
         if self.project is None:

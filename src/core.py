@@ -1,4 +1,5 @@
 # src/core.py
+
 import os
 import json
 import numpy as np
@@ -29,34 +30,10 @@ class SceneState:
         logger.debug("Updating real points: %s", points)
         self.real_points = points
 
-# --- プロジェクト入出力 ---
-def save_project(state, file_path):
-    logger.debug("Saving project to %s", file_path)
-    try:
-        project_data = {
-            "game_image_path": state.game_image_path,
-            "real_image_path": state.real_image_path,
-            "game_points": state.game_points,
-            "real_points": state.real_points,
-        }
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(project_data, f, indent=4, ensure_ascii=False)
-        logger.info("Project saved successfully: %s", file_path)
-        return True
-    except Exception as e:
-        logger.exception("Error while saving project")
-        raise IOError(f"Error while saving project: {str(e)}")
+# ※プロジェクトの保存／読み込みに関しては、重複していた処理を project.py に統合しました。
+# 以下の save_project, load_project 関数は削除し、プロジェクト永続化は Project クラスの
+# save() / load() メソッドを利用してください。
 
-def load_project(file_path):
-    logger.debug("Loading project from %s", file_path)
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            project_data = json.load(f)
-        logger.info("Project loaded successfully: %s", file_path)
-        return project_data
-    except Exception as e:
-        logger.exception("Error while loading project")
-        raise IOError(f"Error while loading project: {str(e)}")
 
 # --- TPS変換 ---
 def compute_tps_parameters(dest_points: np.ndarray, src_points: np.ndarray, reg_lambda: float = 1e-3, adaptive: bool = False):
@@ -165,7 +142,6 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
             reg_lambda = 1e-3
         adaptive = config.get("tps/adaptive", False)
 
-        # ここを修正：sceneA.state ではなく、sceneA.project を参照する
         if not sceneA.project.game_pixmap:
             return None, "ゲーム画像が読み込まれていないか、対応点が不足しています"
 
@@ -173,10 +149,8 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
         height = sceneA.project.game_pixmap.height()
         output_size = (width, height)
 
-        # sceneB も同様に修正
         src_qimage = sceneB.project.real_qimage
 
-        # TPS変換実行
         warped_np = perform_transformation(
             dest_points, src_points,
             src_qimage, output_size,
