@@ -1,7 +1,7 @@
 # src/ui/main_window.py
 import os
 import sys
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QFileDialog, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QMessageBox, QDialog
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
 from logger import logger
@@ -12,7 +12,7 @@ from ui.interactive_view import ZoomableViewWidget
 from ui.menu_manager import MenuManager
 from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog, ProjectSelectionDialog, NewProjectDialog
 from project import Project
-from common import load_image  # 画像読み込み共通関数をインポート
+from common import load_image, open_file_dialog, save_file_dialog  # 追加：共通ファイルダイアログ関数のインポート
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -34,7 +34,6 @@ class MainWindow(QMainWindow):
         height = config.get("window/default_height", 900)
         self.resize(width, height)
 
-        # InteractiveScene は Project オブジェクトを渡して生成
         self.sceneA = InteractiveScene(project=self.project, image_type="game")
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
         self.sceneA.activated.connect(self.set_active_scene)
@@ -57,7 +56,6 @@ class MainWindow(QMainWindow):
 
         # 自動画像読み込み（プロジェクトに画像パスが指定されている場合）
         if self.project.game_image_path and os.path.exists(self.project.game_image_path):
-            # 事前にプロジェクト内の特徴点を保持
             game_points = self.project.game_points.copy()
             pixmap, qimage = load_image(self.project.game_image_path)
             self.sceneA.set_image(pixmap, qimage, file_path=self.project.game_image_path)
@@ -123,9 +121,7 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name, _ = QFileDialog.getOpenFileName(
-            self, tr("load_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
-        )
+        file_name = open_file_dialog(self, tr("load_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_name:
             if self.sceneA.image_loaded:
                 ret = QMessageBox.question(
@@ -150,9 +146,7 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name, _ = QFileDialog.getOpenFileName(
-            self, tr("load_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
-        )
+        file_name = open_file_dialog(self, tr("load_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_name:
             if self.sceneB.image_loaded:
                 ret = QMessageBox.question(
@@ -177,17 +171,13 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name, _ = QFileDialog.getSaveFileName(
-            self, tr("save_project"), "",
-            f"Project Files (*{config.get('project/extension', '.kw')})"
-        )
+        file_name = save_file_dialog(self, tr("save_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})", config.get("project/extension", ".kw"))
         if not file_name:
             self.statusBar().showMessage(tr("save_cancelled"), 2000)
             logger.info("Project save cancelled")
             return
         try:
             self.project.save(file_name)
-            # 保存に成功したので、ウィンドウタイトルを更新する
             self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
             self.statusBar().showMessage(tr("project_saved").format(filename=file_name), 3000)
             logger.info("Project saved: %s", file_name)
@@ -200,10 +190,7 @@ class MainWindow(QMainWindow):
             self.statusBar().showMessage(tr("save_error_message").format(error=str(e)), 3000)
 
     def load_project(self):
-        file_name, _ = QFileDialog.getOpenFileName(
-            self, tr("load_project"), "",
-            f"Project Files (*{config.get('project/extension', '.kw')})"
-        )
+        file_name = open_file_dialog(self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
         if not file_name:
             self.statusBar().showMessage(tr("load_cancelled"), 2000)
             logger.info("Project load cancelled")
@@ -214,7 +201,6 @@ class MainWindow(QMainWindow):
             self.sceneA.set_project(project)
             self.sceneB.set_project(project)
             
-            # 読み込んだ特徴点リストを事前に保持
             game_points = project.game_points.copy()
             real_points = project.real_points.copy()
             
@@ -252,7 +238,7 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_path, _ = QFileDialog.getSaveFileName(self, tr("export_select_file"), "", "PNGファイル (*.png)")
+        file_path = save_file_dialog(self, tr("export_select_file"), "", "PNGファイル (*.png)", ".png")
         if not file_path:
             self.statusBar().showMessage(tr("export_cancelled"), 3000)
             logger.info("Scene export cancelled")

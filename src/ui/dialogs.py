@@ -11,6 +11,7 @@ from logger import logger
 from core import export_scene
 from project import Project
 from PyQt5.QtWidgets import QShortcut
+from common import open_file_dialog  # 追加：共通ファイルダイアログ関数を利用
 
 class DetachedWindow(QMainWindow):
     def __init__(self, view, title, main_window, parent=None):
@@ -252,10 +253,6 @@ class ResultWindow(QWidget):
 class NewProjectDialog(QDialog):
     """
     新規プロジェクト作成用ダイアログ
-
-    ユーザーからゲーム画像ファイル、実地図画像ファイルを取得し、入力チェック後に
-    Project オブジェクトを生成します。
-    プロジェクト名は保存時にファイル名から決定されるため、ここでは入力しません。
     """
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -265,8 +262,7 @@ class NewProjectDialog(QDialog):
         layout = QVBoxLayout(self)
         form_layout = QFormLayout()
 
-        # プロジェクト名の入力欄は削除
-
+        # ゲーム画像選択
         self.game_image_edit = QLineEdit(self)
         self.game_image_button = QPushButton(tr("browse"), self)
         self.game_image_button.clicked.connect(self.browse_game_image)
@@ -275,6 +271,7 @@ class NewProjectDialog(QDialog):
         game_layout.addWidget(self.game_image_button)
         form_layout.addRow(tr("game_image") + ":", game_layout)
 
+        # 実地図画像選択
         self.real_image_edit = QLineEdit(self)
         self.real_image_button = QPushButton(tr("browse"), self)
         self.real_image_button.clicked.connect(self.browse_real_image)
@@ -289,25 +286,20 @@ class NewProjectDialog(QDialog):
         button_box.accepted.connect(self.validate_and_accept)
         button_box.rejected.connect(self.reject)
         layout.addWidget(button_box)
-
+    
     def browse_game_image(self):
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, tr("select_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
-        )
+        file_path = open_file_dialog(self, tr("select_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_path:
             self.game_image_edit.setText(file_path)
 
     def browse_real_image(self):
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, tr("select_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)"
-        )
+        file_path = open_file_dialog(self, tr("select_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_path:
             self.real_image_edit.setText(file_path)
 
     def validate_and_accept(self):
         game_image = self.game_image_edit.text().strip()
         real_image = self.real_image_edit.text().strip()
-        # プロジェクト名は保存時に決定するので、ここでは Project クラスのコンストラクタ呼び出しのみ
         self.project = Project(
             game_image_path=game_image or None,
             real_image_path=real_image or None
@@ -321,9 +313,6 @@ class NewProjectDialog(QDialog):
 class ProjectSelectionDialog(QDialog):
     """
     プログラム起動時に、既存プロジェクトを開くか新規プロジェクトを作成するかを選択するダイアログ
-
-    新規プロジェクト作成の場合は NewProjectDialog を、既存プロジェクトの場合は
-    ファイル選択ダイアログを利用して、project.py の Project.load() を呼び出します。
     """
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -354,18 +343,14 @@ class ProjectSelectionDialog(QDialog):
             self.accept()
 
     def open_project(self):
-        file_name, _ = QFileDialog.getOpenFileName(
-            self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})"
-        )
+        file_name = open_file_dialog(self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
         if file_name:
             try:
                 self.selected_project = Project.load(file_name)
                 self.accept()
             except Exception as e:
-                QMessageBox.critical(
-                    self, tr("project_open_error_title"),
-                    tr("project_open_error_message").format(error=str(e))
-                )
+                QMessageBox.critical(self, tr("project_open_error_title"),
+                                     tr("project_open_error_message").format(error=str(e)))
 
     def get_project(self):
         return self.selected_project
