@@ -1,5 +1,4 @@
 # src/core.py
-
 import os
 import json
 import numpy as np
@@ -8,6 +7,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 from logger import logger, transform_logger
 from app_settings import config, tr
+from common import qimage_to_numpy  # 共通関数をインポート
 
 # --- データモデル ---
 class SceneState:
@@ -30,10 +30,7 @@ class SceneState:
         logger.debug("Updating real points: %s", points)
         self.real_points = points
 
-# ※プロジェクトの保存／読み込みに関しては、重複していた処理を project.py に統合しました。
-# 以下の save_project, load_project 関数は削除し、プロジェクト永続化は Project クラスの
-# save() / load() メソッドを利用してください。
-
+# ※プロジェクトの保存／読み込みに関しては、project.py に統合済み
 
 # --- TPS変換 ---
 def compute_tps_parameters(dest_points: np.ndarray, src_points: np.ndarray, reg_lambda: float = 1e-3, adaptive: bool = False):
@@ -175,15 +172,6 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
         transform_logger.exception("Error converting transformed image")
         return None, f"Image transformation failed: {str(e)}"
 
-def qimage_to_numpy(qimage: QImage) -> np.ndarray:
-    logger.debug("Converting QImage to NumPy array")
-    qimage = qimage.convertToFormat(QImage.Format_RGB32)
-    width, height = qimage.width(), qimage.height()
-    ptr = qimage.bits()
-    ptr.setsize(height * width * 4)
-    arr = np.array(ptr).reshape(height, width, 4)
-    return arr[..., :3]
-
 def export_scene(scene, path: str) -> str:
     logger.debug("Exporting scene to %s", path)
     rect = scene.sceneRect()
@@ -208,15 +196,3 @@ def export_scene(scene, path: str) -> str:
     image.save(output_filename)
     logger.info("Scene exported as %s", output_filename)
     return output_filename
-
-def create_action(parent, text, triggered_slot, shortcut=None, tooltip=None):
-    from PyQt5.QtWidgets import QAction
-    from PyQt5.QtGui import QKeySequence
-    action = QAction(text, parent)
-    action.setToolTip(tooltip if tooltip is not None else text)
-    if shortcut:
-        if not isinstance(shortcut, QKeySequence):
-            shortcut = QKeySequence(shortcut)
-        action.setShortcut(shortcut)
-    action.triggered.connect(triggered_slot)
-    return action

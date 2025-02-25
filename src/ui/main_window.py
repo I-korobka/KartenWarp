@@ -12,6 +12,7 @@ from ui.interactive_view import ZoomableViewWidget
 from ui.menu_manager import MenuManager
 from ui.dialogs import HistoryDialog, DetachedWindow, ResultWindow, OptionsDialog, ProjectSelectionDialog, NewProjectDialog
 from project import Project
+from common import load_image  # 画像読み込み共通関数をインポート
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -58,8 +59,7 @@ class MainWindow(QMainWindow):
         if self.project.game_image_path and os.path.exists(self.project.game_image_path):
             # 事前にプロジェクト内の特徴点を保持
             game_points = self.project.game_points.copy()
-            pixmap = QPixmap(self.project.game_image_path)
-            qimage = QImage(self.project.game_image_path)
+            pixmap, qimage = load_image(self.project.game_image_path)
             self.sceneA.set_image(pixmap, qimage, file_path=self.project.game_image_path)
             self.sceneA.clear_points()
             for p in game_points:
@@ -67,8 +67,7 @@ class MainWindow(QMainWindow):
                 self.sceneA.add_point(QPointF(p[0], p[1]))
         if self.project.real_image_path and os.path.exists(self.project.real_image_path):
             real_points = self.project.real_points.copy()
-            pixmap = QPixmap(self.project.real_image_path)
-            qimage = QImage(self.project.real_image_path)
+            pixmap, qimage = load_image(self.project.real_image_path)
             self.sceneB.set_image(pixmap, qimage, file_path=self.project.real_image_path)
             self.sceneB.clear_points()
             for p in real_points:
@@ -103,12 +102,10 @@ class MainWindow(QMainWindow):
                 self.sceneA.set_project(new_proj)
                 self.sceneB.set_project(new_proj)
                 if new_proj.game_image_path and os.path.exists(new_proj.game_image_path):
-                    pixmap = QPixmap(new_proj.game_image_path)
-                    qimage = QImage(new_proj.game_image_path)
+                    pixmap, qimage = load_image(new_proj.game_image_path)
                     self.sceneA.set_image(pixmap, qimage, file_path=new_proj.game_image_path)
                 if new_proj.real_image_path and os.path.exists(new_proj.real_image_path):
-                    pixmap = QPixmap(new_proj.real_image_path)
-                    qimage = QImage(new_proj.real_image_path)
+                    pixmap, qimage = load_image(new_proj.real_image_path)
                     self.sceneB.set_image(pixmap, qimage, file_path=new_proj.real_image_path)
                 self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
                 self.statusBar().showMessage(tr("new_project_created"), 3000)
@@ -140,8 +137,7 @@ class MainWindow(QMainWindow):
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
                     logger.info("Game image loading cancelled")
                     return
-            pixmap = QPixmap(file_name)
-            qimage = QImage(file_name)
+            pixmap, qimage = load_image(file_name)
             self.sceneA.set_image(pixmap, qimage, file_path=file_name)
             if self.mode == tr("mode_integrated"):
                 self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
@@ -168,8 +164,7 @@ class MainWindow(QMainWindow):
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
                     logger.info("Real map image loading cancelled")
                     return
-            pixmap = QPixmap(file_name)
-            qimage = QImage(file_name)
+            pixmap, qimage = load_image(file_name)
             self.sceneB.set_image(pixmap, qimage, file_path=file_name)
             if self.mode == tr("mode_integrated"):
                 self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
@@ -224,8 +219,7 @@ class MainWindow(QMainWindow):
             real_points = project.real_points.copy()
             
             if project.game_image_path and os.path.exists(project.game_image_path):
-                pixmap = QPixmap(project.game_image_path)
-                qimage = QImage(project.game_image_path)
+                pixmap, qimage = load_image(project.game_image_path)
                 self.sceneA.set_image(pixmap, qimage, file_path=project.game_image_path)
                 self.sceneA.clear_points()
                 for p in game_points:
@@ -235,8 +229,7 @@ class MainWindow(QMainWindow):
                 QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
             
             if project.real_image_path and os.path.exists(project.real_image_path):
-                pixmap = QPixmap(project.real_image_path)
-                qimage = QImage(project.real_image_path)
+                pixmap, qimage = load_image(project.real_image_path)
                 self.sceneB.set_image(pixmap, qimage, file_path=project.real_image_path)
                 self.sceneB.clear_points()
                 for p in real_points:

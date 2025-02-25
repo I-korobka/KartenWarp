@@ -3,18 +3,7 @@ from PyQt5.QtWidgets import QAction
 from app_settings import tr, config
 from logger import logger
 from PyQt5.QtGui import QKeySequence
-
-def create_action(parent, text, triggered_slot, shortcut=None, tooltip=None):
-    from PyQt5.QtWidgets import QAction
-    from PyQt5.QtGui import QKeySequence
-    action = QAction(text, parent)
-    action.setToolTip(tooltip if tooltip is not None else text)
-    if shortcut:
-        if not isinstance(shortcut, QKeySequence):
-            shortcut = QKeySequence(shortcut)
-        action.setShortcut(shortcut)
-    action.triggered.connect(triggered_slot)
-    return action
+from common import create_action  # ここで共通関数を利用
 
 class MenuManager:
     def __init__(self, main_window):
