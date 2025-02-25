@@ -181,6 +181,8 @@ class MainWindow(QMainWindow):
             return
         try:
             self.project.save(file_name)
+            # 保存に成功したので、ウィンドウタイトルを更新する
+            self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
             self.statusBar().showMessage(tr("project_saved").format(filename=file_name), 3000)
             logger.info("Project saved: %s", file_name)
         except Exception as e:

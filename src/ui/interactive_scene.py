@@ -358,3 +358,20 @@ class InteractiveScene(QGraphicsScene):
             view.resetTransform()
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
+
+    def clear_points(self):
+        """
+        シーン上のすべての特徴点（ポイントに関連するアイテムとコマンド）を削除し、
+        内部の履歴やカウンタをリセットします。画像（pixmap_item）はそのまま保持します。
+        """
+        # 各特徴点に関連するアイテムを削除
+        for cmd in list(self.points_dict.values()):
+            self._remove_point_item(cmd)
+        # 内部状態をリセット
+        self.history_log = []
+        self.history_index = -1
+        self.points_dict.clear()
+        self.point_id_counter = 0
+        self.occupied_pixels.clear()
+        # プロジェクトへの状態反映（空の状態に更新）
+        self._update_project_state()

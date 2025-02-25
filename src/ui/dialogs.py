@@ -253,11 +253,9 @@ class NewProjectDialog(QDialog):
     """
     新規プロジェクト作成用ダイアログ
 
-    ユーザーからプロジェクト名、ゲーム画像ファイル、実地図画像ファイルを取得し、
-    入力チェック後に Project オブジェクトを生成します。
-    プロジェクト名が空欄の場合は、ローカライズされたデフォルト名を採用します。
-
-    ※プロジェクトの作成は、project.py の Project クラスのインターフェースを利用します。
+    ユーザーからゲーム画像ファイル、実地図画像ファイルを取得し、入力チェック後に
+    Project オブジェクトを生成します。
+    プロジェクト名は保存時にファイル名から決定されるため、ここでは入力しません。
     """
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -267,8 +265,7 @@ class NewProjectDialog(QDialog):
         layout = QVBoxLayout(self)
         form_layout = QFormLayout()
 
-        self.name_edit = QLineEdit(self)
-        form_layout.addRow(tr("project_name") + ":", self.name_edit)
+        # プロジェクト名の入力欄は削除
 
         self.game_image_edit = QLineEdit(self)
         self.game_image_button = QPushButton(tr("browse"), self)
@@ -308,14 +305,14 @@ class NewProjectDialog(QDialog):
             self.real_image_edit.setText(file_path)
 
     def validate_and_accept(self):
-        name = self.name_edit.text().strip()
         game_image = self.game_image_edit.text().strip()
         real_image = self.real_image_edit.text().strip()
-
-        if not name:
-            name = tr("default_project_name")
-        self.project = Project(name=name, game_image_path=game_image or None, real_image_path=real_image or None)
-        logger.debug("New project created in dialog: %s", name)
+        # プロジェクト名は保存時に決定するので、ここでは Project クラスのコンストラクタ呼び出しのみ
+        self.project = Project(
+            game_image_path=game_image or None,
+            real_image_path=real_image or None
+        )
+        logger.debug("新規プロジェクトを作成しました（未保存）")
         self.accept()
 
     def get_project(self):
