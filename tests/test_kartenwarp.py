@@ -77,20 +77,21 @@ def test_perform_transformation_insufficient_points(app_instance):
     with pytest.raises(ValueError):
         perform_transformation(insufficient, insufficient, src_image, output_size, reg_lambda=1e-3, adaptive=False)
 
-def test_save_and_load_project(tmp_path: Path):
+def test_project_save_and_load(tmp_path: Path):
+    # 新しい Project インターフェースを利用してプロジェクトを作成
     from project import Project
-    project = Project(name="Test Project", game_image_path="/path/to/game_image.png", real_image_path="/path/to/real_image.png")
-    project.add_game_point(10, 20)
-    project.add_game_point(30, 40)
-    project.add_real_point(50, 60)
-    project.add_real_point(70, 80)
+    project = Project(name="Test Project", game_image_path="/path/to/game.png", real_image_path="/path/to/real.png")
+    # 状態更新も Project のメソッドを利用
+    project.update_game_points([[10, 20], [30, 40]])
+    project.update_real_points([[50, 60], [70, 80]])
     test_file = tmp_path / "test_project.kw"
     project.save(str(test_file))
     assert test_file.exists()
+    
     loaded_project = Project.load(str(test_file))
     assert loaded_project.name == "Test Project"
-    assert loaded_project.game_image_path == "/path/to/game_image.png"
-    assert loaded_project.real_image_path == "/path/to/real_image.png"
+    assert loaded_project.game_image_path == "/path/to/game.png"
+    assert loaded_project.real_image_path == "/path/to/real.png"
     assert loaded_project.game_points == [[10, 20], [30, 40]]
     assert loaded_project.real_points == [[50, 60], [70, 80]]
 
@@ -392,17 +393,32 @@ def test_detached_window_event_filter(qtbot, app_instance):
 # ---------------
 # 9. 更新処理が正しく反映されるか
 # ---------------
-def test_update_project_points(tmp_path: Path):
+def test_project_points_update():
     from project import Project
-    project = Project(name="Test Project")
-    # ゲーム側の点を更新
+    project = Project(name="Points Update Test")
     new_game_points = [[15, 25], [35, 45]]
-    project.update_game_points(new_game_points)
-    assert project.game_points == new_game_points
-    # 実地図側の点を更新
     new_real_points = [[55, 65], [75, 85]]
+    project.update_game_points(new_game_points)
     project.update_real_points(new_real_points)
+    assert project.game_points == new_game_points
     assert project.real_points == new_real_points
+
+def test_project_image_update(tmp_path: Path):
+    # Project クラスの画像更新インターフェースのテスト
+    from project import Project
+    from PyQt5.QtGui import QPixmap, QImage
+    project = Project(name="Image Update Test")
+    # ダミーの画像オブジェクトを生成
+    pixmap = QPixmap(100, 100)
+    qimage = QImage(100, 100, QImage.Format_RGB32)
+    project.set_game_image(pixmap, qimage)
+    project.set_real_image(pixmap, qimage)
+    
+    # 画像オブジェクトが正しく更新されているか確認
+    assert project.game_pixmap is pixmap
+    assert project.game_qimage is qimage
+    assert project.real_pixmap is pixmap
+    assert project.real_qimage is qimage
 
 # ---------------
 # 終了処理（必要に応じて）
