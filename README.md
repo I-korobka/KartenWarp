@@ -42,6 +42,7 @@ KartenWarp/
 │   ├── core.py
 │   ├── logger.py
 │   ├── main.py
+│   ├── project.py
 │   └── themes.py
 ├── temp/                (実行時に生成されるログ・一時ファイルなど)
 │   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
