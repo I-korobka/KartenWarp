@@ -54,15 +54,26 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow initialized")
         self.update_theme()
 
-        # 自動画像読み込み（プロジェクトに指定された場合）
+        # 自動画像読み込み（プロジェクトに画像パスが指定されている場合）
         if self.project.game_image_path and os.path.exists(self.project.game_image_path):
+            # 事前にプロジェクト内の特徴点を保持
+            game_points = self.project.game_points.copy()
             pixmap = QPixmap(self.project.game_image_path)
             qimage = QImage(self.project.game_image_path)
             self.sceneA.set_image(pixmap, qimage, file_path=self.project.game_image_path)
+            self.sceneA.clear_points()
+            for p in game_points:
+                from PyQt5.QtCore import QPointF
+                self.sceneA.add_point(QPointF(p[0], p[1]))
         if self.project.real_image_path and os.path.exists(self.project.real_image_path):
+            real_points = self.project.real_points.copy()
             pixmap = QPixmap(self.project.real_image_path)
             qimage = QImage(self.project.real_image_path)
             self.sceneB.set_image(pixmap, qimage, file_path=self.project.real_image_path)
+            self.sceneB.clear_points()
+            for p in real_points:
+                from PyQt5.QtCore import QPointF
+                self.sceneB.add_point(QPointF(p[0], p[1]))
 
     def update_theme(self):
         from themes import get_dark_mode_stylesheet
@@ -207,26 +218,33 @@ class MainWindow(QMainWindow):
             self.project = project
             self.sceneA.set_project(project)
             self.sceneB.set_project(project)
+            
+            # 読み込んだ特徴点リストを事前に保持
+            game_points = project.game_points.copy()
+            real_points = project.real_points.copy()
+            
             if project.game_image_path and os.path.exists(project.game_image_path):
                 pixmap = QPixmap(project.game_image_path)
                 qimage = QImage(project.game_image_path)
                 self.sceneA.set_image(pixmap, qimage, file_path=project.game_image_path)
                 self.sceneA.clear_points()
-                for p in project.game_points:
+                for p in game_points:
                     from PyQt5.QtCore import QPointF
                     self.sceneA.add_point(QPointF(p[0], p[1]))
             else:
                 QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
+            
             if project.real_image_path and os.path.exists(project.real_image_path):
                 pixmap = QPixmap(project.real_image_path)
                 qimage = QImage(project.real_image_path)
                 self.sceneB.set_image(pixmap, qimage, file_path=project.real_image_path)
                 self.sceneB.clear_points()
-                for p in project.real_points:
+                for p in real_points:
                     from PyQt5.QtCore import QPointF
                     self.sceneB.add_point(QPointF(p[0], p[1]))
             else:
                 QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
+            
             self.statusBar().showMessage(tr("project_loaded"), 3000)
             self.setWindowTitle(f"{tr('app_title')} - {self.project.name} - {self.mode}")
             logger.info("Project loaded successfully")
