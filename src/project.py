@@ -38,14 +38,14 @@ def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
     return QPixmap.fromImage(qimage)
 
 def confirm_migration(old_version: int, target_version: int) -> bool:
-    # QMessageBox を利用して、アップグレード確認ダイアログを表示
-    # ※QApplication が既に起動している前提です
+    from app_settings import tr  # ローカリゼーション関数を利用
+    # ローカライズキー "project_migration_title" と "project_migration_text" を使用する前提です
+    title = tr("project_migration_title")
+    message = tr("project_migration_text").format(old_version=old_version, target_version=target_version)
     reply = QMessageBox.question(
         None,
-        "プロジェクトファイルのアップグレード確認",
-        f"このプロジェクトファイルはバージョン {old_version} です。\n"
-        f"バージョン {target_version} へのアップグレードを行いますか？\n"
-        "アップグレードすると、今後は新しい形式で保存されます。",
+        title,
+        message,
         QMessageBox.Yes | QMessageBox.No
     )
     return reply == QMessageBox.Yes
