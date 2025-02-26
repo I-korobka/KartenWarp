@@ -85,3 +85,6 @@ def save_json(file_path, data):
     except Exception as e:
         logger.exception("Error saving JSON to %s", file_path)
         raise
+
+def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
+    return QPixmap.fromImage(qimage)

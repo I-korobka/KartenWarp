@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         self.mode = tr("mode_integrated")
         self.project = None
 
-        # プロジェクト選択ダイアログ
+        # 起動時にプロジェクト選択ダイアログを表示
         psd = ProjectSelectionDialog(self)
         if psd.exec_() == QDialog.Accepted:
             self.project = psd.get_project()
@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow initialized")
         self.update_theme()
 
-        # 自動画像読み込み（埋め込み画像がある場合）
+        # 既存の埋め込み画像がある場合はシーンに復元
         if not self.project.game_qimage.isNull():
             game_points = self.project.game_points.copy()
             self.sceneA.set_image(self.project.game_pixmap, self.project.game_qimage)
@@ -71,6 +71,7 @@ class MainWindow(QMainWindow):
                 self.sceneB.add_point(QPointF(p[0], p[1]))
 
     def _update_window_title(self):
+        # 未保存状態ならタイトルにアスタリスクを追加
         mod_mark = "*" if self.project and self.project.modified else ""
         self.setWindowTitle(f"{tr('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
 
@@ -81,35 +82,75 @@ class MainWindow(QMainWindow):
         else:
             self.setStyleSheet("")
 
-    def closeEvent(self, event):
-        # 未保存変更がある場合、保存確認ダイアログを表示
+    def prompt_save_current_project(self) -> bool:
+        """
+        現在のプロジェクトに未保存変更がある場合、保存確認ダイアログを表示し、
+        保存する／破棄する／キャンセルするの選択をさせる。
+        キャンセルまたは保存が完了しなかった場合は False を返す。
+        """
         if self.project and self.project.modified:
             ret = QMessageBox.question(
-                self, tr("unsaved_changes_title"), tr("unsaved_changes_message"),
+                self,
+                tr("unsaved_changes_title"),
+                tr("unsaved_changes_switch_message"),
                 QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
                 QMessageBox.Save
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:
-                    # 保存に失敗またはキャンセルされた場合は終了中止
-                    event.ignore()
-                    return
+                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
+                    return False
             elif ret == QMessageBox.Cancel:
-                event.ignore()
-                return
-        reply = QMessageBox.question(
-            self, tr("confirm_exit_title"), tr("confirm_exit_message"),
-            QMessageBox.Yes | QMessageBox.No, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            logger.info("User confirmed exit. Closing application.")
-            event.accept()
-        else:
-            logger.info("User canceled exit.")
-            event.ignore()
+                return False
+        return True
+
+    def load_project(self):
+        # 既存のプロジェクトに未保存変更があれば確認
+        if not self.prompt_save_current_project():
+            return
+
+        file_name = open_file_dialog(self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
+        if not file_name:
+            self.statusBar().showMessage(tr("load_cancelled"), 2000)
+            logger.info("Project load cancelled")
+            return
+        try:
+            project = Project.load(file_name)
+            self.project = project
+            # 新規プロジェクトを読み込む際、各シーンの状態をリセットする
+            self.sceneA.set_project(project)
+            self.sceneB.set_project(project)
+            self.sceneA.clear_points()
+            self.sceneB.clear_points()
+            if not project.game_qimage.isNull():
+                self.sceneA.set_image(project.game_pixmap, project.game_qimage, file_path=project.file_path)
+                for p in project.game_points:
+                    from PyQt5.QtCore import QPointF
+                    self.sceneA.add_point(QPointF(p[0], p[1]))
+            else:
+                QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
+            if not project.real_qimage.isNull():
+                self.sceneB.set_image(project.real_pixmap, project.real_qimage, file_path=project.file_path)
+                for p in project.real_points:
+                    from PyQt5.QtCore import QPointF
+                    self.sceneB.add_point(QPointF(p[0], p[1]))
+            else:
+                QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
+            self.statusBar().showMessage(tr("project_loaded"), 3000)
+            self._update_window_title()
+            logger.info("Project loaded successfully")
+        except Exception as e:
+            QMessageBox.critical(
+                self, tr("load_error_title"),
+                tr("load_error_message").format(error=str(e))
+            )
+            logger.exception("Error loading project")
 
     def create_new_project(self):
+        # 既存のプロジェクトに未保存変更があれば確認
+        if not self.prompt_save_current_project():
+            return
+
         dlg = NewProjectDialog(self)
         if dlg.exec_() == QDialog.Accepted:
             new_proj = dlg.get_project()
@@ -117,6 +158,9 @@ class MainWindow(QMainWindow):
                 self.project = new_proj
                 self.sceneA.set_project(new_proj)
                 self.sceneB.set_project(new_proj)
+                # 新規プロジェクト作成時はシーンをクリアする
+                self.sceneA.clear_points()
+                self.sceneB.clear_points()
                 if new_proj.game_image_path and os.path.exists(new_proj.game_image_path):
                     pixmap, qimage = load_image(new_proj.game_image_path)
                     self.sceneA.set_image(pixmap, qimage, file_path=new_proj.game_image_path)
