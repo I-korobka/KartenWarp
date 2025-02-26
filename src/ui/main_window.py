@@ -36,8 +36,8 @@ class MainWindow(QMainWindow):
 
         self.sceneA = InteractiveScene(project=self.project, image_type="game")
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
-        self.sceneA.activated.connect(self.set_active_scene)
-        self.sceneB.activated.connect(self.set_active_scene)
+        self.sceneA.projectModified.connect(self._update_window_title)
+        self.sceneB.projectModified.connect(self._update_window_title)
         self.viewA = ZoomableViewWidget(self.sceneA)
         self.viewB = ZoomableViewWidget(self.sceneB)
         self.splitter = QSplitter(Qt.Horizontal)
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
                 self.sceneB.add_point(QPointF(p[0], p[1]))
 
     def _update_window_title(self):
-        # 未保存状態ならタイトルにアスタリスクを追加
+        # プロジェクトが未保存変更ならタイトルに "*" を追加
         mod_mark = "*" if self.project and self.project.modified else ""
         self.setWindowTitle(f"{tr('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
 
@@ -288,8 +288,8 @@ class MainWindow(QMainWindow):
             real_points = project.real_points.copy()
             
             if project.game_image_data and project.game_qimage and not project.game_qimage.isNull():
-                pixmap, qimage = load_image(project.file_path) if project.game_image_path and os.path.exists(project.game_image_path) else (project.game_pixmap, project.game_qimage)
-                self.sceneA.set_image(pixmap, qimage, file_path=project.file_path)
+                # 画像は埋め込みデータから取得する
+                self.sceneA.set_image(project.game_pixmap, project.game_qimage, file_path=file_name)
                 self.sceneA.clear_points()
                 for p in game_points:
                     from PyQt5.QtCore import QPointF
@@ -298,8 +298,7 @@ class MainWindow(QMainWindow):
                 QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
             
             if project.real_image_data and project.real_qimage and not project.real_qimage.isNull():
-                pixmap, qimage = load_image(project.file_path) if project.real_image_path and os.path.exists(project.real_image_path) else (project.real_pixmap, project.real_qimage)
-                self.sceneB.set_image(pixmap, qimage, file_path=project.file_path)
+                self.sceneB.set_image(project.real_pixmap, project.real_qimage, file_path=file_name)
                 self.sceneB.clear_points()
                 for p in real_points:
                     from PyQt5.QtCore import QPointF

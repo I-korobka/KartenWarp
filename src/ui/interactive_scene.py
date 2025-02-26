@@ -73,7 +73,8 @@ class DraggablePointItem(QGraphicsEllipseItem):
         event.accept()
 
 class InteractiveScene(QGraphicsScene):
-    activated = pyqtSignal(object)
+    activated = pyqtSignal(object)  # ここでシグナルを定義
+    projectModified = pyqtSignal()
 
     def __init__(self, project=None, image_type="game", parent=None):
         super().__init__(parent)
@@ -88,6 +89,21 @@ class InteractiveScene(QGraphicsScene):
         self.pixmap_item = None
         self.image_qimage = None
         self.occupied_pixels = {}
+
+    def _update_project_state(self):
+        if self.project is None:
+            return
+        points = []
+        for cmd in self.history_log:
+            if cmd["action"] == "add" and cmd["id"] in self.points_dict:
+                pt = self.points_dict[cmd["id"]]["pos"]
+                points.append([pt.x(), pt.y()])
+        if self.image_type == "game":
+            self.project.update_game_points(points)
+        else:
+            self.project.update_real_points(points)
+        # プロジェクトの更新後にシグナルを発行
+        self.projectModified.emit()
 
     def set_project(self, project):
         """ 外部から Project オブジェクトを設定する """
