@@ -253,6 +253,7 @@ class ResultWindow(QWidget):
 class NewProjectDialog(QDialog):
     """
     新規プロジェクト作成用ダイアログ
+    ※プロジェクト作成時には、ゲーム画像と実地図画像の両方の選択が必須となります。
     """
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -300,10 +301,13 @@ class NewProjectDialog(QDialog):
     def validate_and_accept(self):
         game_image = self.game_image_edit.text().strip()
         real_image = self.real_image_edit.text().strip()
-        self.project = Project(
-            game_image_path=game_image or None,
-            real_image_path=real_image or None
-        )
+        if not game_image or not real_image:
+            QMessageBox.critical(self, tr("input_error_title"), tr("error_missing_images"))
+            return
+        project = Project()
+        project.update_game_image(game_image)
+        project.update_real_image(real_image)
+        self.project = project
         logger.debug("新規プロジェクトを作成しました（未保存）")
         self.accept()
 

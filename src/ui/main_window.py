@@ -54,19 +54,19 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow initialized")
         self.update_theme()
 
-        # 自動画像読み込み（プロジェクトに画像パスが指定されている場合）
-        if self.project.game_image_path and os.path.exists(self.project.game_image_path):
+        # 自動画像読み込み：埋め込み画像データから復元済みの場合
+        if not self.project.game_qimage.isNull():
             game_points = self.project.game_points.copy()
-            pixmap, qimage = load_image(self.project.game_image_path)
-            self.sceneA.set_image(pixmap, qimage, file_path=self.project.game_image_path)
+            # 既に Project.from_dict() 内で load_embedded_images() を実施しているので
+            # game_qimage と game_pixmap が正しく復元されているはずです
+            self.sceneA.set_image(self.project.game_pixmap, self.project.game_qimage)
             self.sceneA.clear_points()
             for p in game_points:
                 from PyQt5.QtCore import QPointF
                 self.sceneA.add_point(QPointF(p[0], p[1]))
-        if self.project.real_image_path and os.path.exists(self.project.real_image_path):
+        if not self.project.real_qimage.isNull():
             real_points = self.project.real_points.copy()
-            pixmap, qimage = load_image(self.project.real_image_path)
-            self.sceneB.set_image(pixmap, qimage, file_path=self.project.real_image_path)
+            self.sceneB.set_image(self.project.real_pixmap, self.project.real_qimage)
             self.sceneB.clear_points()
             for p in real_points:
                 from PyQt5.QtCore import QPointF
