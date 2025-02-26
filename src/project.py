@@ -5,8 +5,8 @@ Project モジュール
 このモジュールは、KartenWarp におけるプロジェクト管理機能を提供します。
 プロジェクトは、ゲーム画像・実地図画像、各画像に対する特徴点情報、及び
 その他必要な設定（将来的な拡張用）をまとめたものです。
-本改修では、プロジェクト名は保存時にファイル名から決定し、.kw ファイルには
-プロジェクト名を含めません。
+本改修では、プロジェクトファイルに保存されるバージョン情報を実際に活用し、
+古いバージョンのファイルから最新のフォーマットへ自動マイグレーションを実施します。
 """
 
 import os
@@ -16,6 +16,32 @@ from common import save_json, load_json
 
 DEFAULT_PROJECT_EXTENSION = ".kw"
 CURRENT_PROJECT_VERSION = 1
+
+def upgrade_project_data(data: dict, from_version: int) -> dict:
+    """
+    プロジェクトデータを from_version から from_version+1 へアップグレードします。
+    今回はサンプルとして、単にバージョン番号を上げるのみですが、フィールドの変換処理など
+    必要に応じたアップグレード処理をここに実装してください。
+    """
+    logger.info("アップグレード処理開始：バージョン %d → %d", from_version, from_version + 1)
+    upgraded_data = data.copy()
+    # ※ここに実際の変換処理が必要な場合は実装してください。
+    upgraded_data["version"] = from_version + 1
+    return upgraded_data
+
+def migrate_project_data(data: dict) -> dict:
+    """
+    プロジェクトデータを CURRENT_PROJECT_VERSION に合わせてマイグレーションします。
+    ・読み込んだファイルのバージョンが古い場合は順次アップグレード処理を行います。
+    ・ファイルのバージョンが本プログラムの CURRENT_PROJECT_VERSION より新しい場合はエラーを発生させます。
+    """
+    file_version = data.get("version", 1)
+    if file_version > CURRENT_PROJECT_VERSION:
+        raise ValueError(f"プロジェクトファイルのバージョン {file_version} はサポート対象のバージョン {CURRENT_PROJECT_VERSION} より新しいため、読み込めません。")
+    while file_version < CURRENT_PROJECT_VERSION:
+        data = upgrade_project_data(data, file_version)
+        file_version = data.get("version", file_version + 1)
+    return data
 
 class Project:
     def __init__(self, game_image_path=None, real_image_path=None):
@@ -71,9 +97,13 @@ class Project:
     def from_dict(cls, data):
         """
         辞書データから Project オブジェクトを生成します。
-        バージョン管理に応じた変換処理もここで実施できます。
+        バージョン管理に応じた変換処理もここで実施します。
         """
-        version = data.get("version", 1)
+        try:
+            data = migrate_project_data(data)
+        except Exception as e:
+            logger.exception("プロジェクトデータのマイグレーションに失敗しました")
+            raise IOError("プロジェクトデータのマイグレーションに失敗しました: " + str(e))
         project = cls(
             game_image_path=data.get("game_image_path"),
             real_image_path=data.get("real_image_path")
