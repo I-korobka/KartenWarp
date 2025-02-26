@@ -1,17 +1,8 @@
 # src/project.py
-"""
-Project モジュール
--------------------
-このモジュールは、KartenWarp におけるプロジェクト管理機能を提供します。
-プロジェクトは、ゲーム画像・実地図画像、各画像に対する特徴点情報、及び
-その他必要な設定（将来的な拡張用）をまとめたものです。
-本改修では、プロジェクトファイルに画像データを直接埋め込む形式に変更し、
-バージョンを2に更新、後方互換性のためのマイグレーション処理も実装します。
-"""
-
 import os
 import base64
 from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QMessageBox, QApplication
 from app_settings import config
 from logger import logger
 from common import save_json, load_json
@@ -21,7 +12,6 @@ DEFAULT_PROJECT_EXTENSION = ".kw"
 CURRENT_PROJECT_VERSION = 2
 
 def image_to_base64(qimage: QImage) -> str:
-    """ QImage を PNG 形式でエンコードし、Base64 文字列として返す """
     if qimage is None or qimage.isNull():
         return ""
     buffer = QBuffer()
@@ -33,7 +23,6 @@ def image_to_base64(qimage: QImage) -> str:
     return base64_str
 
 def base64_to_qimage(b64_string: str) -> QImage:
-    """ Base64 文字列から QImage を復元する """
     if not b64_string:
         return QImage()
     try:
@@ -46,34 +35,44 @@ def base64_to_qimage(b64_string: str) -> QImage:
         return QImage()
 
 def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
-    """ QImage から QPixmap に変換する """
     return QPixmap.fromImage(qimage)
 
+def confirm_migration(old_version: int, target_version: int) -> bool:
+    # QMessageBox を利用して、アップグレード確認ダイアログを表示
+    # ※QApplication が既に起動している前提です
+    reply = QMessageBox.question(
+        None,
+        "プロジェクトファイルのアップグレード確認",
+        f"このプロジェクトファイルはバージョン {old_version} です。\n"
+        f"バージョン {target_version} へのアップグレードを行いますか？\n"
+        "アップグレードすると、今後は新しい形式で保存されます。",
+        QMessageBox.Yes | QMessageBox.No
+    )
+    return reply == QMessageBox.Yes
+
 def upgrade_project_data(data: dict, from_version: int) -> dict:
-    """
-    バージョン1のプロジェクトファイルから、画像ファイルパスを読み込み、
-    埋め込み画像データへ変換するマイグレーション処理を実施。
-    """
     logger.info("アップグレード処理開始：バージョン %d → %d", from_version, from_version + 1)
     upgraded_data = data.copy()
     if from_version == 1:
+        # ユーザーに確認を取る
+        if not confirm_migration(1, 2):
+            raise IOError("ユーザーがアップグレードを拒否しました。")
         game_path = data.get("game_image_path", "")
         real_path = data.get("real_image_path", "")
         game_image_data = ""
         real_image_data = ""
         if game_path and os.path.exists(game_path):
             from common import load_image
-            pixmap, qimage = load_image(game_path)
+            _, qimage = load_image(game_path)
             game_image_data = image_to_base64(qimage)
         else:
             logger.warning("ゲーム画像パスが無効または存在しません: %s", game_path)
         if real_path and os.path.exists(real_path):
             from common import load_image
-            pixmap, qimage = load_image(real_path)
+            _, qimage = load_image(real_path)
             real_image_data = image_to_base64(qimage)
         else:
             logger.warning("実地図画像パスが無効または存在しません: %s", real_path)
-        # 不要なパス情報は削除し、画像データを埋め込む
         upgraded_data.pop("game_image_path", None)
         upgraded_data.pop("real_image_path", None)
         upgraded_data["game_image_data"] = game_image_data
@@ -84,9 +83,6 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
     return upgraded_data
 
 def migrate_project_data(data: dict) -> dict:
-    """
-    読み込んだプロジェクトデータのバージョンを CURRENT_PROJECT_VERSION に合わせてマイグレーションする。
-    """
     file_version = data.get("version", 1)
     if file_version > CURRENT_PROJECT_VERSION:
         raise ValueError(f"プロジェクトファイルのバージョン {file_version} はサポート対象のバージョン {CURRENT_PROJECT_VERSION} より新しいため、読み込めません。")
@@ -97,22 +93,19 @@ def migrate_project_data(data: dict) -> dict:
 
 class Project:
     def __init__(self, game_image_data=None, real_image_data=None):
-        # 新規プロジェクトは名前をユーザー入力せず、初期状態は "未保存" とする
         self.name = "未保存"
-        self.file_path = None  # 保存前は None
-        self.game_image_data = game_image_data  # Base64 文字列
-        self.real_image_data = real_image_data  # Base64 文字列
-        self.game_points = []  # ゲーム画像上の特徴点リスト
-        self.real_points = []  # 実地図画像上の特徴点リスト
-        self.settings = {}     # 将来的な拡張用設定
-        # UI 用の画像オブジェクト
+        self.file_path = None
+        self.game_image_data = game_image_data
+        self.real_image_data = real_image_data
+        self.game_points = []
+        self.real_points = []
+        self.settings = {}
         self.game_qimage = QImage()
         self.real_qimage = QImage()
         self.game_pixmap = QPixmap()
         self.real_pixmap = QPixmap()
 
     def load_embedded_images(self):
-        """ 埋め込まれた画像データから QImage, QPixmap を復元する """
         if self.game_image_data:
             self.game_qimage = base64_to_qimage(self.game_image_data)
             self.game_pixmap = qimage_to_qpixmap(self.game_qimage)
@@ -121,10 +114,6 @@ class Project:
             self.real_pixmap = qimage_to_qpixmap(self.real_qimage)
 
     def to_dict(self):
-        """
-        プロジェクトの状態を辞書形式に変換する。
-        画像は埋め込みデータとして保存する。
-        """
         data = {
             "version": CURRENT_PROJECT_VERSION,
             "game_image_data": self.game_image_data if self.game_image_data else image_to_base64(self.game_qimage),
@@ -136,10 +125,6 @@ class Project:
         return data
 
     def save(self, file_path):
-        """
-        プロジェクトを指定したファイルに保存する。
-        ファイル名に拡張子が付いていない場合は自動付与し、ファイル名からプロジェクト名を決定する。
-        """
         if not file_path.endswith(DEFAULT_PROJECT_EXTENSION):
             file_path += DEFAULT_PROJECT_EXTENSION
 
@@ -155,9 +140,6 @@ class Project:
 
     @classmethod
     def from_dict(cls, data):
-        """
-        辞書データから Project オブジェクトを生成する。必要に応じたマイグレーション処理を実施する。
-        """
         try:
             data = migrate_project_data(data)
         except Exception as e:
@@ -175,9 +157,6 @@ class Project:
 
     @classmethod
     def load(cls, file_path):
-        """
-        指定したファイルからプロジェクトを読み込み、Project オブジェクトとして返す。
-        """
         try:
             data = load_json(file_path)
             project = cls.from_dict(data)
@@ -203,20 +182,16 @@ class Project:
         logger.debug("全ての特徴点をクリアしました")
 
     def update_game_image(self, file_path):
-        """
-        新たな画像パスから画像を読み込み、埋め込みデータを更新する。
-        ※新規プロジェクトでは必ず画像が読み込まれるため、この関数を利用する。
-        """
-        from common import load_image
-        pixmap, qimage = load_image(file_path)
+        from common import load_image, qimage_to_qpixmap
+        _, qimage = load_image(file_path)
         self.game_qimage = qimage
         self.game_pixmap = qimage_to_qpixmap(qimage)
         self.game_image_data = image_to_base64(qimage)
         logger.debug("ゲーム画像を更新しました（埋め込み）")
 
     def update_real_image(self, file_path):
-        from common import load_image
-        pixmap, qimage = load_image(file_path)
+        from common import load_image, qimage_to_qpixmap
+        _, qimage = load_image(file_path)
         self.real_qimage = qimage
         self.real_pixmap = qimage_to_qpixmap(qimage)
         self.real_image_data = image_to_base64(qimage)
