@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QAction
 from app_settings import tr, config
 from logger import logger
 from PyQt5.QtGui import QKeySequence
-from common import create_action  # ここで共通関数を利用
+from common import create_action
 
 class MenuManager:
     def __init__(self, main_window):
@@ -21,12 +21,14 @@ class MenuManager:
 
     def _create_file_menu(self, mb):
         file_menu = mb.addMenu(tr("file_menu"))
-        # New Project アクションを先頭に追加
+        # 新規プロジェクト
         file_menu.addAction(create_action(self.main_window, tr("new_project"), self.main_window.new_project_action))
         file_menu.addAction(create_action(self.main_window, tr("load_game_image"), self.main_window.open_image_A))
         file_menu.addAction(create_action(self.main_window, tr("load_real_map_image"), self.main_window.open_image_B))
         file_menu.addSeparator()
+        # 上書き保存と名前を付けて保存の2つのアクション
         file_menu.addAction(create_action(self.main_window, tr("save_project"), self.main_window.save_project, tooltip=tr("save_project_tooltip")))
+        file_menu.addAction(create_action(self.main_window, tr("save_project_as"), self.main_window.save_project_as, tooltip=tr("save_project_as_tooltip")))
         file_menu.addAction(create_action(self.main_window, tr("load_project"), self.main_window.load_project, tooltip=tr("load_project_tooltip")))
         file_menu.addSeparator()
         file_menu.addAction(create_action(self.main_window, tr("export_scene"), self.main_window.export_scene_gui, tooltip=tr("export_scene")))

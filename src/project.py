@@ -3,7 +3,7 @@ import os
 import base64
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox, QApplication
-from app_settings import config
+from app_settings import config, tr
 from logger import logger
 from common import save_json, load_json
 from PyQt5.QtCore import QBuffer
@@ -39,7 +39,6 @@ def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
 
 def confirm_migration(old_version: int, target_version: int) -> bool:
     from app_settings import tr  # ローカリゼーション関数を利用
-    # ローカライズキー "project_migration_title" と "project_migration_text" を使用する前提です
     title = tr("project_migration_title")
     message = tr("project_migration_text").format(old_version=old_version, target_version=target_version)
     reply = QMessageBox.question(
@@ -54,7 +53,6 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
     logger.info("アップグレード処理開始：バージョン %d → %d", from_version, from_version + 1)
     upgraded_data = data.copy()
     if from_version == 1:
-        # ユーザーに確認を取る
         if not confirm_migration(1, 2):
             raise IOError("ユーザーがアップグレードを拒否しました。")
         game_path = data.get("game_image_path", "")
@@ -93,7 +91,7 @@ def migrate_project_data(data: dict) -> dict:
 
 class Project:
     def __init__(self, game_image_data=None, real_image_data=None):
-        self.name = "未保存"
+        self.name = tr("unsaved_project")  # ローカリゼーションキー "unsaved_project" 例：「未保存」
         self.file_path = None
         self.game_image_data = game_image_data
         self.real_image_data = real_image_data
@@ -104,6 +102,7 @@ class Project:
         self.real_qimage = QImage()
         self.game_pixmap = QPixmap()
         self.real_pixmap = QPixmap()
+        self.modified = True  # 新規プロジェクトは常に未保存状態
 
     def load_embedded_images(self):
         if self.game_image_data:
@@ -112,6 +111,7 @@ class Project:
         if self.real_image_data:
             self.real_qimage = base64_to_qimage(self.real_image_data)
             self.real_pixmap = qimage_to_qpixmap(self.real_qimage)
+        self.modified = False  # 読み込み後は保存済み状態
 
     def to_dict(self):
         data = {
@@ -134,9 +134,10 @@ class Project:
             logger.info("プロジェクトを保存しました: %s", file_path)
             self.file_path = file_path
             self.name = os.path.splitext(os.path.basename(file_path))[0]
+            self.modified = False
         except Exception as e:
             logger.exception("プロジェクト保存エラー")
-            raise IOError("プロジェクトの保存に失敗しました: " + str(e))
+            raise IOError(tr("project_save_failed").format(error=str(e)))  # ローカリゼーションキー
 
     @classmethod
     def from_dict(cls, data):
@@ -144,7 +145,7 @@ class Project:
             data = migrate_project_data(data)
         except Exception as e:
             logger.exception("プロジェクトデータのマイグレーションに失敗しました")
-            raise IOError("プロジェクトデータのマイグレーションに失敗しました: " + str(e))
+            raise IOError(tr("project_migration_failed").format(error=str(e)))
         project = cls(
             game_image_data=data.get("game_image_data", ""),
             real_image_data=data.get("real_image_data", "")
@@ -163,23 +164,27 @@ class Project:
             logger.info("プロジェクトを読み込みました: %s", file_path)
             project.file_path = file_path
             project.name = os.path.splitext(os.path.basename(file_path))[0]
+            project.modified = False
             return project
         except Exception as e:
             logger.exception("プロジェクト読み込みエラー")
-            raise IOError("プロジェクトの読み込みに失敗しました: " + str(e))
+            raise IOError(tr("project_load_failed").format(error=str(e)))
 
     def add_game_point(self, x, y):
         self.game_points.append([x, y])
         logger.debug("ゲーム画像の特徴点を追加: (%s, %s)", x, y)
+        self.modified = True
 
     def add_real_point(self, x, y):
         self.real_points.append([x, y])
         logger.debug("実地図画像の特徴点を追加: (%s, %s)", x, y)
+        self.modified = True
 
     def clear_points(self):
         self.game_points.clear()
         self.real_points.clear()
         logger.debug("全ての特徴点をクリアしました")
+        self.modified = True
 
     def update_game_image(self, file_path):
         from common import load_image, qimage_to_qpixmap
@@ -188,6 +193,7 @@ class Project:
         self.game_pixmap = qimage_to_qpixmap(qimage)
         self.game_image_data = image_to_base64(qimage)
         logger.debug("ゲーム画像を更新しました（埋め込み）")
+        self.modified = True
 
     def update_real_image(self, file_path):
         from common import load_image, qimage_to_qpixmap
@@ -196,23 +202,28 @@ class Project:
         self.real_pixmap = qimage_to_qpixmap(qimage)
         self.real_image_data = image_to_base64(qimage)
         logger.debug("実地図画像を更新しました（埋め込み）")
+        self.modified = True
 
     def update_game_points(self, points):
         self.game_points = points
         logger.debug("ゲーム画像の特徴点を更新しました: %s", points)
+        self.modified = True
 
     def update_real_points(self, points):
         self.real_points = points
         logger.debug("実地図画像の特徴点を更新しました: %s", points)
+        self.modified = True
 
     def set_game_image(self, pixmap, qimage):
         self.game_pixmap = pixmap
         self.game_qimage = qimage
         self.game_image_data = image_to_base64(qimage)
         logger.debug("ゲーム画像オブジェクトを更新しました（埋め込み）")
+        self.modified = True
 
     def set_real_image(self, pixmap, qimage):
         self.real_pixmap = pixmap
         self.real_qimage = qimage
         self.real_image_data = image_to_base64(qimage)
         logger.debug("実地図画像オブジェクトを更新しました（埋め込み）")
+        self.modified = True
