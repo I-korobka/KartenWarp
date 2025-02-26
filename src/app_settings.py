@@ -1,10 +1,9 @@
-# src/app_settings.py
 import os
 import sys
 import ast
 from datetime import datetime
 import json
-from common import load_json, save_json  # 共通の JSON 関数をインポート
+from common import load_json, save_json  # 絶対インポートに変更
 
 # --- 不変（GUIで変更不可）な設定キーのリスト ---
 IMMUTABLE_KEYS = [
@@ -15,7 +14,7 @@ IMMUTABLE_KEYS = [
 DEFAULT_CONFIG = {
     "window": {"default_width": 1600, "default_height": 900},
     "export": {"base_filename": "exported_scene", "extension": ".png"},
-    "project": {"extension": ".kw"},  # ユーザーが変更できない部分はデフォルト値に固定
+    "project": {"extension": ".kw"},
     "language": "ja",
     "display": {"dark_mode": False, "grid_overlay": False},
     "keybindings": {"undo": "Ctrl+Z", "redo": "Ctrl+Y", "toggle_mode": "F5"},
@@ -26,10 +25,6 @@ DEFAULT_CONFIG = {
 }
 
 def enforce_immutable_defaults(user_config, default_config, immutable_keys):
-    """
-    user_config のうち、immutable_keys に該当する部分を default_config の値に上書きする。
-    変更があれば True を返す。
-    """
     changed = False
     for key_path in immutable_keys:
         keys = key_path.split("/")
@@ -61,10 +56,8 @@ def get_user_config_dir():
     os.makedirs(config_dir, exist_ok=True)
     return config_dir
 
-# ユーザー設定ファイルのパス
 CONFIG_FILE = os.path.join(get_user_config_dir(), "config.json")
 
-# --- Config クラス ---
 class Config:
     def __init__(self):
         self.config = DEFAULT_CONFIG.copy()
@@ -79,7 +72,6 @@ class Config:
                 self.config = DEFAULT_CONFIG.copy()
         else:
             self.config = DEFAULT_CONFIG.copy()
-        # 不変キーの部分をデフォルト値に上書き
         if enforce_immutable_defaults(self.config, DEFAULT_CONFIG, IMMUTABLE_KEYS):
             self.save()
 
@@ -111,7 +103,6 @@ class Config:
         d[keys[-1]] = value
         self.save()
 
-# グローバルな設定インスタンス
 config = Config()
 
 # --- ローカライズ管理 ---

@@ -1,5 +1,4 @@
-# 二箇所以上で利用が予想されるような処理は、なるべくすべてここで定義するように。
-
+# src/common.py
 import json
 import os
 from PyQt5.QtWidgets import QAction, QFileDialog
@@ -61,3 +60,28 @@ def save_file_dialog(parent, title, directory="", file_filter="All Files (*)", d
     if file_path and default_extension and not file_path.lower().endswith(default_extension.lower()):
         file_path += default_extension
     return file_path
+
+def load_json(file_path):
+    """
+    指定されたファイルパスから JSON を読み込み、その内容を返します。
+    """
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        logger.debug("JSON loaded from %s", file_path)
+        return data
+    except Exception as e:
+        logger.exception("Error loading JSON from %s", file_path)
+        raise
+
+def save_json(file_path, data):
+    """
+    指定されたファイルパスに data を JSON として保存します。
+    """
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        logger.debug("JSON saved to %s", file_path)
+    except Exception as e:
+        logger.exception("Error saving JSON to %s", file_path)
+        raise
