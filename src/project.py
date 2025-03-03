@@ -204,26 +204,37 @@ class Project:
         logger.debug("実地図画像を更新しました（埋め込み）")
         self.modified = True
 
-    def update_game_points(self, points):
-        self.game_points = points
-        logger.debug("ゲーム画像の特徴点を更新しました: %s", points)
-        self.modified = True
+    def update_game_points(self, points, update_modified=True):
+        # 既存のポイントと新しいポイントが同じなら変更なしとする
+        if self.game_points != points:
+            self.game_points = points
+            logger.debug("ゲーム画像の特徴点を更新しました: %s", points)
+            if update_modified:
+                self.modified = True
+        else:
+            logger.debug("ゲーム画像の特徴点に変更はありません")
 
-    def update_real_points(self, points):
-        self.real_points = points
-        logger.debug("実地図画像の特徴点を更新しました: %s", points)
-        self.modified = True
+    def update_real_points(self, points, update_modified=True):
+        if self.real_points != points:
+            self.real_points = points
+            logger.debug("実地図画像の特徴点を更新しました: %s", points)
+            if update_modified:
+                self.modified = True
+        else:
+            logger.debug("実地図画像の特徴点に変更はありません")
 
-    def set_game_image(self, pixmap, qimage):
+    def set_game_image(self, pixmap, qimage, update_modified=True):
         self.game_pixmap = pixmap
         self.game_qimage = qimage
         self.game_image_data = image_to_base64(qimage)
         logger.debug("ゲーム画像オブジェクトを更新しました（埋め込み）")
-        self.modified = True
+        if update_modified:
+            self.modified = True
 
-    def set_real_image(self, pixmap, qimage):
+    def set_real_image(self, pixmap, qimage, update_modified=True):
         self.real_pixmap = pixmap
         self.real_qimage = qimage
         self.real_image_data = image_to_base64(qimage)
         logger.debug("実地図画像オブジェクトを更新しました（埋め込み）")
-        self.modified = True
+        if update_modified:
+            self.modified = True

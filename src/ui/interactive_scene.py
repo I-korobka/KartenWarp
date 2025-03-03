@@ -73,7 +73,7 @@ class DraggablePointItem(QGraphicsEllipseItem):
         event.accept()
 
 class InteractiveScene(QGraphicsScene):
-    activated = pyqtSignal(object)  # ここでシグナルを定義
+    activated = pyqtSignal(object)
     projectModified = pyqtSignal()
 
     def __init__(self, project=None, image_type="game", parent=None):
@@ -89,6 +89,7 @@ class InteractiveScene(QGraphicsScene):
         self.pixmap_item = None
         self.image_qimage = None
         self.occupied_pixels = {}
+        self._loading = False  # 追加：読み込み中フラグ
 
     def _update_project_state(self):
         if self.project is None:
@@ -98,11 +99,12 @@ class InteractiveScene(QGraphicsScene):
             if cmd["action"] == "add" and cmd["id"] in self.points_dict:
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
+        # 読み込み中なら update_modified=False、通常操作なら True
+        update_flag = not self._loading
         if self.image_type == "game":
-            self.project.update_game_points(points)
+            self.project.update_game_points(points, update_modified=update_flag)
         else:
-            self.project.update_real_points(points)
-        # プロジェクトの更新後にシグナルを発行
+            self.project.update_real_points(points, update_modified=update_flag)
         self.projectModified.emit()
 
     def set_project(self, project):
@@ -301,23 +303,6 @@ class InteractiveScene(QGraphicsScene):
             if c and "text" in c and c["text"] is not None:
                 c["text"].setPlainText(str(idx))
 
-    def _update_project_state(self):
-        """
-        InteractiveScene 内での特徴点情報を Project オブジェクトに反映します。
-        Project の更新メソッドを利用して状態を一元管理します。
-        """
-        if self.project is None:
-            return
-        points = []
-        for cmd in self.history_log:
-            if cmd["action"] == "add" and cmd["id"] in self.points_dict:
-                pt = self.points_dict[cmd["id"]]["pos"]
-                points.append([pt.x(), pt.y()])
-        if self.image_type == "game":
-            self.project.update_game_points(points)
-        else:
-            self.project.update_real_points(points)
-
     def focusInEvent(self, event):
         self.activated.emit(self)
         super().focusInEvent(event)
@@ -337,7 +322,7 @@ class InteractiveScene(QGraphicsScene):
         else:
             super().mousePressEvent(event)
 
-    def set_image(self, pixmap, qimage, file_path=None):
+    def set_image(self, pixmap, qimage, file_path=None, update_modified=True):
         from PyQt5.QtCore import QCoreApplication, QTimer
         logger.debug("Setting image in scene")
         view = self.views()[0] if self.views() else None
@@ -365,29 +350,22 @@ class InteractiveScene(QGraphicsScene):
             if self.image_type == "game":
                 if file_path:
                     self.project.update_game_image(file_path)
-                self.project.set_game_image(pixmap, qimage)
+                self.project.set_game_image(pixmap, qimage, update_modified)
             else:
                 if file_path:
                     self.project.update_real_image(file_path)
-                self.project.set_real_image(pixmap, qimage)
+                self.project.set_real_image(pixmap, qimage, update_modified)
         if view:
             view.resetTransform()
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
 
     def clear_points(self):
-        """
-        シーン上のすべての特徴点（ポイントに関連するアイテムとコマンド）を削除し、
-        内部の履歴やカウンタをリセットします。画像（pixmap_item）はそのまま保持します。
-        """
-        # 各特徴点に関連するアイテムを削除
         for cmd in list(self.points_dict.values()):
             self._remove_point_item(cmd)
-        # 内部状態をリセット
         self.history_log = []
         self.history_index = -1
         self.points_dict.clear()
         self.point_id_counter = 0
         self.occupied_pixels.clear()
-        # プロジェクトへの状態反映（空の状態に更新）
         self._update_project_state()
