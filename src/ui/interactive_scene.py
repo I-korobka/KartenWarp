@@ -345,7 +345,7 @@ class InteractiveScene(QGraphicsScene):
         self.setSceneRect(extended_rect)
         self.image_loaded = True
         self.image_qimage = qimage
-        # プロジェクトへの画像情報更新（Project のインターフェースを使用）
+        # プロジェクトへの画像情報更新
         if self.project is not None:
             if self.image_type == "game":
                 if file_path:
@@ -357,6 +357,7 @@ class InteractiveScene(QGraphicsScene):
                 self.project.set_real_image(pixmap, qimage, update_modified)
         if view:
             view.resetTransform()
+            # 画像をビュー内にフィットさせる（アスペクト比を維持）
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
 

@@ -74,6 +74,22 @@ class MainWindow(QMainWindow):
         self.project.modified = False
         self._update_window_title()
 
+    def switch_project(self, new_project):
+        """
+        現在のプロジェクトを新しいプロジェクトに切り替える。
+        既存のシーン・ビューは破棄し、新たに生成してレイアウトに再配置する。
+        """
+        logger.info("Switching project from [%s] to [%s]", self.project.name, new_project.name)
+        self.project = new_project
+        # 統合ウィジェットから古いウィジェットを除去し、削除する
+        if hasattr(self, "integrated_widget"):
+            self.integrated_widget.setParent(None)
+            self.integrated_widget.deleteLater()
+        # 新しいシーン・ビューを初期化
+        self._init_scenes_and_views()
+        self.statusBar().showMessage(tr("project_loaded"), 3000)
+        logger.info("Project switched successfully to [%s]", self.project.name)
+
     def resizeEvent(self, event):
         """ ウィンドウサイズ変更時に、QSplitter の左右の枠を常に均等にする """
         super().resizeEvent(event)
@@ -368,15 +384,18 @@ class MainWindow(QMainWindow):
         logger.info("Entered detached mode")
 
     def _enter_integrated_mode(self):
+        from PyQt5.QtCore import QTimer
         for win in self.detached_windows:
             widget = win.forceClose()
             widget.setParent(self.splitter)
             self.splitter.addWidget(widget)
             widget.show()
-            if widget == self.viewA and self.sceneA.image_loaded:
-                self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
-            elif widget == self.viewB and self.sceneB.image_loaded:
-                self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
+            if widget == self.viewA and self.sceneA.image_loaded and self.sceneA.pixmap_item:
+                rect = self.sceneA.pixmap_item.boundingRect()
+                QTimer.singleShot(100, lambda r=rect, w=widget.view: w.fitInView(r, Qt.KeepAspectRatio))
+            elif widget == self.viewB and self.sceneB.image_loaded and self.sceneB.pixmap_item:
+                rect = self.sceneB.pixmap_item.boundingRect()
+                QTimer.singleShot(100, lambda r=rect, w=widget.view: w.fitInView(r, Qt.KeepAspectRatio))
         self.detached_windows = []
         self.setCentralWidget(self.integrated_widget)
         self.integrated_widget.update()
