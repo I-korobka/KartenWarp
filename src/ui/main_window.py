@@ -45,9 +45,11 @@ class MainWindow(QMainWindow):
         self.update_theme()
 
     def _init_scenes_and_views(self):
-        # 新規に InteractiveScene と ZoomableViewWidget を生成し、統合ウィジェットに配置する
         self.sceneA = InteractiveScene(project=self.project, image_type="game")
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
+        # ★ここでシグナルを再接続
+        self.sceneA.projectModified.connect(self._update_window_title)
+        self.sceneB.projectModified.connect(self._update_window_title)
         self.viewA = ZoomableViewWidget(self.sceneA)
         self.viewB = ZoomableViewWidget(self.sceneB)
         self.splitter = QSplitter(Qt.Horizontal)
