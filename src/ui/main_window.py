@@ -3,7 +3,7 @@ import os
 import sys
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QMessageBox, QDialog
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QPointF
 from logger import logger
 from app_settings import config, tr
 from core import perform_tps_transform, export_scene
@@ -34,10 +34,20 @@ class MainWindow(QMainWindow):
         height = config.get("window/default_height", 900)
         self.resize(width, height)
 
+        # 初回プロジェクト読み込み時はシーン・ビューを生成
+        self._init_scenes_and_views()
+
+        self.detached_windows = []
+        self.statusBar().showMessage(tr("status_ready").format(project=self.project.name), 3000)
+        self.menu_manager = MenuManager(self)
+        self.menu_manager.create_menus()
+        logger.debug("MainWindow initialized")
+        self.update_theme()
+
+    def _init_scenes_and_views(self):
+        # 新規に InteractiveScene と ZoomableViewWidget を生成し、統合ウィジェットに配置する
         self.sceneA = InteractiveScene(project=self.project, image_type="game")
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
-        self.sceneA.projectModified.connect(self._update_window_title)
-        self.sceneB.projectModified.connect(self._update_window_title)
         self.viewA = ZoomableViewWidget(self.sceneA)
         self.viewB = ZoomableViewWidget(self.sceneB)
         self.splitter = QSplitter(Qt.Horizontal)
@@ -47,34 +57,36 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(self.integrated_widget)
         layout.addWidget(self.splitter)
         self.setCentralWidget(self.integrated_widget)
-        self.detached_windows = []
-        self.statusBar().showMessage(tr("status_ready").format(project=self.project.name), 3000)
-        self.menu_manager = MenuManager(self)
-        self.menu_manager.create_menus()
-        logger.debug("MainWindow initialized")
-        self.update_theme()
-
+        # 画像・特徴点の初期表示（存在する場合）※自動スケーリングは行わず1:1にする
         if not self.project.game_qimage.isNull():
-            game_points = self.project.game_points.copy()
-            self.sceneA._loading = True
             self.sceneA.set_image(self.project.game_pixmap, self.project.game_qimage, update_modified=False)
-            self.sceneA.clear_points()
-            for p in game_points:
-                from PyQt5.QtCore import QPointF
+            for p in self.project.game_points:
                 self.sceneA.add_point(QPointF(p[0], p[1]))
-            self.sceneA._loading = False
         if not self.project.real_qimage.isNull():
-            real_points = self.project.real_points.copy()
-            self.sceneB._loading = True
             self.sceneB.set_image(self.project.real_pixmap, self.project.real_qimage, update_modified=False)
-            self.sceneB.clear_points()
-            for p in real_points:
-                from PyQt5.QtCore import QPointF
+            for p in self.project.real_points:
                 self.sceneB.add_point(QPointF(p[0], p[1]))
-            self.sceneB._loading = False
+        self.project.modified = False
+        # 各ビューは 1:1 表示となるようにリセット
+        self.viewA.view.resetTransform()
+        self.viewB.view.resetTransform()
+        self._update_window_title()
+
+    def switch_project(self, new_project):
+        """
+        現在のプロジェクトを新しいプロジェクトに切り替える。
+        既存のシーン・ビューは破棄し、新たに生成してレイアウトに再配置する。
+        """
+        logger.info("Switching project from [%s] to [%s]", self.project.name, new_project.name)
+        self.project = new_project
+        if hasattr(self, "integrated_widget"):
+            self.integrated_widget.setParent(None)
+            self.integrated_widget.deleteLater()
+        self._init_scenes_and_views()
+        self.statusBar().showMessage(tr("project_loaded"), 3000)
+        logger.info("Project switched successfully to [%s]", self.project.name)
 
     def _update_window_title(self):
-        # プロジェクトが未保存変更ならタイトルに "*" を追加
         mod_mark = "*" if self.project and self.project.modified else ""
         self.setWindowTitle(f"{tr('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
 
@@ -86,11 +98,6 @@ class MainWindow(QMainWindow):
             self.setStyleSheet("")
 
     def prompt_save_current_project(self) -> bool:
-        """
-        現在のプロジェクトに未保存変更がある場合、保存確認ダイアログを表示し、
-        保存する／破棄する／キャンセルするの選択をさせる。
-        キャンセルまたは保存が完了しなかった場合は False を返す。
-        """
         if self.project and self.project.modified:
             ret = QMessageBox.question(
                 self,
@@ -101,7 +108,7 @@ class MainWindow(QMainWindow):
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
+                if self.project.modified:
                     return False
             elif ret == QMessageBox.Cancel:
                 return False
@@ -117,82 +124,9 @@ class MainWindow(QMainWindow):
             logger.info("Project load cancelled")
             return
         try:
-            project = Project.load(file_name)
-            self.project = project
-            # 新規プロジェクト読み込み時は各シーンを復元する前に _loading をオンにする
-            self.sceneA._loading = True
-            self.sceneB._loading = True
-
-            self.sceneA.set_project(project)
-            self.sceneB.set_project(project)
-            self.sceneA.clear_points()
-            self.sceneB.clear_points()
-            if not project.game_qimage.isNull():
-                game_points = project.game_points.copy()
-                # 読み込み時は update_modified=False
-                self.sceneA.set_image(project.game_pixmap, project.game_qimage, update_modified=False)
-                self.sceneA.clear_points()
-                for p in game_points:
-                    from PyQt5.QtCore import QPointF
-                    self.sceneA.add_point(QPointF(p[0], p[1]))
-            else:
-                QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
-            if not project.real_qimage.isNull():
-                real_points = project.real_points.copy()
-                self.sceneB.set_image(project.real_pixmap, project.real_qimage, update_modified=False)
-                self.sceneB.clear_points()
-                for p in real_points:
-                    from PyQt5.QtCore import QPointF
-                    self.sceneB.add_point(QPointF(p[0], p[1]))
-            else:
-                QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
-            # 読み込み完了後、読み込みフラグをオフにし、保存済み状態にする
-            self.sceneA._loading = False
-            self.sceneB._loading = False
-            self.project.modified = False
-            self.statusBar().showMessage(tr("project_loaded"), 3000)
-            self._update_window_title()
-            logger.info("Project loaded successfully")
-        except Exception as e:
-            QMessageBox.critical(
-                self, tr("load_error_title"),
-                tr("load_error_message").format(error=str(e))
-            )
-            logger.exception("Error loading project")
-
-    # もし重複定義がある場合も、同様に修正（file_path を渡さない）
-    def load_project_alternative(self):
-        file_name = open_file_dialog(self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
-        if not file_name:
-            self.statusBar().showMessage(tr("load_cancelled"), 2000)
-            logger.info("Project load cancelled")
-            return
-        try:
-            project = Project.load(file_name)
-            self.project = project
-            self.sceneA.set_project(project)
-            self.sceneB.set_project(project)
-            game_points = project.game_points.copy()
-            real_points = project.real_points.copy()
-            if project.game_image_data and project.game_qimage and not project.game_qimage.isNull():
-                self.sceneA.set_image(project.game_pixmap, project.game_qimage)
-                self.sceneA.clear_points()
-                for p in game_points:
-                    from PyQt5.QtCore import QPointF
-                    self.sceneA.add_point(QPointF(p[0], p[1]))
-            else:
-                QMessageBox.warning(self, tr("load_error_title"), tr("game_image_missing"))
-            if project.real_image_data and project.real_qimage and not project.real_qimage.isNull():
-                self.sceneB.set_image(project.real_pixmap, project.real_qimage)
-                self.sceneB.clear_points()
-                for p in real_points:
-                    from PyQt5.QtCore import QPointF
-                    self.sceneB.add_point(QPointF(p[0], p[1]))
-            else:
-                QMessageBox.warning(self, tr("load_error_title"), tr("real_image_missing"))
-            self.statusBar().showMessage(tr("project_loaded"), 3000)
-            self._update_window_title()
-            logger.info("Project loaded successfully")
+            new_project = Project.load(file_name)
+            self.switch_project(new_project)
+            logger.info("Project loaded successfully from %s", file_name)
         except Exception as e:
             QMessageBox.critical(
                 self, tr("load_error_title"),
@@ -201,7 +135,6 @@ class MainWindow(QMainWindow):
             logger.exception("Error loading project")
 
     def create_new_project(self):
-        # 既存のプロジェクトに未保存変更があれば確認
         if not self.prompt_save_current_project():
             return
 
@@ -209,20 +142,7 @@ class MainWindow(QMainWindow):
         if dlg.exec_() == QDialog.Accepted:
             new_proj = dlg.get_project()
             if new_proj:
-                self.project = new_proj
-                self.sceneA.set_project(new_proj)
-                self.sceneB.set_project(new_proj)
-                # 新規プロジェクト作成時はシーンをクリアする
-                self.sceneA.clear_points()
-                self.sceneB.clear_points()
-                if new_proj.game_image_path and os.path.exists(new_proj.game_image_path):
-                    pixmap, qimage = load_image(new_proj.game_image_path)
-                    self.sceneA.set_image(pixmap, qimage)
-                if new_proj.real_image_path and os.path.exists(new_proj.real_image_path):
-                    pixmap, qimage = load_image(new_proj.real_image_path)
-                    self.sceneB.set_image(pixmap, qimage)
-                self._update_window_title()
-                self.statusBar().showMessage(tr("new_project_created"), 3000)
+                self.switch_project(new_proj)
                 logger.info("New project created: %s", self.project.name)
         else:
             self.statusBar().showMessage(tr("new_project_cancelled"), 3000)
@@ -251,8 +171,8 @@ class MainWindow(QMainWindow):
                     return
             pixmap, qimage = load_image(file_name)
             self.sceneA.set_image(pixmap, qimage, file_path=file_name)
-            if self.mode == tr("mode_integrated"):
-                self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
+            # 1:1 表示にするため、fitInView の代わりに resetTransform()
+            self.viewA.view.resetTransform()
             self.statusBar().showMessage(tr("status_game_image_loaded"), 3000)
             logger.info("Game image loaded: %s", file_name)
         else:
@@ -276,8 +196,7 @@ class MainWindow(QMainWindow):
                     return
             pixmap, qimage = load_image(file_name)
             self.sceneB.set_image(pixmap, qimage, file_path=file_name)
-            if self.mode == tr("mode_integrated"):
-                self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
+            self.viewB.view.resetTransform()
             self.statusBar().showMessage(tr("status_real_map_image_loaded"), 3000)
             logger.info("Real map image loaded: %s", file_name)
         else:
@@ -450,10 +369,11 @@ class MainWindow(QMainWindow):
             widget.setParent(self.splitter)
             self.splitter.addWidget(widget)
             widget.show()
+            # 1:1 表示にするため、resetTransform() を呼び出す
             if widget == self.viewA and self.sceneA.image_loaded:
-                self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
+                self.viewA.view.resetTransform()
             elif widget == self.viewB and self.sceneB.image_loaded:
-                self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
+                self.viewB.view.resetTransform()
         self.detached_windows = []
         self.setCentralWidget(self.integrated_widget)
         self.integrated_widget.update()
@@ -510,7 +430,6 @@ class MainWindow(QMainWindow):
         QMessageBox.about(self, tr("about"), tr("about_text"))
         logger.debug("About dialog shown")
 
-    # 【追加】ウィンドウ終了時に未保存変更があれば確認する処理を実装
     def closeEvent(self, event):
         if self.project and self.project.modified:
             ret = QMessageBox.question(
@@ -522,7 +441,7 @@ class MainWindow(QMainWindow):
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
+                if self.project.modified:
                     event.ignore()
                     return
             elif ret == QMessageBox.Cancel:

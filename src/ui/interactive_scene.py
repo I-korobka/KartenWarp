@@ -99,7 +99,6 @@ class InteractiveScene(QGraphicsScene):
             if cmd["action"] == "add" and cmd["id"] in self.points_dict:
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
-        # 読み込み中なら update_modified=False、通常操作なら True
         update_flag = not self._loading
         if self.image_type == "game":
             self.project.update_game_points(points, update_modified=update_flag)
@@ -108,7 +107,6 @@ class InteractiveScene(QGraphicsScene):
         self.projectModified.emit()
 
     def set_project(self, project):
-        """ 外部から Project オブジェクトを設定する """
         self.project = project
 
     def drawForeground(self, painter, rect):
@@ -323,7 +321,7 @@ class InteractiveScene(QGraphicsScene):
             super().mousePressEvent(event)
 
     def set_image(self, pixmap, qimage, file_path=None, update_modified=True):
-        from PyQt5.QtCore import QCoreApplication, QTimer
+        from PyQt5.QtCore import QCoreApplication
         logger.debug("Setting image in scene")
         view = self.views()[0] if self.views() else None
         if view:
@@ -345,7 +343,6 @@ class InteractiveScene(QGraphicsScene):
         self.setSceneRect(extended_rect)
         self.image_loaded = True
         self.image_qimage = qimage
-        # プロジェクトへの画像情報更新（Project のインターフェースを使用）
         if self.project is not None:
             if self.image_type == "game":
                 if file_path:
@@ -356,8 +353,7 @@ class InteractiveScene(QGraphicsScene):
                     self.project.update_real_image(file_path)
                 self.project.set_real_image(pixmap, qimage, update_modified)
         if view:
-            view.resetTransform()
-            QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
+            view.resetTransform()  # 1:1 表示にするため自動スケーリングは行わない
             view.viewport().setUpdatesEnabled(True)
 
     def clear_points(self):
