@@ -47,14 +47,17 @@ class MainWindow(QMainWindow):
     def _init_scenes_and_views(self):
         self.sceneA = InteractiveScene(project=self.project, image_type="game")
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
-        # ★ここでシグナルを再接続
+        # シグナルを再接続
         self.sceneA.projectModified.connect(self._update_window_title)
         self.sceneB.projectModified.connect(self._update_window_title)
         self.viewA = ZoomableViewWidget(self.sceneA)
         self.viewB = ZoomableViewWidget(self.sceneB)
+        # QSplitter に左右のビューを追加し、ストレッチファクターを等しく設定
         self.splitter = QSplitter(Qt.Horizontal)
         self.splitter.addWidget(self.viewA)
         self.splitter.addWidget(self.viewB)
+        self.splitter.setStretchFactor(0, 1)
+        self.splitter.setStretchFactor(1, 1)
         self.integrated_widget = QWidget()
         layout = QVBoxLayout(self.integrated_widget)
         layout.addWidget(self.splitter)
@@ -71,24 +74,14 @@ class MainWindow(QMainWindow):
         self.project.modified = False
         self._update_window_title()
 
-    def switch_project(self, new_project):
-        """
-        現在のプロジェクトを新しいプロジェクトに切り替える。
-        既存のシーン・ビューは破棄し、新たに生成してレイアウトに再配置する。
-        """
-        logger.info("Switching project from [%s] to [%s]", self.project.name, new_project.name)
-        self.project = new_project
-        # 統合ウィジェットから古いウィジェットを除去し、削除する
-        if hasattr(self, "integrated_widget"):
-            self.integrated_widget.setParent(None)
-            self.integrated_widget.deleteLater()
-        # 新しいシーン・ビューを初期化
-        self._init_scenes_and_views()
-        self.statusBar().showMessage(tr("project_loaded"), 3000)
-        logger.info("Project switched successfully to [%s]", self.project.name)
+    def resizeEvent(self, event):
+        """ ウィンドウサイズ変更時に、QSplitter の左右の枠を常に均等にする """
+        super().resizeEvent(event)
+        if hasattr(self, 'splitter'):
+            total_width = self.splitter.width()
+            self.splitter.setSizes([total_width // 2, total_width - total_width // 2])
 
     def _update_window_title(self):
-        # プロジェクトが未保存変更ならタイトルに "*" を追加
         mod_mark = "*" if self.project and self.project.modified else ""
         self.setWindowTitle(f"{tr('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
 
