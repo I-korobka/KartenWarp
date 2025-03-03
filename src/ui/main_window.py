@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(self.integrated_widget)
         layout.addWidget(self.splitter)
         self.setCentralWidget(self.integrated_widget)
-        # 画像・特徴点の初期表示（存在する場合）※自動スケーリングは行わず1:1にする
+        # 画像・特徴点の初期表示（存在する場合）
         if not self.project.game_qimage.isNull():
             self.sceneA.set_image(self.project.game_pixmap, self.project.game_qimage, update_modified=False)
             for p in self.project.game_points:
@@ -67,9 +67,6 @@ class MainWindow(QMainWindow):
             for p in self.project.real_points:
                 self.sceneB.add_point(QPointF(p[0], p[1]))
         self.project.modified = False
-        # 各ビューは 1:1 表示となるようにリセット
-        self.viewA.view.resetTransform()
-        self.viewB.view.resetTransform()
         self._update_window_title()
 
     def switch_project(self, new_project):
@@ -79,14 +76,17 @@ class MainWindow(QMainWindow):
         """
         logger.info("Switching project from [%s] to [%s]", self.project.name, new_project.name)
         self.project = new_project
+        # 統合ウィジェットから古いウィジェットを除去し、削除する
         if hasattr(self, "integrated_widget"):
             self.integrated_widget.setParent(None)
             self.integrated_widget.deleteLater()
+        # 新しいシーン・ビューを初期化
         self._init_scenes_and_views()
         self.statusBar().showMessage(tr("project_loaded"), 3000)
         logger.info("Project switched successfully to [%s]", self.project.name)
 
     def _update_window_title(self):
+        # プロジェクトが未保存変更ならタイトルに "*" を追加
         mod_mark = "*" if self.project and self.project.modified else ""
         self.setWindowTitle(f"{tr('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
 
@@ -98,6 +98,11 @@ class MainWindow(QMainWindow):
             self.setStyleSheet("")
 
     def prompt_save_current_project(self) -> bool:
+        """
+        現在のプロジェクトに未保存変更がある場合、保存確認ダイアログを表示し、
+        保存する／破棄する／キャンセルするの選択をさせる。
+        キャンセルまたは保存が完了しなかった場合は False を返す。
+        """
         if self.project and self.project.modified:
             ret = QMessageBox.question(
                 self,
@@ -108,7 +113,7 @@ class MainWindow(QMainWindow):
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:
+                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
                     return False
             elif ret == QMessageBox.Cancel:
                 return False
@@ -125,6 +130,7 @@ class MainWindow(QMainWindow):
             return
         try:
             new_project = Project.load(file_name)
+            # プロジェクト切替時は、シーン・ビューを再生成して完全に新規状態にする
             self.switch_project(new_project)
             logger.info("Project loaded successfully from %s", file_name)
         except Exception as e:
@@ -135,6 +141,7 @@ class MainWindow(QMainWindow):
             logger.exception("Error loading project")
 
     def create_new_project(self):
+        # 既存のプロジェクトに未保存変更があれば確認
         if not self.prompt_save_current_project():
             return
 
@@ -142,6 +149,7 @@ class MainWindow(QMainWindow):
         if dlg.exec_() == QDialog.Accepted:
             new_proj = dlg.get_project()
             if new_proj:
+                # 新規プロジェクトの場合も、シーン・ビューを再生成する
                 self.switch_project(new_proj)
                 logger.info("New project created: %s", self.project.name)
         else:
@@ -171,8 +179,8 @@ class MainWindow(QMainWindow):
                     return
             pixmap, qimage = load_image(file_name)
             self.sceneA.set_image(pixmap, qimage, file_path=file_name)
-            # 1:1 表示にするため、fitInView の代わりに resetTransform()
-            self.viewA.view.resetTransform()
+            if self.mode == tr("mode_integrated"):
+                self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
             self.statusBar().showMessage(tr("status_game_image_loaded"), 3000)
             logger.info("Game image loaded: %s", file_name)
         else:
@@ -196,7 +204,8 @@ class MainWindow(QMainWindow):
                     return
             pixmap, qimage = load_image(file_name)
             self.sceneB.set_image(pixmap, qimage, file_path=file_name)
-            self.viewB.view.resetTransform()
+            if self.mode == tr("mode_integrated"):
+                self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
             self.statusBar().showMessage(tr("status_real_map_image_loaded"), 3000)
             logger.info("Real map image loaded: %s", file_name)
         else:
@@ -369,11 +378,10 @@ class MainWindow(QMainWindow):
             widget.setParent(self.splitter)
             self.splitter.addWidget(widget)
             widget.show()
-            # 1:1 表示にするため、resetTransform() を呼び出す
             if widget == self.viewA and self.sceneA.image_loaded:
-                self.viewA.view.resetTransform()
+                self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
             elif widget == self.viewB and self.sceneB.image_loaded:
-                self.viewB.view.resetTransform()
+                self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
         self.detached_windows = []
         self.setCentralWidget(self.integrated_widget)
         self.integrated_widget.update()
@@ -430,6 +438,7 @@ class MainWindow(QMainWindow):
         QMessageBox.about(self, tr("about"), tr("about_text"))
         logger.debug("About dialog shown")
 
+    # 【追加】ウィンドウ終了時に未保存変更があれば確認する処理を実装
     def closeEvent(self, event):
         if self.project and self.project.modified:
             ret = QMessageBox.question(
@@ -441,7 +450,7 @@ class MainWindow(QMainWindow):
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:
+                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
                     event.ignore()
                     return
             elif ret == QMessageBox.Cancel:
