@@ -89,7 +89,7 @@ class InteractiveScene(QGraphicsScene):
         self.pixmap_item = None
         self.image_qimage = None
         self.occupied_pixels = {}
-        self._loading = False  # 追加：読み込み中フラグ
+        self._loading = False
 
     def _update_project_state(self):
         if self.project is None:
@@ -99,7 +99,6 @@ class InteractiveScene(QGraphicsScene):
             if cmd["action"] == "add" and cmd["id"] in self.points_dict:
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
-        # 読み込み中なら update_modified=False、通常操作なら True
         update_flag = not self._loading
         if self.image_type == "game":
             self.project.update_game_points(points, update_modified=update_flag)
@@ -108,7 +107,6 @@ class InteractiveScene(QGraphicsScene):
         self.projectModified.emit()
 
     def set_project(self, project):
-        """ 外部から Project オブジェクトを設定する """
         self.project = project
 
     def drawForeground(self, painter, rect):
@@ -345,19 +343,10 @@ class InteractiveScene(QGraphicsScene):
         self.setSceneRect(extended_rect)
         self.image_loaded = True
         self.image_qimage = qimage
-        # プロジェクトへの画像情報更新
         if self.project is not None:
-            if self.image_type == "game":
-                if file_path:
-                    self.project.update_game_image(file_path)
-                self.project.set_game_image(pixmap, qimage, update_modified)
-            else:
-                if file_path:
-                    self.project.update_real_image(file_path)
-                self.project.set_real_image(pixmap, qimage, update_modified)
+            self.project.update_image(self.image_type, file_path=file_path, pixmap=pixmap, qimage=qimage, update_modified=update_modified)
         if view:
             view.resetTransform()
-            # 画像をビュー内にフィットさせる（アスペクト比を維持）
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
 

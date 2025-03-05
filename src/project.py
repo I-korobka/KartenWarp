@@ -34,12 +34,8 @@ def base64_to_qimage(b64_string: str) -> QImage:
         logger.exception("Failed to decode base64 image data")
         return QImage()
 
-# ※ 以下の qimage_to_qpixmap 関数は、common.py に同一の実装が存在するため削除しました。
-# def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
-#     return QPixmap.fromImage(qimage)
-
 def confirm_migration(old_version: int, target_version: int) -> bool:
-    from app_settings import tr  # ローカリゼーション関数を利用
+    from app_settings import tr
     title = tr("project_migration_title")
     message = tr("project_migration_text").format(old_version=old_version, target_version=target_version)
     reply = QMessageBox.question(
@@ -92,7 +88,7 @@ def migrate_project_data(data: dict) -> dict:
 
 class Project:
     def __init__(self, game_image_data=None, real_image_data=None):
-        self.name = tr("unsaved_project")  # ローカリゼーションキー "unsaved_project" 例：「未保存」
+        self.name = tr("unsaved_project")
         self.file_path = None
         self.game_image_data = game_image_data
         self.real_image_data = real_image_data
@@ -103,7 +99,7 @@ class Project:
         self.real_qimage = QImage()
         self.game_pixmap = QPixmap()
         self.real_pixmap = QPixmap()
-        self.modified = True  # 新規プロジェクトは常に未保存状態
+        self.modified = True
 
     def load_embedded_images(self):
         if self.game_image_data:
@@ -114,7 +110,7 @@ class Project:
             self.real_qimage = base64_to_qimage(self.real_image_data)
             from common import qimage_to_qpixmap
             self.real_pixmap = qimage_to_qpixmap(self.real_qimage)
-        self.modified = False  # 読み込み後は保存済み状態
+        self.modified = False
 
     def to_dict(self):
         data = {
@@ -130,7 +126,6 @@ class Project:
     def save(self, file_path):
         if not file_path.endswith(DEFAULT_PROJECT_EXTENSION):
             file_path += DEFAULT_PROJECT_EXTENSION
-
         data = self.to_dict()
         try:
             save_json(file_path, data)
@@ -140,7 +135,7 @@ class Project:
             self.modified = False
         except Exception as e:
             logger.exception("プロジェクト保存エラー")
-            raise IOError(tr("project_save_failed").format(error=str(e)))  # ローカリゼーションキー
+            raise IOError(tr("project_save_failed").format(error=str(e)))
 
     @classmethod
     def from_dict(cls, data):
@@ -189,23 +184,28 @@ class Project:
         logger.debug("全ての特徴点をクリアしました")
         self.modified = True
 
-    def update_game_image(self, file_path):
+    def update_image(self, image_type, *, file_path=None, pixmap=None, qimage=None, update_modified=True):
         from common import load_image, qimage_to_qpixmap
-        _, qimage = load_image(file_path)
-        self.game_qimage = qimage
-        self.game_pixmap = qimage_to_qpixmap(qimage)
-        self.game_image_data = image_to_base64(qimage)
-        logger.debug("ゲーム画像を更新しました（埋め込み）")
-        self.modified = True
-
-    def update_real_image(self, file_path):
-        from common import load_image, qimage_to_qpixmap
-        _, qimage = load_image(file_path)
-        self.real_qimage = qimage
-        self.real_pixmap = qimage_to_qpixmap(qimage)
-        self.real_image_data = image_to_base64(qimage)
-        logger.debug("実地図画像を更新しました（埋め込み）")
-        self.modified = True
+        if file_path is not None:
+            loaded_pixmap, loaded_qimage = load_image(file_path)
+            pixmap = loaded_pixmap
+            qimage = loaded_qimage
+        if pixmap is None or qimage is None:
+            raise ValueError("Either file_path or both pixmap and qimage must be provided")
+        if image_type == "game":
+            self.game_pixmap = pixmap
+            self.game_qimage = qimage
+            self.game_image_data = image_to_base64(qimage)
+            logger.debug("ゲーム画像を更新しました（統合処理）")
+        elif image_type == "real":
+            self.real_pixmap = pixmap
+            self.real_qimage = qimage
+            self.real_image_data = image_to_base64(qimage)
+            logger.debug("実地図画像を更新しました（統合処理）")
+        else:
+            raise ValueError("Unknown image type: " + str(image_type))
+        if update_modified:
+            self.modified = True
 
     def update_game_points(self, points, update_modified=True):
         if self.game_points != points:
@@ -224,19 +224,3 @@ class Project:
                 self.modified = True
         else:
             logger.debug("実地図画像の特徴点に変更はありません")
-
-    def set_game_image(self, pixmap, qimage, update_modified=True):
-        self.game_pixmap = pixmap
-        self.game_qimage = qimage
-        self.game_image_data = image_to_base64(qimage)
-        logger.debug("ゲーム画像オブジェクトを更新しました（埋め込み）")
-        if update_modified:
-            self.modified = True
-
-    def set_real_image(self, pixmap, qimage, update_modified=True):
-        self.real_pixmap = pixmap
-        self.real_qimage = qimage
-        self.real_image_data = image_to_base64(qimage)
-        logger.debug("実地図画像オブジェクトを更新しました（埋め込み）")
-        if update_modified:
-            self.modified = True

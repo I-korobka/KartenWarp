@@ -305,8 +305,8 @@ class NewProjectDialog(QDialog):
             QMessageBox.critical(self, tr("input_error_title"), tr("error_missing_images"))
             return
         project = Project()
-        project.update_game_image(game_image)
-        project.update_real_image(real_image)
+        project.update_image("game", file_path=game_image)
+        project.update_image("real", file_path=real_image)
         self.project = project
         logger.debug("新規プロジェクトを作成しました（未保存）")
         self.accept()
