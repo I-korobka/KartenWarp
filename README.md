@@ -36,7 +36,7 @@ KartenWarp/
 │   │   ├── interactive_scene.py
 │   │   ├── interactive_view.py
 │   │   ├── man_window.py
-│   │   └── menu_manager.py
+│   │   └── ui_manager.py
 │   ├── __init__.py         (中身は空)
 │   ├── app_settings.py
 │   ├── common.py
