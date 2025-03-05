@@ -81,17 +81,14 @@ class MainWindow(QMainWindow):
         """
         logger.info("Switching project from [%s] to [%s]", self.project.name, new_project.name)
         self.project = new_project
-        # 統合ウィジェットから古いウィジェットを除去し、削除する
         if hasattr(self, "integrated_widget"):
             self.integrated_widget.setParent(None)
             self.integrated_widget.deleteLater()
-        # 新しいシーン・ビューを初期化
         self._init_scenes_and_views()
         self.statusBar().showMessage(tr("project_loaded"), 3000)
         logger.info("Project switched successfully to [%s]", self.project.name)
 
     def resizeEvent(self, event):
-        """ ウィンドウサイズ変更時に、QSplitter の左右の枠を常に均等にする """
         super().resizeEvent(event)
         if hasattr(self, 'splitter'):
             total_width = self.splitter.width()
@@ -109,11 +106,6 @@ class MainWindow(QMainWindow):
             self.setStyleSheet("")
 
     def prompt_save_current_project(self) -> bool:
-        """
-        現在のプロジェクトに未保存変更がある場合、保存確認ダイアログを表示し、
-        保存する／破棄する／キャンセルするの選択をさせる。
-        キャンセルまたは保存が完了しなかった場合は False を返す。
-        """
         if self.project and self.project.modified:
             ret = QMessageBox.question(
                 self,
@@ -124,7 +116,7 @@ class MainWindow(QMainWindow):
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
+                if self.project.modified:
                     return False
             elif ret == QMessageBox.Cancel:
                 return False
@@ -141,7 +133,6 @@ class MainWindow(QMainWindow):
             return
         try:
             new_project = Project.load(file_name)
-            # プロジェクト切替時は、シーン・ビューを再生成して完全に新規状態にする
             self.switch_project(new_project)
             logger.info("Project loaded successfully from %s", file_name)
         except Exception as e:
@@ -152,7 +143,6 @@ class MainWindow(QMainWindow):
             logger.exception("Error loading project")
 
     def create_new_project(self):
-        # 既存のプロジェクトに未保存変更があれば確認
         if not self.prompt_save_current_project():
             return
 
@@ -160,7 +150,6 @@ class MainWindow(QMainWindow):
         if dlg.exec_() == QDialog.Accepted:
             new_proj = dlg.get_project()
             if new_proj:
-                # 新規プロジェクトの場合も、シーン・ビューを再生成する
                 self.switch_project(new_proj)
                 logger.info("New project created: %s", self.project.name)
         else:
@@ -172,55 +161,48 @@ class MainWindow(QMainWindow):
     def exit_application(self):
         self.close()
 
-    def open_image_A(self):
+    # --- 共通化された画像読み込み処理 ---
+    def _open_image_common(self, scene, view, load_dialog_key, image_type_key, status_key, log_msg):
         if self.project is None:
             QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
             return
-        file_name = open_file_dialog(self, tr("load_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
+        file_name = open_file_dialog(self, tr(load_dialog_key), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_name:
-            if self.sceneA.image_loaded:
+            if scene.image_loaded:
                 ret = QMessageBox.question(
-                    self, tr("confirm_reset_title"),
-                    tr("confirm_reset").format(image_type=tr("game_image")),
+                    self,
+                    tr("confirm_reset_title"),
+                    tr("confirm_reset").format(image_type=tr(image_type_key)),
                     QMessageBox.Ok | QMessageBox.Cancel
                 )
                 if ret != QMessageBox.Ok:
                     self.statusBar().showMessage(tr("cancel_loading"), 2000)
-                    logger.info("Game image loading cancelled")
+                    logger.info("%s image loading cancelled", tr(image_type_key))
                     return
             pixmap, qimage = load_image(file_name)
-            self.sceneA.set_image(pixmap, qimage, file_path=file_name)
+            scene.set_image(pixmap, qimage, file_path=file_name)
             if self.mode == tr("mode_integrated"):
-                self.viewA.view.fitInView(self.sceneA.sceneRect(), Qt.KeepAspectRatio)
-            self.statusBar().showMessage(tr("status_game_image_loaded"), 3000)
-            logger.info("Game image loaded: %s", file_name)
+                view.view.fitInView(scene.sceneRect(), Qt.KeepAspectRatio)
+            self.statusBar().showMessage(tr(status_key), 3000)
+            logger.info(log_msg, file_name)
         else:
             self.statusBar().showMessage(tr("cancel_loading"), 2000)
 
+    def open_image_A(self):
+        # ゲーム画像読み込み（sceneA, viewA）
+        self._open_image_common(
+            self.sceneA, self.viewA,
+            "load_game_image", "game_image", "status_game_image_loaded",
+            "Game image loaded: %s"
+        )
+
     def open_image_B(self):
-        if self.project is None:
-            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
-            return
-        file_name = open_file_dialog(self, tr("load_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
-        if file_name:
-            if self.sceneB.image_loaded:
-                ret = QMessageBox.question(
-                    self, tr("confirm_reset_title"),
-                    tr("confirm_reset").format(image_type=tr("real_map_image")),
-                    QMessageBox.Ok | QMessageBox.Cancel
-                )
-                if ret != QMessageBox.Ok:
-                    self.statusBar().showMessage(tr("cancel_loading"), 2000)
-                    logger.info("Real map image loading cancelled")
-                    return
-            pixmap, qimage = load_image(file_name)
-            self.sceneB.set_image(pixmap, qimage, file_path=file_name)
-            if self.mode == tr("mode_integrated"):
-                self.viewB.view.fitInView(self.sceneB.sceneRect(), Qt.KeepAspectRatio)
-            self.statusBar().showMessage(tr("status_real_map_image_loaded"), 3000)
-            logger.info("Real map image loaded: %s", file_name)
-        else:
-            self.statusBar().showMessage(tr("cancel_loading"), 2000)
+        # 実地図画像読み込み（sceneB, viewB）
+        self._open_image_common(
+            self.sceneB, self.viewB,
+            "load_real_map_image", "real_map_image", "status_real_map_image_loaded",
+            "Real map image loaded: %s"
+        )
 
     def save_project(self):
         if self.project is None:
@@ -452,7 +434,6 @@ class MainWindow(QMainWindow):
         QMessageBox.about(self, tr("about"), tr("about_text"))
         logger.debug("About dialog shown")
 
-    # 【追加】ウィンドウ終了時に未保存変更があれば確認する処理を実装
     def closeEvent(self, event):
         if self.project and self.project.modified:
             ret = QMessageBox.question(
@@ -464,7 +445,7 @@ class MainWindow(QMainWindow):
             )
             if ret == QMessageBox.Save:
                 self.save_project()
-                if self.project.modified:  # 保存がキャンセルまたは失敗した場合
+                if self.project.modified:
                     event.ignore()
                     return
             elif ret == QMessageBox.Cancel:
