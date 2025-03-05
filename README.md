@@ -47,8 +47,6 @@ KartenWarp/
 │   └── themes.py
 ├── temp/                (実行時に生成されるログ・一時ファイルなど)
 │   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
-├── tests/              (テスト関連ファイルを格納するフォルダ)
-│   └── test_kartenwarp.py
 ├── .coveragerc          (カバレッジ設定ファイル)
 ├── README.md
 └── requirements.txt
