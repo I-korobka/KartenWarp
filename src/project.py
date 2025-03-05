@@ -34,8 +34,9 @@ def base64_to_qimage(b64_string: str) -> QImage:
         logger.exception("Failed to decode base64 image data")
         return QImage()
 
-def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
-    return QPixmap.fromImage(qimage)
+# ※ 以下の qimage_to_qpixmap 関数は、common.py に同一の実装が存在するため削除しました。
+# def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
+#     return QPixmap.fromImage(qimage)
 
 def confirm_migration(old_version: int, target_version: int) -> bool:
     from app_settings import tr  # ローカリゼーション関数を利用
@@ -107,9 +108,11 @@ class Project:
     def load_embedded_images(self):
         if self.game_image_data:
             self.game_qimage = base64_to_qimage(self.game_image_data)
+            from common import qimage_to_qpixmap
             self.game_pixmap = qimage_to_qpixmap(self.game_qimage)
         if self.real_image_data:
             self.real_qimage = base64_to_qimage(self.real_image_data)
+            from common import qimage_to_qpixmap
             self.real_pixmap = qimage_to_qpixmap(self.real_qimage)
         self.modified = False  # 読み込み後は保存済み状態
 
@@ -205,7 +208,6 @@ class Project:
         self.modified = True
 
     def update_game_points(self, points, update_modified=True):
-        # 既存のポイントと新しいポイントが同じなら変更なしとする
         if self.game_points != points:
             self.game_points = points
             logger.debug("ゲーム画像の特徴点を更新しました: %s", points)
