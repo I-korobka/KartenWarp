@@ -1,7 +1,9 @@
 # src/ui/main_window.py
 import os
 import sys
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QMessageBox, QDialog
+from PyQt5.QtWidgets import (
+    QMainWindow, QVBoxLayout, QSplitter, QWidget, QMessageBox, QDialog, QSplitterHandle
+)
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt, QPointF, QTimer
 from logger import logger
@@ -12,6 +14,26 @@ from ui.interactive_view import ZoomableViewWidget
 from ui.ui_manager import UIManager  # 統合 UI マネージャーを利用
 from project import Project
 
+# --- 新たに追加：ResettableSplitter の定義 ---
+class ResettableSplitterHandle(QSplitterHandle):
+    def mouseDoubleClickEvent(self, event):
+        splitter = self.splitter()
+        count = splitter.count()
+        if count > 0:
+            if splitter.orientation() == Qt.Horizontal:
+                total = splitter.size().width()
+            else:
+                total = splitter.size().height()
+            equal = total // count
+            sizes = [equal] * count
+            splitter.setSizes(sizes)
+        event.accept()
+
+class ResettableSplitter(QSplitter):
+    def createHandle(self):
+        return ResettableSplitterHandle(self.orientation(), self)
+
+# --- MainWindow 本体 ---
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -47,7 +69,8 @@ class MainWindow(QMainWindow):
         self.sceneB.projectModified.connect(self._update_window_title)
         self.viewA = ZoomableViewWidget(self.sceneA)
         self.viewB = ZoomableViewWidget(self.sceneB)
-        self.splitter = QSplitter(Qt.Horizontal)
+        # ※ QSplitter を ResettableSplitter に変更（ダブルクリックで等幅リセット）
+        self.splitter = ResettableSplitter(Qt.Horizontal)
         self.splitter.addWidget(self.viewA)
         self.splitter.addWidget(self.viewB)
         self.splitter.setStretchFactor(0, 1)
