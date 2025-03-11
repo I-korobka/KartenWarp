@@ -1,9 +1,9 @@
-# main_window.py
+# src/ui/main_window.py
 import os
 import sys
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QSplitter, QWidget, QMessageBox, QDialog
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt, QPointF
+from PyQt5.QtCore import Qt, QPointF, QTimer
 from logger import logger
 from app_settings import config, tr
 from core import perform_tps_transform, export_scene
@@ -17,6 +17,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.mode = tr("mode_integrated")
         self.project = None
+        self._integrated_splitter_sizes = None  # 統合モード時のスプリッターサイズを保持
 
         # UIManager を通してプロジェクト選択ダイアログを表示
         self.ui_manager = UIManager(self)
@@ -170,7 +171,8 @@ class MainWindow(QMainWindow):
             pixmap, qimage = load_image(file_name)
             scene.set_image(pixmap, qimage, file_path=file_name)
             if self.mode == tr("mode_integrated"):
-                view.view.fitInView(scene.sceneRect(), Qt.KeepAspectRatio)
+                # ここでfitInViewではなく、基準状態にリセットする
+                view.view.reset_zoom()
             self.statusBar().showMessage(tr(status_key), 3000)
             logger.info(log_msg, file_name)
         else:
@@ -295,6 +297,10 @@ class MainWindow(QMainWindow):
         self._update_window_title()
 
     def _enter_detached_mode(self):
+        # 現在の統合状態のスプリッターサイズを記録（通常は左右1:1の比率）
+        self._integrated_splitter_sizes = self.splitter.sizes()
+        
+        # 分離モードに入る処理（以下、既存のコードと同じ）
         self.viewA.setParent(None)
         self.viewB.setParent(None)
         self.detached_windows = []
@@ -344,15 +350,20 @@ class MainWindow(QMainWindow):
             widget.setParent(self.splitter)
             self.splitter.addWidget(widget)
             widget.show()
+            # 統合モードに戻る際、各ビューのズームをリセットしてフィット状態にする
             if widget == self.viewA and self.sceneA.image_loaded and self.sceneA.pixmap_item:
-                rect = self.sceneA.pixmap_item.boundingRect()
-                QTimer.singleShot(100, lambda r=rect, w=widget.view: w.fitInView(r, Qt.KeepAspectRatio))
+                QTimer.singleShot(100, lambda w=widget.view: w.reset_zoom())
             elif widget == self.viewB and self.sceneB.image_loaded and self.sceneB.pixmap_item:
-                rect = self.sceneB.pixmap_item.boundingRect()
-                QTimer.singleShot(100, lambda r=rect, w=widget.view: w.fitInView(r, Qt.KeepAspectRatio))
+                QTimer.singleShot(100, lambda w=widget.view: w.reset_zoom())
         self.detached_windows = []
         self.setCentralWidget(self.integrated_widget)
         self.integrated_widget.update()
+        # 記録しておいた統合時のウィンドウ比を復元（記録がなければ1:1に設定）
+        if self._integrated_splitter_sizes:
+            self.splitter.setSizes(self._integrated_splitter_sizes)
+        else:
+            total_width = self.splitter.width()
+            self.splitter.setSizes([total_width // 2, total_width - total_width // 2])
         self.mode = tr("mode_integrated")
         self._update_window_title()
         self.statusBar().showMessage(tr("mode_switch_message").format(mode=self.mode), 3000)
