@@ -25,22 +25,22 @@ KartenWarp は、2 枚の画像間の対応点に基づいて Thin Plate Spline 
 ### ディレクトリ構造
 ```bash
 KartenWarp/
-├── assets/            (画像などのリソースが入ったフォルダ)
-│   ├── assets_config.json            (アセットの統合管理を行う JSON ファイル)
-│   └── ...             (各種リソース)
-├── src/            (ソースコートが入ったフォルダ)
-│   ├── locales/            (ローカライズ用 JSON ファイルが入ったフォルダ)
+├── assets/                           (画像などのリソースが入ったフォルダ)
+│   ├── assets_config.json            (アセットの統合管理を行うJSONファイル)
+│   └── ...                           (各種リソース)
+├── src/                              (ソースコートが入ったフォルダ)
+│   ├── locales/                      (ローカライズ用JSONファイルが入ったフォルダ)
 │   │   ├── ja.json
 │   │   ├── en.json
 │   │   └── de.json
-│   ├── ui/            (GUI関係のファイルが入ったフォルダ)
-│   │   ├── __init__.py     (中身は from .main_window import MainWindow )
+│   ├── ui/                           (GUI関係のファイルが入ったフォルダ)
+│   │   ├── __init__.py               (中身は from .main_window import MainWindow )
 │   │   ├── dialogs.py
 │   │   ├── interactive_scene.py
 │   │   ├── interactive_view.py
 │   │   ├── man_window.py
 │   │   └── ui_manager.py
-│   ├── __init__.py         (中身は空)
+│   ├── __init__.py                   (中身は空)
 │   ├── app_settings.py
 │   ├── common.py
 │   ├── core.py
@@ -48,9 +48,10 @@ KartenWarp/
 │   ├── main.py
 │   ├── project.py
 │   └── themes.py
-├── temp/                (実行時に生成されるログ・一時ファイルなど)
+├── temp/               (実行時に生成されるログ・一時ファイルなど)
 │   └── ...             (run_2025xxxx_xxxxxx など、ログディレクトリと、自動生成されるローカライズ用 JSON ファイルが生成される)
-├── README.md
+├── README.md           (このファイル)
+├── i18n.md             (このプログラムを記述するすべてのメンバーが確認必須の基本規約)
 └── requirements.txt
 ```
 
