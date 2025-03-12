@@ -1,19 +1,21 @@
 # src/ui/interactive_view.py
 import math
-from PyQt5.QtWidgets import QGraphicsView, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QDoubleSpinBox
+from PyQt5.QtWidgets import (
+    QGraphicsView, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QSlider, QLineEdit, QPushButton
+)
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QWheelEvent, QTransform
+from PyQt5.QtGui import QWheelEvent, QTransform, QIcon
 from logger import logger
 from app_settings import tr, config
 
 class InteractiveView(QGraphicsView):
-    zoomFactorChanged = pyqtSignal(float)
+    zoomFactorChanged = pyqtSignal(float)  # 内部倍率（1.0＝100%）を送出
 
     def __init__(self, scene, parent=None):
         super().__init__(scene, parent)
         logger.debug("InteractiveView initialized")
         self._zoom = 1.0  # 1.0 ＝ 100%
-        self._zoom_range = (0.01, 100)  # 1% ～ 10000%（内部値：0.01～100）
+        self._zoom_range = (0.01, 100)  # 内部値として 0.01 (1%) ～ 100 (10000%)
         self._log_zoom_step = 0.1  # ホイール1ノッチあたりの対数空間での増分
         self._panning = False
         self._pan_start = None
@@ -53,9 +55,8 @@ class InteractiveView(QGraphicsView):
 
     def set_zoom_factor(self, factor: float):
         """
-        現在のベーストランスフォームに対して、ユーザー指定の倍率を乗算した変換を適用する
+        現在のベーストランスフォームに対して、指定倍率を乗算した変換を適用する
         """
-        # 指定値を許容範囲内にクランプ
         factor = max(self._zoom_range[0], min(factor, self._zoom_range[1]))
         self._zoom = factor
         new_transform = QTransform(self._base_transform)
@@ -70,8 +71,7 @@ class InteractiveView(QGraphicsView):
         ホイール1ノッチごとに、log₁₀(zoom) に一定値を加減する。
         """
         angle = event.angleDelta().y()
-        # 通常、angleDelta() は 120 単位の値を返すので、1ノッチあたりとみなす
-        steps = angle / 120
+        steps = angle / 120  # 1ノッチあたりのステップ数
         current_log_zoom = math.log10(self._zoom)
         new_log_zoom = current_log_zoom + steps * self._log_zoom_step
         new_zoom = 10 ** new_log_zoom
@@ -117,40 +117,111 @@ class InteractiveView(QGraphicsView):
         else:
             super().mouseReleaseEvent(event)
 
+# --- EditableZoomLabel ---
+class EditableZoomLabel(QLineEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setReadOnly(True)
+        self.setFixedWidth(60)
+        self.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        # 枠や背景を透明にして、ラベル風に表示
+        self.setStyleSheet("border: none; background: transparent;")
+    def mouseDoubleClickEvent(self, event):
+        # ダブルクリックで編集可能にする
+        self.setReadOnly(False)
+        self.setFocus()
+        self.selectAll()
+        super().mouseDoubleClickEvent(event)
+
+# --- ZoomControlWidget ---
+class ZoomControlWidget(QWidget):
+    zoomChanged = pyqtSignal(float)  # 新たな倍率（1.0＝100%）を送出
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.slider = QSlider(Qt.Horizontal, self)
+        # スライダーの内部値: -200～200 → 対数的に 10^(value/100)=倍率 とする
+        self.slider.setRange(-200, 200)
+        self.slider.setValue(0)  # 0 → 10^(0)=1 → 100%
+        self.slider.setSingleStep(1)
+        self.zoom_edit = EditableZoomLabel(self)
+        self.zoom_edit.setText("100%")
+        # リセットボタンの追加（アイコンはユーザーが用意する前提）
+        self.reset_button = QPushButton(self)
+        self.reset_button.setIcon(QIcon("path/to/your/reset_icon.png"))
+        self.reset_button.setToolTip(tr("reset_zoom_tooltip"))
+        self.reset_button.setFixedSize(24, 24)
+        self.reset_button.clicked.connect(self.on_reset_button_clicked)
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        zoom_text = tr("zoom_label")  # 例："Zoom:" と表示
+        layout.addWidget(QLabel(zoom_text))
+        layout.addWidget(self.slider)
+        layout.addWidget(self.reset_button)
+        layout.addWidget(self.zoom_edit)
+        self.slider.valueChanged.connect(self.on_slider_changed)
+        self.zoom_edit.editingFinished.connect(self.on_edit_finished)
+        self.update_label()
+
+    def on_slider_changed(self, value):
+        new_zoom = 10 ** (value / 100.0)
+        self.update_label(new_zoom)
+        self.zoomChanged.emit(new_zoom)
+
+    def update_label(self, zoom=None):
+        if zoom is None:
+            zoom = 10 ** (self.slider.value() / 100.0)
+        percent = round(zoom * 100)
+        self.zoom_edit.setText(f"{percent}%")
+
+    def on_edit_finished(self):
+        try:
+            text = self.zoom_edit.text().replace("%", "").strip()
+            new_percent = int(text)
+            new_zoom = new_percent / 100.0
+            # 範囲チェック
+            if new_zoom < 0.01:
+                new_zoom = 0.01
+            elif new_zoom > 100:
+                new_zoom = 100
+            new_slider_value = round(math.log10(new_zoom) * 100)
+            self.slider.blockSignals(True)
+            self.slider.setValue(new_slider_value)
+            self.slider.blockSignals(False)
+            self.update_label(new_zoom)
+            self.zoomChanged.emit(new_zoom)
+        except Exception as e:
+            # 入力が不正な場合はスライダーの現在値に戻す
+            self.update_label()
+        self.zoom_edit.setReadOnly(True)
+
+    def on_reset_button_clicked(self):
+        # リセットボタンが押されたらズームを100%（内部値1.0）にリセット
+        self.slider.blockSignals(True)
+        self.slider.setValue(0)  # 0 → 10^(0)=1
+        self.slider.blockSignals(False)
+        new_zoom = 1.0
+        self.update_label(new_zoom)
+        self.zoomChanged.emit(new_zoom)
+
+# --- ZoomableViewWidget ---
 class ZoomableViewWidget(QWidget):
     def __init__(self, scene, parent=None):
         super().__init__(parent)
         self.view = InteractiveView(scene, self)
         self.view.setAlignment(Qt.AlignCenter)
-        self.zoom_label = QLabel(tr("zoom_label"))
-        # ズーム倍率はパーセント表示（1%～10000%）、整数のみとする
-        self.zoom_spin = QDoubleSpinBox()
-        self.zoom_spin.setRange(1, 10000)
-        self.zoom_spin.setValue(100)  # 初期値100%
-        self.zoom_spin.setSingleStep(1)
-        self.zoom_spin.setDecimals(0)
-        self.zoom_spin.setToolTip(tr("zoom_input_tooltip"))
-        self.zoom_value_label = QLabel(f"{100}%")
+        self.zoom_control = ZoomControlWidget(self)
         layout = QVBoxLayout(self)
         layout.addWidget(self.view)
-        bottom_layout = QHBoxLayout()
-        bottom_layout.addWidget(self.zoom_label)
-        bottom_layout.addWidget(self.zoom_value_label)
-        bottom_layout.addWidget(self.zoom_spin)
-        layout.addLayout(bottom_layout)
-        self.zoom_spin.valueChanged.connect(self.on_zoom_spin_changed)
+        layout.addWidget(self.zoom_control)
+        self.zoom_control.zoomChanged.connect(self.on_zoom_changed_from_control)
         self.view.zoomFactorChanged.connect(self.on_view_zoom_changed)
 
-    def on_zoom_spin_changed(self, percent: float):
-        # パーセント表示を実際の倍率に変換（例：100% → 1.0）
-        new_factor = percent / 100.0
-        self.view.set_zoom_factor(new_factor)
+    def on_zoom_changed_from_control(self, zoom):
+        self.view.set_zoom_factor(zoom)
 
-    def on_view_zoom_changed(self, factor: float):
-        # 倍率をパーセントにして整数に丸める
-        percent = round(factor * 100)
-        self.zoom_spin.blockSignals(True)
-        self.zoom_spin.setValue(percent)
-        self.zoom_spin.blockSignals(False)
-        self.zoom_value_label.setText(f"{percent}%")
-        logger.debug("Zoom UI updated to %s%%", percent)
+    def on_view_zoom_changed(self, zoom):
+        self.zoom_control.slider.blockSignals(True)
+        self.zoom_control.slider.setValue(round(math.log10(zoom) * 100))
+        self.zoom_control.slider.blockSignals(False)
+        self.zoom_control.update_label(zoom)
