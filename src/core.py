@@ -1,3 +1,4 @@
+# src/core.py
 import os
 import json
 import numpy as np
@@ -6,6 +7,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 from logger import logger, transform_logger
 from app_settings import config, tr
+from common import qimage_to_numpy  # 共通関数をインポート
 
 # --- データモデル ---
 class SceneState:
@@ -28,34 +30,7 @@ class SceneState:
         logger.debug("Updating real points: %s", points)
         self.real_points = points
 
-# --- プロジェクト入出力 ---
-def save_project(state, file_path):
-    logger.debug("Saving project to %s", file_path)
-    try:
-        project_data = {
-            "game_image_path": state.game_image_path,
-            "real_image_path": state.real_image_path,
-            "game_points": state.game_points,
-            "real_points": state.real_points,
-        }
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(project_data, f, indent=4, ensure_ascii=False)
-        logger.info("Project saved successfully: %s", file_path)
-        return True
-    except Exception as e:
-        logger.exception("Error while saving project")
-        raise IOError(f"Error while saving project: {str(e)}")
-
-def load_project(file_path):
-    logger.debug("Loading project from %s", file_path)
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            project_data = json.load(f)
-        logger.info("Project loaded successfully: %s", file_path)
-        return project_data
-    except Exception as e:
-        logger.exception("Error while loading project")
-        raise IOError(f"Error while loading project: {str(e)}")
+# ※プロジェクトの保存／読み込みに関しては、project.py に統合済み
 
 # --- TPS変換 ---
 def compute_tps_parameters(dest_points: np.ndarray, src_points: np.ndarray, reg_lambda: float = 1e-3, adaptive: bool = False):
@@ -164,18 +139,15 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
             reg_lambda = 1e-3
         adaptive = config.get("tps/adaptive", False)
 
-        # InteractiveScene.set_image() で state.game_pixmap に入れているなら、こちらも state を参照する
-        if not sceneA.state.game_pixmap:
+        if not sceneA.project.game_pixmap:
             return None, "ゲーム画像が読み込まれていないか、対応点が不足しています"
 
-        width = sceneA.state.game_pixmap.width()
-        height = sceneA.state.game_pixmap.height()
+        width = sceneA.project.game_pixmap.width()
+        height = sceneA.project.game_pixmap.height()
         output_size = (width, height)
 
-        # sceneB からは state.real_qimage を取り出すなど、両者を合わせる
-        src_qimage = sceneB.state.real_qimage
+        src_qimage = sceneB.project.real_qimage
 
-        # ここで TPS 変換を実行
         warped_np = perform_transformation(
             dest_points, src_points,
             src_qimage, output_size,
@@ -199,16 +171,6 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
     except Exception as e:
         transform_logger.exception("Error converting transformed image")
         return None, f"Image transformation failed: {str(e)}"
-
-# --- ユーティリティ ---
-def qimage_to_numpy(qimage: QImage) -> np.ndarray:
-    logger.debug("Converting QImage to NumPy array")
-    qimage = qimage.convertToFormat(QImage.Format_RGB32)
-    width, height = qimage.width(), qimage.height()
-    ptr = qimage.bits()
-    ptr.setsize(height * width * 4)
-    arr = np.array(ptr).reshape(height, width, 4)
-    return arr[..., :3]
 
 def export_scene(scene, path: str) -> str:
     logger.debug("Exporting scene to %s", path)
@@ -234,15 +196,3 @@ def export_scene(scene, path: str) -> str:
     image.save(output_filename)
     logger.info("Scene exported as %s", output_filename)
     return output_filename
-
-def create_action(parent, text, triggered_slot, shortcut=None, tooltip=None):
-    from PyQt5.QtWidgets import QAction
-    from PyQt5.QtGui import QKeySequence
-    action = QAction(text, parent)
-    action.setToolTip(tooltip if tooltip is not None else text)
-    if shortcut:
-        if not isinstance(shortcut, QKeySequence):
-            shortcut = QKeySequence(shortcut)
-        action.setShortcut(shortcut)
-    action.triggered.connect(triggered_slot)
-    return action
