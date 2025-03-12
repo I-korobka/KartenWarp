@@ -1,4 +1,4 @@
-# ui_manager.py
+# src/ui/ui_manager.py
 from PyQt5.QtWidgets import (
     QWidget, QHBoxLayout, QLineEdit, QPushButton, QFileDialog,
     QMenu, QAction, QDialog, QMessageBox, QToolBar, QMainWindow

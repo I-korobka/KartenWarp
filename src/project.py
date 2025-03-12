@@ -51,7 +51,8 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
     upgraded_data = data.copy()
     if from_version == 1:
         if not confirm_migration(1, 2):
-            raise IOError("ユーザーがアップグレードを拒否しました。")
+            # ユーザーに拒否された場合のエラーメッセージは翻訳キーで管理
+            raise IOError(tr("project_migration_rejected"))
         game_path = data.get("game_image_path", "")
         real_path = data.get("real_image_path", "")
         game_image_data = ""
@@ -80,7 +81,7 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
 def migrate_project_data(data: dict) -> dict:
     file_version = data.get("version", 1)
     if file_version > CURRENT_PROJECT_VERSION:
-        raise ValueError(f"プロジェクトファイルのバージョン {file_version} はサポート対象のバージョン {CURRENT_PROJECT_VERSION} より新しいため、読み込めません。")
+        raise ValueError(tr("project_version_newer").format(file_version=file_version, current_version=CURRENT_PROJECT_VERSION))
     while file_version < CURRENT_PROJECT_VERSION:
         data = upgrade_project_data(data, file_version)
         file_version = data.get("version", file_version + 1)
@@ -191,7 +192,7 @@ class Project:
             pixmap = loaded_pixmap
             qimage = loaded_qimage
         if pixmap is None or qimage is None:
-            raise ValueError("Either file_path or both pixmap and qimage must be provided")
+            raise ValueError(tr("either_file_or_pixmap_qimage_required"))
         if image_type == "game":
             self.game_pixmap = pixmap
             self.game_qimage = qimage
@@ -203,7 +204,7 @@ class Project:
             self.real_image_data = image_to_base64(qimage)
             logger.debug("実地図画像を更新しました（統合処理）")
         else:
-            raise ValueError("Unknown image type: " + str(image_type))
+            raise ValueError(tr("unknown_image_type").format(image_type=image_type))
         if update_modified:
             self.modified = True
 

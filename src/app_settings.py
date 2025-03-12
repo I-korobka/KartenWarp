@@ -3,9 +3,9 @@ import sys
 import ast
 from datetime import datetime
 import json
-from common import load_json, save_json  # 絶対インポートに変更
+from common import load_json, save_json  # 絶対インポート
 
-# --- 不変（GUIで変更不可）な設定キーのリスト ---
+# --- 不変（GUIで変更不可）な設定キー ---
 IMMUTABLE_KEYS = [
     "project/extension"
 ]
@@ -15,7 +15,7 @@ DEFAULT_CONFIG = {
     "window": {"default_width": 1600, "default_height": 900},
     "export": {"base_filename": "exported_scene", "extension": ".png"},
     "project": {"extension": ".kw"},
-    "language": "ja",
+    "language": "ja_JP",  # フルロケール（例: ja_JP）
     "display": {"dark_mode": False, "grid_overlay": False},
     "keybindings": {"undo": "Ctrl+Z", "redo": "Ctrl+Y", "toggle_mode": "F5"},
     "tps": {"reg_lambda": "1e-3", "adaptive": False},
@@ -105,111 +105,28 @@ class Config:
 
 config = Config()
 
-# --- ローカライズ管理 ---
-def load_localization():
-    language = config.get("language", "ja")
+# --- GNU gettext によるローカライズ管理 ---
+import gettext
+
+def init_gettext():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    locales_dir = os.path.join(current_dir, "locales")
-    file_path = os.path.join(locales_dir, f"{language}.json")
+    locale_dir = os.path.join(current_dir, "locale")
+    lang_code = config.get("language", "ja_JP")
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            localization = json.load(f)
-        if "app_title" not in localization:
-            localization["app_title"] = "KartenWarp"
-        if "test_dynamic_key" not in localization:
-            localization["test_dynamic_key"] = "test_{some_dynamic_value}"
-        return localization
+        translation = gettext.translation("messages", locale_dir, languages=[lang_code])
     except Exception as e:
-        print("Error loading localization from", file_path, ":", e)
-        return {"app_title": "KartenWarp", "test_dynamic_key": "test_{some_dynamic_value}"}
+        print("Error loading translations for", lang_code, ":", e)
+        translation = gettext.NullTranslations()
+    translation.install()  # 組み込み関数 _ をセット
+    global tr
+    tr = translation.gettext
+
+# モジュール読込時に gettext の初期化を実施
+init_gettext()
 
 def set_language(lang_code):
     config.set("language", lang_code)
-    global LOCALIZATION
-    LOCALIZATION = load_localization()
+    init_gettext()
     print("Language set to", lang_code)
 
-def tr(key):
-    if not isinstance(key, str):
-        print("[WARNING] tr() received non-string key:", key)
-    return LOCALIZATION.get(key, key)
-
-def extract_localization_keys_from_file(file_path):
-    keys = set()
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            tree = ast.parse(f.read(), filename=file_path)
-    except Exception as e:
-        print("Error parsing", file_path, ":", e)
-        return keys
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Subscript):
-            if hasattr(node.value, "id") and node.value.id == "LOCALIZATION":
-                if isinstance(node.slice, ast.Constant) and isinstance(node.slice.value, str):
-                    keys.add(node.slice.value)
-                elif hasattr(node.slice, "value") and isinstance(node.slice.value, ast.Str):
-                    keys.add(node.slice.value.s)
-        if isinstance(node, ast.Call):
-            func = node.func
-            func_name = None
-            if isinstance(func, ast.Name):
-                func_name = func.id
-            elif isinstance(func, ast.Attribute):
-                func_name = func.attr
-            if func_name == "tr" and node.args:
-                arg = node.args[0]
-                if isinstance(arg, ast.Constant) and isinstance(arg.value, str):
-                    keys.add(arg.value)
-                elif isinstance(arg, ast.Str):
-                    keys.add(arg.s)
-    return keys
-
-def extract_all_localization_keys(root_dir):
-    all_keys = set()
-    for dirpath, _, filenames in os.walk(root_dir):
-        for filename in filenames:
-            if filename.endswith(".py"):
-                file_path = os.path.join(dirpath, filename)
-                keys = extract_localization_keys_from_file(file_path)
-                all_keys.update(keys)
-    return all_keys
-
-def update_localization_files(root_dir):
-    needed_keys = extract_all_localization_keys(root_dir)
-    print("Extracted", len(needed_keys), "localization keys.")
-    
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    locales_dir = os.environ.get("DUMMY_LOCALES", os.path.join(current_dir, "locales"))
-    project_root = root_dir
-    temp_dir = os.path.join(project_root, "temp")
-    if not os.path.exists(temp_dir):
-        os.makedirs(temp_dir)
-    
-    for file_name in os.listdir(locales_dir):
-        if file_name.endswith(".json"):
-            source_file_path = os.path.join(locales_dir, file_name)
-            try:
-                with open(source_file_path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-            except Exception as e:
-                print("Error loading", file_name, ":", e)
-                data = {}
-            for key in needed_keys:
-                if key not in data:
-                    data[key] = key
-            sorted_data = { key: data[key] for key in sorted(needed_keys) }
-            output_file_path = os.path.join(temp_dir, file_name)
-            try:
-                with open(output_file_path, "w", encoding="utf-8") as f:
-                    json.dump(sorted_data, f, indent=4, ensure_ascii=False)
-                print(f"Updated {file_name} with {len(sorted_data)} keys. Written to temp folder.")
-            except Exception as e:
-                print("Error writing", file_name, ":", e)
-
-def auto_update_localization_files():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(current_dir)
-    update_localization_files(project_root)
-
-# グローバルなローカライズ変数
-LOCALIZATION = load_localization()
+# 以降、旧来の JSON ベースのローカライズ関数（load_localization, auto_update_localization_files, tr, など）は廃止

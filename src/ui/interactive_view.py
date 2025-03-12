@@ -145,7 +145,8 @@ class ZoomControlWidget(QWidget):
         self.slider.setValue(0)
         self.slider.setSingleStep(1)
         self.zoom_edit = EditableZoomLabel(self)
-        self.zoom_edit.setText("100%")
+        # 初期表示は100%（※ここも動的に生成）
+        self.zoom_edit.setText(tr("zoom_percentage").format(percent=100))
         # get_asset_path を利用してアイコンのパスを動的に取得
         reset_icon_path = get_asset_path("reset_icon")
         self.reset_button = QPushButton(self)
@@ -173,7 +174,8 @@ class ZoomControlWidget(QWidget):
         if zoom is None:
             zoom = 10 ** (self.slider.value() / 100.0)
         percent = round(zoom * 100)
-        self.zoom_edit.setText(f"{percent}%")
+        # ズームパーセンテージの表示は翻訳キー "zoom_percentage" で管理
+        self.zoom_edit.setText(tr("zoom_percentage").format(percent=percent))
 
     def on_edit_finished(self):
         try:

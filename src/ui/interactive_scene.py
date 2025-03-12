@@ -10,9 +10,11 @@ from logger import logger
 class DraggablePointItem(QGraphicsEllipseItem):
     def __init__(self, command, *args, **kwargs):
         super().__init__(-3, -3, 6, 6, *args, **kwargs)
-        self.setFlags(QGraphicsEllipseItem.ItemIsMovable | 
-                      QGraphicsEllipseItem.ItemSendsGeometryChanges | 
-                      QGraphicsEllipseItem.ItemIsSelectable)
+        self.setFlags(
+            QGraphicsEllipseItem.ItemIsMovable |
+            QGraphicsEllipseItem.ItemSendsGeometryChanges |
+            QGraphicsEllipseItem.ItemIsSelectable
+        )
         self.setFlag(QGraphicsEllipseItem.ItemIgnoresTransformations, True)
         self.setAcceptHoverEvents(True)
         self.setCursor(Qt.OpenHandCursor)

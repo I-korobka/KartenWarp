@@ -1,8 +1,10 @@
 # src/ui/dialogs.py
 import os
-from PyQt5.QtWidgets import (QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QListWidget, QPushButton,
-                             QMessageBox, QToolBar, QAction, QFileDialog, QDialogButtonBox, QLineEdit, QCheckBox,
-                             QFormLayout, QComboBox, QSpinBox, QDoubleSpinBox, QWidget, QGraphicsView, QGraphicsScene, QLabel)
+from PyQt5.QtWidgets import (
+    QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QListWidget, QPushButton,
+    QMessageBox, QToolBar, QAction, QFileDialog, QDialogButtonBox, QLineEdit, QCheckBox,
+    QFormLayout, QComboBox, QSpinBox, QDoubleSpinBox, QWidget, QGraphicsView, QGraphicsScene, QLabel
+)
 from PyQt5.QtGui import QKeySequence, QPixmap, QImage
 from PyQt5.QtCore import Qt, QEvent
 from app_settings import config, tr, set_language
@@ -11,7 +13,7 @@ from logger import logger
 from core import export_scene
 from project import Project
 from PyQt5.QtWidgets import QShortcut
-from common import open_file_dialog  # 追加：共通ファイルダイアログ関数を利用
+from common import open_file_dialog  # 共通ファイルダイアログ関数
 
 class DetachedWindow(QMainWindow):
     def __init__(self, view, title, main_window, parent=None):
@@ -176,10 +178,10 @@ class OptionsDialog(QDialog):
         self.log_max_folders_spin.setToolTip(tr("logging_max_run_logs_tooltip"))
         form_layout.addRow(tr("logging_max_run_logs") + ":", self.log_max_folders_spin)
         self.language_combo = QComboBox(self)
-        languages = [("日本語", "ja"), ("English", "en"), ("Deutsch", "de")]
+        languages = [("日本語", "ja_JP"), ("English", "en_US"), ("Deutsch", "de_DE")]
         for display, code in languages:
             self.language_combo.addItem(display, code)
-        current_lang = config.get("language", "ja")
+        current_lang = config.get("language", "ja_JP")
         index = self.language_combo.findData(current_lang)
         if index >= 0:
             self.language_combo.setCurrentIndex(index)
@@ -198,7 +200,7 @@ class OptionsDialog(QDialog):
             if tps_reg_value <= 0:
                 raise ValueError("Regularization parameter must be positive.")
         except Exception as e:
-            QMessageBox.critical(self, tr("input_error_title"), f"Invalid TPS regularization parameter: {tps_reg_text}\nError: {str(e)}")
+            QMessageBox.critical(self, tr("input_error_title"), tr("invalid_tps_reg").format(tps_reg=tps_reg_text, error=str(e)))
             logger.exception("TPS regularization parameter invalid")
             return
         config.set("keybindings/undo", self.undo_key_edit.text())
