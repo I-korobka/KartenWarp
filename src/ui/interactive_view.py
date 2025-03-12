@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QWheelEvent, QTransform, QIcon
 from logger import logger
 from app_settings import tr, config
+from common import get_asset_path 
 
 class InteractiveView(QGraphicsView):
     zoomFactorChanged = pyqtSignal(float)  # 内部倍率（1.0＝100%）を送出
@@ -135,26 +136,26 @@ class EditableZoomLabel(QLineEdit):
 
 # --- ZoomControlWidget ---
 class ZoomControlWidget(QWidget):
-    zoomChanged = pyqtSignal(float)  # 新たな倍率（1.0＝100%）を送出
-
+    zoomChanged = pyqtSignal(float)
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         self.slider = QSlider(Qt.Horizontal, self)
-        # スライダーの内部値: -200～200 → 対数的に 10^(value/100)=倍率 とする
         self.slider.setRange(-200, 200)
-        self.slider.setValue(0)  # 0 → 10^(0)=1 → 100%
+        self.slider.setValue(0)
         self.slider.setSingleStep(1)
         self.zoom_edit = EditableZoomLabel(self)
         self.zoom_edit.setText("100%")
-        # リセットボタンの追加（アイコンはユーザーが用意する前提）
+        # get_asset_path を利用してアイコンのパスを動的に取得
+        reset_icon_path = get_asset_path("reset_icon")
         self.reset_button = QPushButton(self)
-        self.reset_button.setIcon(QIcon("path/to/your/reset_icon.png"))
+        self.reset_button.setIcon(QIcon(reset_icon_path))
         self.reset_button.setToolTip(tr("reset_zoom_tooltip"))
         self.reset_button.setFixedSize(24, 24)
         self.reset_button.clicked.connect(self.on_reset_button_clicked)
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        zoom_text = tr("zoom_label")  # 例："Zoom:" と表示
+        zoom_text = tr("zoom_label")
         layout.addWidget(QLabel(zoom_text))
         layout.addWidget(self.slider)
         layout.addWidget(self.reset_button)

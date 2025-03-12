@@ -8,6 +8,39 @@ import numpy as np
 import logging
 
 logger = logging.getLogger("KartenWarp.Common")
+ASSETS_CONFIG = None
+
+def load_assets_config():
+    """
+    プロジェクトルートの assets/ 配下にある assets_config.json を読み込み、設定を返す。
+    """
+    global ASSETS_CONFIG
+    # common.py の2階層上をプロジェクトルートとする（例: ./src/common.py → プロジェクトルートは ./）
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    config_path = os.path.join(base_dir, "assets", "assets_config.json")
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            ASSETS_CONFIG = json.load(f)
+        # ログ出力（必要に応じて logging を利用してください）
+        print("Assets config loaded from", config_path)
+    except Exception as e:
+        print("Error loading assets config:", e)
+        ASSETS_CONFIG = {}
+    return ASSETS_CONFIG
+
+def get_asset_path(asset_name):
+    """
+    指定された asset_name のアセットファイルの絶対パスを返す。
+    アセット設定ファイルに asset_name が存在しなければ例外を発生させる。
+    """
+    global ASSETS_CONFIG
+    if ASSETS_CONFIG is None:
+        load_assets_config()
+    rel_path = ASSETS_CONFIG.get(asset_name)
+    if rel_path is None:
+        raise ValueError(f"Asset '{asset_name}' not found in assets config.")
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_dir, "assets", rel_path)
 
 def create_action(parent, text, triggered_slot, shortcut=None, tooltip=None):
     """
