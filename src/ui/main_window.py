@@ -115,7 +115,7 @@ class MainWindow(QMainWindow):
             return
 
         from common import open_file_dialog
-        file_name = open_file_dialog(self, _("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
+        file_name = open_file_dialog(self, _("load_project"), "", _("project_files_label") + f" (*{config.get('project/extension', '.kw')})")
         if not file_name:
             self.statusBar().showMessage(_("load_cancelled"), 2000)
             logger.info("Project load cancelled")

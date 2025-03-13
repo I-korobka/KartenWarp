@@ -75,20 +75,10 @@ def qimage_to_numpy(qimage: QImage) -> np.ndarray:
     return arr[..., :3]
 
 def open_file_dialog(parent, title, directory="", file_filter="All Files (*)"):
-    """
-    共通のファイルオープンダイアログ関数。
-    指定された親ウィジェット、タイトル、初期ディレクトリ、ファイルフィルタを使用して
-    ファイルパスを取得し、返します。
-    """
     file_path, _ = QFileDialog.getOpenFileName(parent, title, directory, file_filter)
     return file_path
 
 def save_file_dialog(parent, title, directory="", file_filter="All Files (*)", default_extension=""):
-    """
-    共通のファイルセーブダイアログ関数。
-    指定された親ウィジェット、タイトル、初期ディレクトリ、ファイルフィルタ、デフォルト拡張子を使用して
-    ファイルパスを取得し、返します。指定された拡張子が付いていない場合、自動で付与します。
-    """
     file_path, _ = QFileDialog.getSaveFileName(parent, title, directory, file_filter)
     if file_path and default_extension and not file_path.lower().endswith(default_extension.lower()):
         file_path += default_extension

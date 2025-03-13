@@ -254,7 +254,7 @@ class ResultWindow(QWidget):
         main_layout.addLayout(btn_layout)
     
     def export_result(self):
-        file_path, _ = QFileDialog.getSaveFileName(self, _("export_select_file"), os.getcwd(), "PNGファイル (*.png)")
+        file_path, _ = QFileDialog.getSaveFileName(self, _("export_select_file"), os.getcwd(), _("png_files_label") + " (*.png)")
         if not file_path:
             logger.info("Export cancelled by user")
             return
@@ -299,14 +299,17 @@ class NewProjectDialog(QDialog):
         button_box.accepted.connect(self.validate_and_accept)
         button_box.rejected.connect(self.reject)
         layout.addWidget(button_box)
-    
+
     def browse_game_image(self):
-        file_path = open_file_dialog(self, _("select_game_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
+        # 「画像ファイル」は翻訳対象、拡張子部分はそのまま維持
+        file_filter = _("image_files_label") + " (*.png *.jpg *.bmp)"
+        file_path = open_file_dialog(self, _("select_game_image"), "", file_filter)
         if file_path:
             self.game_image_edit.setText(file_path)
 
     def browse_real_image(self):
-        file_path = open_file_dialog(self, _("select_real_map_image"), "", "画像ファイル (*.png *.jpg *.bmp)")
+        file_filter = _("image_files_label") + " (*.png *.jpg *.bmp)"
+        file_path = open_file_dialog(self, _("select_real_map_image"), "", file_filter)
         if file_path:
             self.real_image_edit.setText(file_path)
 
@@ -359,7 +362,7 @@ class ProjectSelectionDialog(QDialog):
             self.accept()
 
     def open_project(self):
-        file_name = open_file_dialog(self, _("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
+        file_name = open_file_dialog(self, _("load_project"), "", _("project_files_label") + f" (*{config.get('project/extension', '.kw')})")
         if file_name:
             try:
                 self.selected_project = Project.load(file_name)
