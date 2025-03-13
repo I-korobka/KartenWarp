@@ -1,622 +1,780 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-13 18:32+0900\n"
-"PO-Revision-Date: 2025-03-13 00:00+0000\n"
+"PO-Revision-Date: 2025-03-13 18:55+0900\n"
 "Last-Translator: YOUR NAME <EMAIL@EXAMPLE.COM>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: \n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
 
 #: src/common.py:170
+#, fuzzy
 msgid "language_name_ja_JP"
-msgstr ""
+msgstr "Japanese (language)"
 
 #: src/common.py:171
+#, fuzzy
 msgid "language_name_en_US"
-msgstr ""
+msgstr "American English"
 
 #: src/common.py:172
+#, fuzzy
 msgid "language_name_en_GB"
-msgstr ""
+msgstr "British English"
 
 #: src/common.py:173
+#, fuzzy
 msgid "language_name_de_DE"
-msgstr ""
+msgstr "Standard German"
 
 #: src/common.py:174
+#, fuzzy
 msgid "language_name_bar"
-msgstr ""
+msgstr "Bavarian (language)"
 
 #: src/common.py:175
+#, fuzzy
 msgid "language_name_de_AT"
-msgstr ""
+msgstr "Austrian German"
 
 #: src/common.py:176
+#, fuzzy
 msgid "language_name_hu_HU"
-msgstr ""
+msgstr "Hungarian"
 
 #: src/common.py:177
+#, fuzzy
 msgid "language_name_cs_CZ"
-msgstr ""
+msgstr "Czech (language)"
 
 #: src/common.py:178
+#, fuzzy
 msgid "language_name_sk_SK"
-msgstr ""
+msgstr "Slovak"
 
 #: src/common.py:179
+#, fuzzy
 msgid "language_name_pl_PL"
-msgstr ""
+msgstr "Polish (language)"
 
 #: src/common.py:180
+#, fuzzy
 msgid "language_name_uk_UA"
-msgstr ""
+msgstr "Ukrainian (language)"
 
 #: src/common.py:181
+#, fuzzy
 msgid "language_name_hr_HR"
-msgstr ""
+msgstr "Croatian."
 
 #: src/common.py:182
+#, fuzzy
 msgid "language_name_sl_SI"
-msgstr ""
+msgstr "Slovenian (language)"
 
 #: src/common.py:183
+#, fuzzy
 msgid "language_name_ro_RO"
-msgstr ""
+msgstr "Romanian (language)"
 
 #: src/common.py:184
+#, fuzzy
 msgid "language_name_it_IT"
-msgstr ""
+msgstr "Italian (language)"
 
 #: src/common.py:185
+#, fuzzy
 msgid "language_name_sr_RS"
-msgstr ""
+msgstr "Serbian (language)"
 
 #: src/common.py:186
+#, fuzzy
 msgid "language_name_ru_RU"
-msgstr ""
+msgstr "Russian (language)"
 
 #: src/common.py:187
+#, fuzzy
 msgid "language_name_yi"
-msgstr ""
+msgstr "Yiddish"
 
 #: src/common.py:188
+#, fuzzy
 msgid "language_name_la"
-msgstr ""
+msgstr "Latin"
 
 #: src/core.py:94
+#, fuzzy
 msgid "insufficient_correspondence_points"
-msgstr ""
+msgstr "Lack of corresponding points for conversion."
 
 #: src/core.py:95
+#, fuzzy
 msgid "error_minimum_points_required"
-msgstr ""
+msgstr "Conversion requires a minimum of three corresponding points"
 
 #: src/core.py:158
+#, fuzzy
 msgid "tps_calculation_failed"
-msgstr ""
+msgstr "Project migration failed: {error}."
 
 #: src/project.py:39
+#, fuzzy
 msgid "project_migration_title"
-msgstr ""
+msgstr "Confirmation of project transition."
 
 #: src/project.py:40
+#, fuzzy
 msgid "project_migration_text"
-msgstr ""
+msgstr "Project version is out of date, upgrade to the latest version. Do you want to upgrade? (old version: {old_version} → new version: {target_version})"
 
 #: src/project.py:55
+#, fuzzy
 msgid "project_migration_rejected"
-msgstr ""
+msgstr "Project migration refused."
 
 #: src/project.py:84
+#, fuzzy
 msgid "project_version_newer"
-msgstr ""
+msgstr "Project version too new (file version: {file_version}, current version: {current_version})."
 
 #: src/project.py:92
+#, fuzzy
 msgid "unsaved_project"
-msgstr ""
+msgstr "Unsaved projects"
 
 #: src/project.py:139
+#, fuzzy
 msgid "project_save_failed"
-msgstr ""
+msgstr "Failed to save project: {error}."
 
 #: src/project.py:147
+#, fuzzy
 msgid "project_migration_failed"
-msgstr ""
+msgstr "Project migration failed: {error}."
 
 #: src/project.py:170
+#, fuzzy
 msgid "project_load_failed"
-msgstr ""
+msgstr "Failed to load project: {error}."
 
 #: src/project.py:195
+#, fuzzy
 msgid "either_file_or_pixmap_qimage_required"
-msgstr ""
+msgstr "Either file path or Pixmap/QImage is required"
 
 #: src/project.py:207
+#, fuzzy
 msgid "unknown_image_type"
-msgstr ""
+msgstr "Unknown image type: {image_type}."
 
 #: src/ui/dialogs.py:38
+#, fuzzy
 msgid "mode_toolbar"
-msgstr ""
+msgstr "mode toolbar"
 
 #: src/ui/dialogs.py:40
+#, fuzzy
 msgid "return_to_integrated"
-msgstr ""
+msgstr "Return to integrated mode."
 
 #: src/ui/dialogs.py:60 src/ui/main_window.py:278
+#, fuzzy
 msgid "status_undo_executed"
-msgstr ""
+msgstr "Operation restored."
 
 #: src/ui/dialogs.py:67 src/ui/main_window.py:287
+#, fuzzy
 msgid "status_redo_executed"
-msgstr ""
+msgstr "Operation redone."
 
 #: src/ui/dialogs.py:75
+#, fuzzy
 msgid "mode_switch_confirm_title"
-msgstr ""
+msgstr "Confirmation of mode switching"
 
 #: src/ui/dialogs.py:75
+#, fuzzy
 msgid "mode_switch_confirm_message"
-msgstr ""
+msgstr "Do you want to switch modes? Current mode: {mode}."
 
 #: src/ui/dialogs.py:97
+#, fuzzy
 msgid "history_title"
-msgstr ""
+msgstr "history"
 
 #: src/ui/dialogs.py:103
+#, fuzzy
 msgid "jump"
-msgstr ""
+msgstr "jump"
 
 #: src/ui/dialogs.py:106 src/ui/dialogs.py:251
+#, fuzzy
 msgid "close"
-msgstr ""
+msgstr "close (e.g. book, eyes, meeting, etc.)"
 
 #: src/ui/dialogs.py:126
+#, fuzzy
 msgid "error_select_history_title"
-msgstr ""
+msgstr "historical selection error"
 
 #: src/ui/dialogs.py:126
+#, fuzzy
 msgid "error_select_history_message"
-msgstr ""
+msgstr "History item not selected."
 
 #: src/ui/dialogs.py:138
+#, fuzzy
 msgid "options_title"
-msgstr ""
+msgstr "Option."
 
 #: src/ui/dialogs.py:143
+#, fuzzy
 msgid "undo_key"
-msgstr ""
+msgstr "Undo key"
 
 #: src/ui/dialogs.py:146
+#, fuzzy
 msgid "redo_key"
-msgstr ""
+msgstr "redo key"
 
 #: src/ui/dialogs.py:149
+#, fuzzy
 msgid "toggle_mode_key"
-msgstr ""
+msgstr "mode change key"
 
 #: src/ui/dialogs.py:152
+#, fuzzy
 msgid "tps_reg"
-msgstr ""
+msgstr "TPS regularisation parameter"
 
 #: src/ui/dialogs.py:155
+#, fuzzy
 msgid "tps_adaptive"
-msgstr ""
+msgstr "Adaptive regularisation used."
 
 #: src/ui/dialogs.py:158 src/ui/main_window.py:434 src/ui/ui_manager.py:121
+#, fuzzy
 msgid "grid_overlay"
-msgstr ""
+msgstr "grid overlay"
 
 #: src/ui/dialogs.py:162
+#, fuzzy
 msgid "grid_size"
-msgstr ""
+msgstr "grid size"
 
 #: src/ui/dialogs.py:165
+#, fuzzy
 msgid "grid_color"
-msgstr ""
+msgstr "grid colour"
 
 #: src/ui/dialogs.py:171
+#, fuzzy
 msgid "grid_opacity"
-msgstr ""
+msgstr "grid opacity"
 
 #: src/ui/dialogs.py:174 src/ui/ui_manager.py:117
+#, fuzzy
 msgid "dark_mode"
-msgstr ""
+msgstr "dark mode"
 
 #: src/ui/dialogs.py:178
+#, fuzzy
 msgid "logging_max_run_logs_tooltip"
-msgstr ""
+msgstr "Maximum number of log folders to be retained"
 
 #: src/ui/dialogs.py:179
+#, fuzzy
 msgid "logging_max_run_logs"
-msgstr ""
+msgstr "Maximum number of log folders"
 
 #: src/ui/dialogs.py:198
+#, fuzzy
 msgid "language"
-msgstr ""
+msgstr "Language."
 
 #: src/ui/dialogs.py:213 src/ui/dialogs.py:320
+#, fuzzy
 msgid "input_error_title"
-msgstr ""
+msgstr "input error"
 
 #: src/ui/dialogs.py:213
+#, fuzzy
 msgid "invalid_tps_reg"
-msgstr ""
+msgstr "Invalid TPS regularisation parameter: {tps_reg} ({error})"
 
 #: src/ui/dialogs.py:237
+#, fuzzy
 msgid "result_title"
-msgstr ""
+msgstr "Result."
 
 #: src/ui/dialogs.py:248
+#, fuzzy
 msgid "export"
-msgstr ""
+msgstr "export"
 
 #: src/ui/dialogs.py:257 src/ui/main_window.py:263
+#, fuzzy
 msgid "export_select_file"
-msgstr ""
+msgstr "Select the file to export to"
 
 #: src/ui/dialogs.py:257
+#, fuzzy
 msgid "png_files_label"
-msgstr ""
+msgstr "PNG file"
 
 #: src/ui/dialogs.py:262
+#, fuzzy
 msgid "export_success_title"
-msgstr ""
+msgstr "Successful export"
 
 #: src/ui/dialogs.py:262
+#, fuzzy
 msgid "export_success_message"
-msgstr ""
+msgstr "Scene successfully exported: {output_filename}."
 
 #: src/ui/dialogs.py:272
+#, fuzzy
 msgid "new_project_title"
-msgstr ""
+msgstr "New projects"
 
 #: src/ui/dialogs.py:280 src/ui/dialogs.py:289 src/ui/ui_manager.py:29
+#, fuzzy
 msgid "browse"
-msgstr ""
+msgstr "See also."
 
 #: src/ui/dialogs.py:285 src/ui/interactive_scene.py:227
 #: src/ui/interactive_scene.py:251 src/ui/interactive_scene.py:267
 #: src/ui/main_window.py:357
+#, fuzzy
 msgid "game_image"
-msgstr ""
+msgstr "game picture"
 
 #: src/ui/dialogs.py:294 src/ui/interactive_scene.py:227
 #: src/ui/interactive_scene.py:251 src/ui/interactive_scene.py:267
 #: src/ui/main_window.py:358
+#, fuzzy
 msgid "real_map_image"
-msgstr ""
+msgstr "on-the-spot map"
 
 #: src/ui/dialogs.py:305 src/ui/dialogs.py:311
+#, fuzzy
 msgid "image_files_label"
-msgstr ""
+msgstr "graphics file"
 
 #: src/ui/dialogs.py:306
+#, fuzzy
 msgid "select_game_image"
-msgstr ""
+msgstr "Select game image"
 
 #: src/ui/dialogs.py:312
+#, fuzzy
 msgid "select_real_map_image"
-msgstr ""
+msgstr "Select a field map image"
 
 #: src/ui/dialogs.py:320
+#, fuzzy
 msgid "error_missing_images"
-msgstr ""
+msgstr "Image not selected."
 
 #: src/ui/dialogs.py:338
+#, fuzzy
 msgid "project_selection_title"
-msgstr ""
+msgstr "Project selection"
 
 #: src/ui/dialogs.py:340
+#, fuzzy
 msgid "project_selection_prompt"
-msgstr ""
+msgstr "Choose to create a new project or open an existing project"
 
 #: src/ui/dialogs.py:344 src/ui/ui_manager.py:80
+#, fuzzy
 msgid "new_project"
-msgstr ""
+msgstr "Create new project"
 
 #: src/ui/dialogs.py:345
+#, fuzzy
 msgid "open_project"
-msgstr ""
+msgstr "Open project"
 
 #: src/ui/dialogs.py:346 src/ui/main_window.py:144 src/ui/main_window.py:461
+#, fuzzy
 msgid "cancel"
-msgstr ""
+msgstr "cancel"
 
 #: src/ui/dialogs.py:365 src/ui/main_window.py:118 src/ui/ui_manager.py:86
+#, fuzzy
 msgid "load_project"
-msgstr ""
+msgstr "open (a file, etc.)"
 
 #: src/ui/dialogs.py:365 src/ui/main_window.py:118
+#, fuzzy
 msgid "project_files_label"
-msgstr ""
+msgstr "project file"
 
 #: src/ui/dialogs.py:371
+#, fuzzy
 msgid "project_open_error_title"
-msgstr ""
+msgstr "project open error"
 
 #: src/ui/dialogs.py:372
+#, fuzzy
 msgid "project_open_error_message"
-msgstr ""
+msgstr "Failed to load project: {error}."
 
 #: src/ui/interactive_scene.py:69
+#, fuzzy
 msgid "delete"
-msgstr ""
+msgstr "deletion"
 
 #: src/ui/interactive_scene.py:233
+#, fuzzy
 msgid "point_add"
-msgstr ""
+msgstr "Points added."
 
 #: src/ui/interactive_scene.py:258
+#, fuzzy
 msgid "point_move"
-msgstr ""
+msgstr "point shift"
 
 #: src/ui/interactive_scene.py:272
+#, fuzzy
 msgid "point_delete"
-msgstr ""
+msgstr "point deletion"
 
 #: src/ui/interactive_view.py:149 src/ui/interactive_view.py:178
 msgid "zoom_percentage"
-msgstr ""
+msgstr "{percent}%"
 
 #: src/ui/interactive_view.py:154
+#, fuzzy
 msgid "reset_zoom_tooltip"
-msgstr ""
+msgstr "Reset zoom."
 
 #: src/ui/interactive_view.py:159
+#, fuzzy
 msgid "zoom_label"
-msgstr ""
+msgstr "zoom"
 
 #: src/ui/main_window.py:40 src/ui/main_window.py:207 src/ui/main_window.py:326
 #: src/ui/main_window.py:401
+#, fuzzy
 msgid "mode_integrated"
-msgstr ""
+msgstr "Integrated mode"
 
 #: src/ui/main_window.py:60
+#, fuzzy
 msgid "status_ready"
-msgstr ""
+msgstr "ready"
 
 #: src/ui/main_window.py:100
+#, fuzzy
 msgid "project_loaded"
-msgstr ""
+msgstr "Project loaded."
 
 #: src/ui/main_window.py:111 src/ui/main_window.py:357
 #: src/ui/main_window.py:358
 msgid "app_title"
-msgstr ""
+msgstr "KartenWarp"
 
 #: src/ui/main_window.py:120
+#, fuzzy
 msgid "load_cancelled"
-msgstr ""
+msgstr "Loading has been cancelled."
 
 #: src/ui/main_window.py:129
+#, fuzzy
 msgid "load_error_title"
-msgstr ""
+msgstr "read error"
 
 #: src/ui/main_window.py:130
+#, fuzzy
 msgid "load_error_message"
-msgstr ""
+msgstr "Failed to load project: {error}."
 
 #: src/ui/main_window.py:138 src/ui/main_window.py:457
+#, fuzzy
 msgid "unsaved_changes_title"
-msgstr ""
+msgstr "Unsaved changes"
 
 #: src/ui/main_window.py:139
+#, fuzzy
 msgid "unsaved_changes_switch_message"
-msgstr ""
+msgstr "There are unsaved changes. Do you wish to proceed with the changeover?"
 
 #: src/ui/main_window.py:142 src/ui/main_window.py:459 src/ui/ui_manager.py:84
+#, fuzzy
 msgid "save_project"
-msgstr ""
+msgstr "overwrite save"
 
 #: src/ui/main_window.py:143 src/ui/main_window.py:460
+#, fuzzy
 msgid "discard"
-msgstr ""
+msgstr "discard"
 
 #: src/ui/main_window.py:171
+#, fuzzy
 msgid "new_project_cancelled"
-msgstr ""
+msgstr "New project creation has been cancelled."
 
 #: src/ui/main_window.py:189 src/ui/main_window.py:217
 #: src/ui/main_window.py:261 src/ui/main_window.py:307
+#, fuzzy
 msgid "error_no_project_title"
-msgstr ""
+msgstr "No project."
 
 #: src/ui/main_window.py:189 src/ui/main_window.py:217
 #: src/ui/main_window.py:261 src/ui/main_window.py:307
+#, fuzzy
 msgid "error_no_project_message"
-msgstr ""
+msgstr "Project not loaded."
 
 #: src/ui/main_window.py:197
+#, fuzzy
 msgid "confirm_reset_title"
-msgstr ""
+msgstr "Confirmation of reset."
 
 #: src/ui/main_window.py:198
+#, fuzzy
 msgid "confirm_reset"
-msgstr ""
+msgstr "Do you want to reset and reload the image?"
 
 #: src/ui/main_window.py:202 src/ui/main_window.py:213
+#, fuzzy
 msgid "cancel_loading"
-msgstr ""
+msgstr "Loading has been cancelled."
 
 #: src/ui/main_window.py:221
+#, fuzzy
 msgid "confirm_overwrite_title"
-msgstr ""
+msgstr "overwrite confirmation"
 
 #: src/ui/main_window.py:222
 msgid "confirm_overwrite_message"
-msgstr ""
+msgstr "Do you want to overwrite to {filename}?"
 
 #: src/ui/main_window.py:226 src/ui/main_window.py:245
+#, fuzzy
 msgid "save_cancelled"
-msgstr ""
+msgstr "The save has been cancelled."
 
 #: src/ui/main_window.py:230 src/ui/main_window.py:249
+#, fuzzy
 msgid "project_saved"
-msgstr ""
+msgstr "Project saved."
 
 #: src/ui/main_window.py:234 src/ui/main_window.py:253
+#, fuzzy
 msgid "save_error_title"
-msgstr ""
+msgstr "save error"
 
 #: src/ui/main_window.py:235 src/ui/main_window.py:237
 #: src/ui/main_window.py:254 src/ui/main_window.py:256
+#, fuzzy
 msgid "save_error_message"
-msgstr ""
+msgstr "Failed to save project: {error}."
 
 #: src/ui/main_window.py:243 src/ui/ui_manager.py:85
+#, fuzzy
 msgid "save_project_as"
-msgstr ""
+msgstr "Save as."
 
 #: src/ui/main_window.py:265
+#, fuzzy
 msgid "export_cancelled"
-msgstr ""
+msgstr "Export has been cancelled."
 
 #: src/ui/main_window.py:269
+#, fuzzy
 msgid "export_success"
-msgstr ""
+msgstr "Successful export: {output_filename}."
 
 #: src/ui/main_window.py:274 src/ui/main_window.py:283
 #: src/ui/main_window.py:292
+#, fuzzy
 msgid "error_no_active_scene_message"
-msgstr ""
+msgstr "No active scene."
 
 #: src/ui/main_window.py:292
+#, fuzzy
 msgid "error_no_active_scene_title"
-msgstr ""
+msgstr "scene error"
 
 #: src/ui/main_window.py:300
+#, fuzzy
 msgid "options_saved"
-msgstr ""
+msgstr "Option saved."
 
 #: src/ui/main_window.py:312
+#, fuzzy
 msgid "error_insufficient_points"
-msgstr ""
+msgstr "Lack of corresponding points for conversion."
 
 #: src/ui/main_window.py:322
+#, fuzzy
 msgid "transform_complete"
-msgstr ""
+msgstr "Conversion completed."
 
 #: src/ui/main_window.py:375
+#, fuzzy
 msgid "mode_detached"
-msgstr ""
+msgstr "separate mode"
 
 #: src/ui/main_window.py:377 src/ui/main_window.py:403
+#, fuzzy
 msgid "mode_switch_message"
-msgstr ""
+msgstr "Mode switched to {mode}."
 
 #: src/ui/main_window.py:405
+#, fuzzy
 msgid "mode_switch_title"
-msgstr ""
+msgstr "mode switching"
 
 #: src/ui/main_window.py:406
+#, fuzzy
 msgid "mode_switch_text"
-msgstr ""
+msgstr "Current mode is {mode}."
 
 #: src/ui/main_window.py:417
+#, fuzzy
 msgid "status_active_scene_game"
-msgstr ""
+msgstr "Game image scene is active."
 
 #: src/ui/main_window.py:419
+#, fuzzy
 msgid "status_active_scene_real"
-msgstr ""
+msgstr "The field picture scene is active."
 
 #: src/ui/main_window.py:441
+#, fuzzy
 msgid "usage_text"
 msgstr ""
+"Usage.\n"
+"Game images: {load_game_image}.\n"
+"Field map images: {load_real_map_image}.\n"
+"TPS conversion: {execute_tps}.\n"
+"Scene export: {export_scene}."
 
 #: src/ui/main_window.py:442 src/ui/ui_manager.py:81
+#, fuzzy
 msgid "load_game_image"
-msgstr ""
+msgstr "Importing game images"
 
 #: src/ui/main_window.py:443 src/ui/ui_manager.py:82
+#, fuzzy
 msgid "load_real_map_image"
-msgstr ""
+msgstr "Capturing of field map images"
 
 #: src/ui/main_window.py:444 src/ui/ui_manager.py:107
+#, fuzzy
 msgid "execute_tps"
-msgstr ""
+msgstr "Perform TPS conversions."
 
 #: src/ui/main_window.py:445 src/ui/ui_manager.py:88
+#, fuzzy
 msgid "export_scene"
-msgstr ""
+msgstr "export"
 
 #: src/ui/main_window.py:447 src/ui/ui_manager.py:129
+#, fuzzy
 msgid "usage"
-msgstr ""
+msgstr "treatment"
 
 #: src/ui/main_window.py:451 src/ui/ui_manager.py:130
+#, fuzzy
 msgid "about"
-msgstr ""
+msgstr "About KartenWarp"
 
 #: src/ui/main_window.py:451
 msgid "about_text"
 msgstr ""
+"KartenWarp\n"
+"Version 1.4\n"
+"\n"
+"This tool performs TPS transformations based on the corresponding points between two images and provides a real-time preview of the transformation results and various auxiliary functions (e.g. drag to move points).\n"
+"\n"
+"(c) 2025 korobka"
 
 #: src/ui/main_window.py:458
+#, fuzzy
 msgid "unsaved_exit_message"
-msgstr ""
+msgstr "There are unsaved changes. Are you sure you want to exit?"
 
 #: src/ui/ui_manager.py:78
+#, fuzzy
 msgid "file_menu"
-msgstr ""
+msgstr "file"
 
 #: src/ui/ui_manager.py:84
+#, fuzzy
 msgid "save_project_tooltip"
-msgstr ""
+msgstr "Overwrite and save the current project"
 
 #: src/ui/ui_manager.py:85
+#, fuzzy
 msgid "save_project_as_tooltip"
-msgstr ""
+msgstr "Save project under a different name"
 
 #: src/ui/ui_manager.py:86
+#, fuzzy
 msgid "load_project_tooltip"
-msgstr ""
+msgstr "Load project"
 
 #: src/ui/ui_manager.py:90
+#, fuzzy
 msgid "exit_program"
-msgstr ""
+msgstr "end"
 
 #: src/ui/ui_manager.py:95
+#, fuzzy
 msgid "edit_menu"
-msgstr ""
+msgstr "editing"
 
 #: src/ui/ui_manager.py:97
+#, fuzzy
 msgid "undo"
-msgstr ""
+msgstr "return to the point (of a discussion)"
 
 #: src/ui/ui_manager.py:98
+#, fuzzy
 msgid "redo"
-msgstr ""
+msgstr "redoing"
 
 #: src/ui/ui_manager.py:100
+#, fuzzy
 msgid "history_menu"
-msgstr ""
+msgstr "history"
 
 #: src/ui/ui_manager.py:100
+#, fuzzy
 msgid "history_menu_tooltip"
-msgstr ""
+msgstr "View operation history."
 
 #: src/ui/ui_manager.py:105
+#, fuzzy
 msgid "tools_menu"
-msgstr ""
+msgstr "Tool."
 
 #: src/ui/ui_manager.py:109
+#, fuzzy
 msgid "toggle_mode"
-msgstr ""
+msgstr "mode switching"
 
 #: src/ui/ui_manager.py:111
+#, fuzzy
 msgid "options"
-msgstr ""
+msgstr "Option."
 
 #: src/ui/ui_manager.py:116
+#, fuzzy
 msgid "view_menu"
-msgstr ""
+msgstr "display"
 
 #: src/ui/ui_manager.py:127
+#, fuzzy
 msgid "help_menu"
-msgstr ""
+msgstr "help"

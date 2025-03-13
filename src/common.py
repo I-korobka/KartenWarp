@@ -118,6 +118,26 @@ import builtins
 def _(message):
     return builtins.__dict__.get('_', lambda s: s)(message)
 
+def ngettext(singular, plural, n):
+    """
+    複数形対応の翻訳を行います。ngettext が組み込み関数として利用できない場合はフォールバックします。
+    """
+    return builtins.__dict__.get('ngettext', lambda s, p, n: s if n == 1 else p)(singular, plural, n)
+
+
+def pgettext(context, message):
+    """
+    文脈付き翻訳を行います。翻訳ファイル側で context と message を「context\x04message」として管理します。
+    翻訳が存在しない場合は message をそのまま返します。
+    """
+    # gettext で文脈付き翻訳は、実際には "context\x04message" というキーに展開されます
+    context_message = f"{context}\x04{message}"
+    translated = builtins.__dict__.get('_', lambda s: s)(context_message)
+    # 翻訳がなされなかった場合、通常は "context\x04message" のままになるので、その場合は message を返す
+    if context_message == translated:
+        return message
+    return translated
+
 # 各言語コードに対応するネイティブな表示名（固定）
 LANGUAGE_NATIVE_NAMES = {
     "ja_JP": "日本語",

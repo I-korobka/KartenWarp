@@ -121,7 +121,7 @@ def init_gettext():
     except Exception as e:
         print("Error loading translations for", lang_code, ":", e)
         translation = gettext.NullTranslations()
-    translation.install()  # 組み込み関数 _ をセット
+    translation.install(names=['gettext', 'ngettext'])
 
 # モジュール読込時に gettext の初期化を実施
 init_gettext()
