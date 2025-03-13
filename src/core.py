@@ -6,7 +6,7 @@ import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 from logger import logger, transform_logger
-from app_settings import config, tr
+from app_settings import config
 from common import qimage_to_numpy  # 共通関数をインポート
 
 # --- データモデル ---

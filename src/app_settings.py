@@ -118,8 +118,6 @@ def init_gettext():
         print("Error loading translations for", lang_code, ":", e)
         translation = gettext.NullTranslations()
     translation.install()  # 組み込み関数 _ をセット
-    global tr
-    tr = translation.gettext
 
 # モジュール読込時に gettext の初期化を実施
 init_gettext()

@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QWheelEvent, QTransform, QIcon
 from logger import logger
-from app_settings import tr, config
+from app_settings import config
 from common import get_asset_path 
 
 class InteractiveView(QGraphicsView):
@@ -146,17 +146,17 @@ class ZoomControlWidget(QWidget):
         self.slider.setSingleStep(1)
         self.zoom_edit = EditableZoomLabel(self)
         # 初期表示は100%（※ここも動的に生成）
-        self.zoom_edit.setText(tr("zoom_percentage").format(percent=100))
+        self.zoom_edit.setText(_("zoom_percentage").format(percent=100))
         # get_asset_path を利用してアイコンのパスを動的に取得
         reset_icon_path = get_asset_path("reset_icon")
         self.reset_button = QPushButton(self)
         self.reset_button.setIcon(QIcon(reset_icon_path))
-        self.reset_button.setToolTip(tr("reset_zoom_tooltip"))
+        self.reset_button.setToolTip(_("reset_zoom_tooltip"))
         self.reset_button.setFixedSize(24, 24)
         self.reset_button.clicked.connect(self.on_reset_button_clicked)
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        zoom_text = tr("zoom_label")
+        zoom_text = _("zoom_label")
         layout.addWidget(QLabel(zoom_text))
         layout.addWidget(self.slider)
         layout.addWidget(self.reset_button)
@@ -175,7 +175,7 @@ class ZoomControlWidget(QWidget):
             zoom = 10 ** (self.slider.value() / 100.0)
         percent = round(zoom * 100)
         # ズームパーセンテージの表示は翻訳キー "zoom_percentage" で管理
-        self.zoom_edit.setText(tr("zoom_percentage").format(percent=percent))
+        self.zoom_edit.setText(_("zoom_percentage").format(percent=percent))
 
     def on_edit_finished(self):
         try:

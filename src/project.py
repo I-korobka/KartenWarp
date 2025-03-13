@@ -3,7 +3,7 @@ import os
 import base64
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox, QApplication
-from app_settings import config, tr
+from app_settings import config
 from logger import logger
 from common import save_json, load_json
 from PyQt5.QtCore import QBuffer
@@ -35,9 +35,9 @@ def base64_to_qimage(b64_string: str) -> QImage:
         return QImage()
 
 def confirm_migration(old_version: int, target_version: int) -> bool:
-    from app_settings import tr
-    title = tr("project_migration_title")
-    message = tr("project_migration_text").format(old_version=old_version, target_version=target_version)
+    from app_settings import config
+    title = _("project_migration_title")
+    message = _("project_migration_text").format(old_version=old_version, target_version=target_version)
     reply = QMessageBox.question(
         None,
         title,
@@ -52,7 +52,7 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
     if from_version == 1:
         if not confirm_migration(1, 2):
             # ユーザーに拒否された場合のエラーメッセージは翻訳キーで管理
-            raise IOError(tr("project_migration_rejected"))
+            raise IOError(_("project_migration_rejected"))
         game_path = data.get("game_image_path", "")
         real_path = data.get("real_image_path", "")
         game_image_data = ""
@@ -81,7 +81,7 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
 def migrate_project_data(data: dict) -> dict:
     file_version = data.get("version", 1)
     if file_version > CURRENT_PROJECT_VERSION:
-        raise ValueError(tr("project_version_newer").format(file_version=file_version, current_version=CURRENT_PROJECT_VERSION))
+        raise ValueError(_("project_version_newer").format(file_version=file_version, current_version=CURRENT_PROJECT_VERSION))
     while file_version < CURRENT_PROJECT_VERSION:
         data = upgrade_project_data(data, file_version)
         file_version = data.get("version", file_version + 1)
@@ -89,7 +89,7 @@ def migrate_project_data(data: dict) -> dict:
 
 class Project:
     def __init__(self, game_image_data=None, real_image_data=None):
-        self.name = tr("unsaved_project")
+        self.name = _("unsaved_project")
         self.file_path = None
         self.game_image_data = game_image_data
         self.real_image_data = real_image_data
@@ -136,7 +136,7 @@ class Project:
             self.modified = False
         except Exception as e:
             logger.exception("プロジェクト保存エラー")
-            raise IOError(tr("project_save_failed").format(error=str(e)))
+            raise IOError(_("project_save_failed").format(error=str(e)))
 
     @classmethod
     def from_dict(cls, data):
@@ -144,7 +144,7 @@ class Project:
             data = migrate_project_data(data)
         except Exception as e:
             logger.exception("プロジェクトデータのマイグレーションに失敗しました")
-            raise IOError(tr("project_migration_failed").format(error=str(e)))
+            raise IOError(_("project_migration_failed").format(error=str(e)))
         project = cls(
             game_image_data=data.get("game_image_data", ""),
             real_image_data=data.get("real_image_data", "")
@@ -167,7 +167,7 @@ class Project:
             return project
         except Exception as e:
             logger.exception("プロジェクト読み込みエラー")
-            raise IOError(tr("project_load_failed").format(error=str(e)))
+            raise IOError(_("project_load_failed").format(error=str(e)))
 
     def add_game_point(self, x, y):
         self.game_points.append([x, y])
@@ -192,7 +192,7 @@ class Project:
             pixmap = loaded_pixmap
             qimage = loaded_qimage
         if pixmap is None or qimage is None:
-            raise ValueError(tr("either_file_or_pixmap_qimage_required"))
+            raise ValueError(_("either_file_or_pixmap_qimage_required"))
         if image_type == "game":
             self.game_pixmap = pixmap
             self.game_qimage = qimage
@@ -204,7 +204,7 @@ class Project:
             self.real_image_data = image_to_base64(qimage)
             logger.debug("実地図画像を更新しました（統合処理）")
         else:
-            raise ValueError(tr("unknown_image_type").format(image_type=image_type))
+            raise ValueError(_("unknown_image_type").format(image_type=image_type))
         if update_modified:
             self.modified = True
 

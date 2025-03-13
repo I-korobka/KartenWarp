@@ -1,0 +1,16 @@
+./compile_mo.py
+./update_po.py
+./src/app_settings.py
+./src/common.py
+./src/core.py
+./src/logger.py
+./src/main.py
+./src/project.py
+./src/themes.py
+./src/__init__.py
+./src/ui/dialogs.py
+./src/ui/interactive_scene.py
+./src/ui/interactive_view.py
+./src/ui/main_window.py
+./src/ui/ui_manager.py
+./src/ui/__init__.py

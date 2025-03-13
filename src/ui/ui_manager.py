@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (
     QMenu, QAction, QDialog, QMessageBox, QToolBar, QMainWindow
 )
 from PyQt5.QtGui import QKeySequence
-from app_settings import tr, config
+from app_settings import config
 from logger import logger
 from common import create_action, open_file_dialog, save_file_dialog
 
@@ -26,7 +26,7 @@ class FileSelectorWidget(QWidget):
     def _init_ui(self):
         self.layout = QHBoxLayout(self)
         self.line_edit = QLineEdit(self)
-        self.button = QPushButton(tr("browse"), self)
+        self.button = QPushButton(_("browse"), self)
         self.button.clicked.connect(self._browse_file)
         self.layout.addWidget(self.line_edit)
         self.layout.addWidget(self.button)
@@ -75,59 +75,59 @@ class UnifiedMenuManager:
         mb.clear()
         
         # File メニュー
-        file_menu = mb.addMenu(tr("file_menu"))
+        file_menu = mb.addMenu(_("file_menu"))
         file_menu_items = [
-            {"text": tr("new_project"), "slot": self.main_window.new_project_action},
-            {"text": tr("load_game_image"), "slot": self.main_window.open_image_A},
-            {"text": tr("load_real_map_image"), "slot": self.main_window.open_image_B},
+            {"text": _("new_project"), "slot": self.main_window.new_project_action},
+            {"text": _("load_game_image"), "slot": self.main_window.open_image_A},
+            {"text": _("load_real_map_image"), "slot": self.main_window.open_image_B},
             "separator",
-            {"text": tr("save_project"), "slot": self.main_window.save_project, "tooltip": tr("save_project_tooltip")},
-            {"text": tr("save_project_as"), "slot": self.main_window.save_project_as, "tooltip": tr("save_project_as_tooltip")},
-            {"text": tr("load_project"), "slot": self.main_window.load_project, "tooltip": tr("load_project_tooltip")},
+            {"text": _("save_project"), "slot": self.main_window.save_project, "tooltip": _("save_project_tooltip")},
+            {"text": _("save_project_as"), "slot": self.main_window.save_project_as, "tooltip": _("save_project_as_tooltip")},
+            {"text": _("load_project"), "slot": self.main_window.load_project, "tooltip": _("load_project_tooltip")},
             "separator",
-            {"text": tr("export_scene"), "slot": self.main_window.export_scene_gui, "tooltip": tr("export_scene")},
+            {"text": _("export_scene"), "slot": self.main_window.export_scene_gui, "tooltip": _("export_scene")},
             "separator",
-            {"text": tr("exit_program"), "slot": self.main_window.exit_application}
+            {"text": _("exit_program"), "slot": self.main_window.exit_application}
         ]
         self.create_menu_from_config(file_menu, file_menu_items)
 
         # Edit メニュー
-        edit_menu = mb.addMenu(tr("edit_menu"))
+        edit_menu = mb.addMenu(_("edit_menu"))
         edit_menu_items = [
-            {"text": tr("undo"), "slot": self.main_window.undo_active, "shortcut": config.get("keybindings/undo", "Ctrl+Z")},
-            {"text": tr("redo"), "slot": self.main_window.redo_active, "shortcut": config.get("keybindings/redo", "Ctrl+Y")},
+            {"text": _("undo"), "slot": self.main_window.undo_active, "shortcut": config.get("keybindings/undo", "Ctrl+Z")},
+            {"text": _("redo"), "slot": self.main_window.redo_active, "shortcut": config.get("keybindings/redo", "Ctrl+Y")},
             "separator",
-            {"text": tr("history_menu"), "slot": self.main_window.open_history_dialog, "tooltip": tr("history_menu_tooltip")}
+            {"text": _("history_menu"), "slot": self.main_window.open_history_dialog, "tooltip": _("history_menu_tooltip")}
         ]
         self.create_menu_from_config(edit_menu, edit_menu_items)
 
         # Tools メニュー
-        tools_menu = mb.addMenu(tr("tools_menu"))
+        tools_menu = mb.addMenu(_("tools_menu"))
         tools_menu_items = [
-            {"text": tr("execute_tps"), "slot": self.main_window.transform_images},
+            {"text": _("execute_tps"), "slot": self.main_window.transform_images},
             "separator",
-            {"text": tr("toggle_mode"), "slot": self.main_window.toggle_mode, "shortcut": config.get("keybindings/toggle_mode", "F5")},
+            {"text": _("toggle_mode"), "slot": self.main_window.toggle_mode, "shortcut": config.get("keybindings/toggle_mode", "F5")},
             "separator",
-            {"text": tr("options"), "slot": self.main_window.open_options_dialog}
+            {"text": _("options"), "slot": self.main_window.open_options_dialog}
         ]
         self.create_menu_from_config(tools_menu, tools_menu_items)
 
         # View メニュー（チェック項目は個別に作成）
-        view_menu = mb.addMenu(tr("view_menu"))
-        self.main_window.dark_mode_action = create_action(self.main_window, tr("dark_mode"), self.main_window.toggle_dark_mode)
+        view_menu = mb.addMenu(_("view_menu"))
+        self.main_window.dark_mode_action = create_action(self.main_window, _("dark_mode"), self.main_window.toggle_dark_mode)
         self.main_window.dark_mode_action.setCheckable(True)
         self.main_window.dark_mode_action.setChecked(config.get("display/dark_mode", False))
         view_menu.addAction(self.main_window.dark_mode_action)
-        self.main_window.grid_overlay_action = create_action(self.main_window, tr("grid_overlay"), self.main_window.toggle_grid_overlay)
+        self.main_window.grid_overlay_action = create_action(self.main_window, _("grid_overlay"), self.main_window.toggle_grid_overlay)
         self.main_window.grid_overlay_action.setCheckable(True)
         self.main_window.grid_overlay_action.setChecked(config.get("display/grid_overlay", False))
         view_menu.addAction(self.main_window.grid_overlay_action)
         
         # Help メニュー
-        help_menu = mb.addMenu(tr("help_menu"))
+        help_menu = mb.addMenu(_("help_menu"))
         help_menu_items = [
-            {"text": tr("usage"), "slot": self.main_window.show_usage},
-            {"text": tr("about"), "slot": self.main_window.show_about}
+            {"text": _("usage"), "slot": self.main_window.show_usage},
+            {"text": _("about"), "slot": self.main_window.show_about}
         ]
         self.create_menu_from_config(help_menu, help_menu_items)
         logger.debug("Unified menus created")

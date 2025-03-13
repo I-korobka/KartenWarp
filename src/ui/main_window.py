@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt, QPointF, QTimer
 from logger import logger
-from app_settings import config, tr
+from app_settings import config
 from core import perform_tps_transform, export_scene
 from ui.interactive_scene import InteractiveScene
 from ui.interactive_view import ZoomableViewWidget
@@ -37,7 +37,7 @@ class ResettableSplitter(QSplitter):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.mode = tr("mode_integrated")
+        self.mode = _("mode_integrated")
         self.project = None
         self._integrated_splitter_sizes = None  # 統合モード時のスプリッターサイズを保持
 
@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         self._init_scenes_and_views()
 
         self.detached_windows = []
-        self.statusBar().showMessage(tr("status_ready").format(project=self.project.name), 3000)
+        self.statusBar().showMessage(_("status_ready").format(project=self.project.name), 3000)
         self.ui_manager.create_menus()
         logger.debug("MainWindow initialized")
         self.ui_manager.apply_theme()
@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
             self.integrated_widget.setParent(None)
             self.integrated_widget.deleteLater()
         self._init_scenes_and_views()
-        self.statusBar().showMessage(tr("project_loaded"), 3000)
+        self.statusBar().showMessage(_("project_loaded"), 3000)
         logger.info("Project switched successfully to [%s]", self.project.name)
 
     def resizeEvent(self, event):
@@ -108,16 +108,16 @@ class MainWindow(QMainWindow):
 
     def _update_window_title(self):
         mod_mark = "*" if self.project and self.project.modified else ""
-        self.setWindowTitle(f"{tr('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
+        self.setWindowTitle(f"{_('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
 
     def load_project(self):
         if not self._prompt_save_current_project():
             return
 
         from common import open_file_dialog
-        file_name = open_file_dialog(self, tr("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
+        file_name = open_file_dialog(self, _("load_project"), "", f"Project Files (*{config.get('project/extension', '.kw')})")
         if not file_name:
-            self.statusBar().showMessage(tr("load_cancelled"), 2000)
+            self.statusBar().showMessage(_("load_cancelled"), 2000)
             logger.info("Project load cancelled")
             return
         try:
@@ -126,8 +126,8 @@ class MainWindow(QMainWindow):
             logger.info("Project loaded successfully from %s", file_name)
         except Exception as e:
             QMessageBox.critical(
-                self, tr("load_error_title"),
-                tr("load_error_message").format(error=str(e))
+                self, _("load_error_title"),
+                _("load_error_message").format(error=str(e))
             )
             logger.exception("Error loading project")
 
@@ -135,8 +135,8 @@ class MainWindow(QMainWindow):
         if self.project and self.project.modified:
             ret = QMessageBox.question(
                 self,
-                tr("unsaved_changes_title"),
-                tr("unsaved_changes_switch_message"),
+                _("unsaved_changes_title"),
+                _("unsaved_changes_switch_message"),
                 QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
                 QMessageBox.Save
             )
@@ -157,7 +157,7 @@ class MainWindow(QMainWindow):
             self.switch_project(new_proj)
             logger.info("New project created: %s", self.project.name)
         else:
-            self.statusBar().showMessage(tr("new_project_cancelled"), 3000)
+            self.statusBar().showMessage(_("new_project_cancelled"), 3000)
 
     def new_project_action(self):
         self.create_new_project()
@@ -175,110 +175,110 @@ class MainWindow(QMainWindow):
 
     def _open_image_common(self, scene, view, load_dialog_key, image_type_key, status_key, log_msg):
         if self.project is None:
-            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            QMessageBox.warning(self, _("error_no_project_title"), _("error_no_project_message"))
             return
         from common import open_file_dialog, load_image
-        file_name = open_file_dialog(self, tr(load_dialog_key), "", "画像ファイル (*.png *.jpg *.bmp)")
+        file_name = open_file_dialog(self, _(load_dialog_key), "", "画像ファイル (*.png *.jpg *.bmp)")
         if file_name:
             if scene.image_loaded:
                 ret = QMessageBox.question(
                     self,
-                    tr("confirm_reset_title"),
-                    tr("confirm_reset").format(image_type=tr(image_type_key)),
+                    _("confirm_reset_title"),
+                    _("confirm_reset").format(image_type=_(image_type_key)),
                     QMessageBox.Ok | QMessageBox.Cancel
                 )
                 if ret != QMessageBox.Ok:
-                    self.statusBar().showMessage(tr("cancel_loading"), 2000)
+                    self.statusBar().showMessage(_("cancel_loading"), 2000)
                     logger.info("%s image loading cancelled", tr(image_type_key))
                     return
             pixmap, qimage = load_image(file_name)
             scene.set_image(pixmap, qimage, file_path=file_name)
-            if self.mode == tr("mode_integrated"):
+            if self.mode == _("mode_integrated"):
                 # ここでfitInViewではなく、基準状態にリセットする
                 view.view.reset_zoom()
             self.statusBar().showMessage(tr(status_key), 3000)
             logger.info(log_msg, file_name)
         else:
-            self.statusBar().showMessage(tr("cancel_loading"), 2000)
+            self.statusBar().showMessage(_("cancel_loading"), 2000)
 
     def save_project(self):
         if self.project is None:
-            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            QMessageBox.warning(self, _("error_no_project_title"), _("error_no_project_message"))
             return
         if self.project.file_path:
             ret = QMessageBox.question(
-                self, tr("confirm_overwrite_title"),
-                tr("confirm_overwrite_message").format(filename=self.project.file_path),
+                self, _("confirm_overwrite_title"),
+                _("confirm_overwrite_message").format(filename=self.project.file_path),
                 QMessageBox.Yes | QMessageBox.No
             )
             if ret != QMessageBox.Yes:
-                self.statusBar().showMessage(tr("save_cancelled"), 2000)
+                self.statusBar().showMessage(_("save_cancelled"), 2000)
                 return
             try:
                 self.project.save(self.project.file_path)
-                self.statusBar().showMessage(tr("project_saved").format(filename=self.project.file_path), 3000)
+                self.statusBar().showMessage(_("project_saved").format(filename=self.project.file_path), 3000)
                 self._update_window_title()
             except Exception as e:
                 QMessageBox.critical(
-                    self, tr("save_error_title"),
-                    tr("save_error_message").format(error=str(e))
+                    self, _("save_error_title"),
+                    _("save_error_message").format(error=str(e))
                 )
-                self.statusBar().showMessage(tr("save_error_message").format(error=str(e)), 3000)
+                self.statusBar().showMessage(_("save_error_message").format(error=str(e)), 3000)
         else:
             self.save_project_as()
 
     def save_project_as(self):
         from common import save_file_dialog
-        file_name = save_file_dialog(self, tr("save_project_as"), "", f"Project Files (*{config.get('project/extension', '.kw')})", config.get("project/extension", ".kw"))
+        file_name = save_file_dialog(self, _("save_project_as"), "", f"Project Files (*{config.get('project/extension', '.kw')})", config.get("project/extension", ".kw"))
         if not file_name:
-            self.statusBar().showMessage(tr("save_cancelled"), 2000)
+            self.statusBar().showMessage(_("save_cancelled"), 2000)
             return
         try:
             self.project.save(file_name)
-            self.statusBar().showMessage(tr("project_saved").format(filename=file_name), 3000)
+            self.statusBar().showMessage(_("project_saved").format(filename=file_name), 3000)
             self._update_window_title()
         except Exception as e:
             QMessageBox.critical(
-                self, tr("save_error_title"),
-                tr("save_error_message").format(error=str(e))
+                self, _("save_error_title"),
+                _("save_error_message").format(error=str(e))
             )
-            self.statusBar().showMessage(tr("save_error_message").format(error=str(e)), 3000)
+            self.statusBar().showMessage(_("save_error_message").format(error=str(e)), 3000)
 
     def export_scene_gui(self):
         from common import save_file_dialog
         if self.project is None:
-            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            QMessageBox.warning(self, _("error_no_project_title"), _("error_no_project_message"))
             return
-        file_path = save_file_dialog(self, tr("export_select_file"), "", "PNGファイル (*.png)", ".png")
+        file_path = save_file_dialog(self, _("export_select_file"), "", "PNGファイル (*.png)", ".png")
         if not file_path:
-            self.statusBar().showMessage(tr("export_cancelled"), 3000)
+            self.statusBar().showMessage(_("export_cancelled"), 3000)
             logger.info("Scene export cancelled")
             return
         output_filename = export_scene(self.sceneA, file_path)
-        self.statusBar().showMessage(tr("export_success").format(output_filename=output_filename), 3000)
+        self.statusBar().showMessage(_("export_success").format(output_filename=output_filename), 3000)
         logger.info("Scene exported: %s", output_filename)
 
     def undo_active(self):
         if not hasattr(self, "active_scene") or not self.active_scene:
-            self.statusBar().showMessage(tr("error_no_active_scene_message"), 2000)
+            self.statusBar().showMessage(_("error_no_active_scene_message"), 2000)
             logger.warning("Undo requested but no active scene")
             return
         self.active_scene.undo()
-        self.statusBar().showMessage(tr("status_undo_executed"), 2000)
+        self.statusBar().showMessage(_("status_undo_executed"), 2000)
         logger.debug("Undo executed")
 
     def redo_active(self):
         if not hasattr(self, "active_scene") or not self.active_scene:
-            self.statusBar().showMessage(tr("error_no_active_scene_message"), 2000)
+            self.statusBar().showMessage(_("error_no_active_scene_message"), 2000)
             logger.warning("Redo requested but no active scene")
             return
         self.active_scene.redo()
-        self.statusBar().showMessage(tr("status_redo_executed"), 2000)
+        self.statusBar().showMessage(_("status_redo_executed"), 2000)
         logger.debug("Redo executed")
 
     def open_history_dialog(self):
         if not hasattr(self, "active_scene") or not self.active_scene:
-            QMessageBox.warning(self, tr("error_no_active_scene_title"), tr("error_no_active_scene_message"))
+            QMessageBox.warning(self, _("error_no_active_scene_title"), _("error_no_active_scene_message"))
             logger.warning("Attempted to open history dialog with no active scene")
             return
         self.ui_manager.show_history_dialog(self.active_scene)
@@ -286,19 +286,19 @@ class MainWindow(QMainWindow):
 
     def open_options_dialog(self):
         if self.ui_manager.show_options_dialog():
-            self.statusBar().showMessage(tr("options_saved"), 3000)
+            self.statusBar().showMessage(_("options_saved"), 3000)
             self.ui_manager.create_menus()
             self.ui_manager.apply_theme()
             logger.debug("Options dialog accepted and settings updated")
 
     def transform_images(self):
         if self.project is None:
-            QMessageBox.warning(self, tr("error_no_project_title"), tr("error_no_project_message"))
+            QMessageBox.warning(self, _("error_no_project_title"), _("error_no_project_message"))
             return
         ptsA = self.project.game_points
         ptsB = self.project.real_points
         if len(ptsA) != len(ptsB) or len(ptsA) < 3:
-            self.statusBar().showMessage(tr("error_insufficient_points"), 3000)
+            self.statusBar().showMessage(_("error_insufficient_points"), 3000)
             logger.warning("Insufficient points for transformation")
             return
         warped_pixmap, error = perform_tps_transform(ptsA, ptsB, self.sceneA, self.sceneB)
@@ -308,11 +308,11 @@ class MainWindow(QMainWindow):
             return
         result_win = self.ui_manager.show_result_window(warped_pixmap)
         self.result_win = result_win
-        self.statusBar().showMessage(tr("transform_complete"), 3000)
+        self.statusBar().showMessage(_("transform_complete"), 3000)
         logger.info("TPS transformation executed successfully")
 
     def toggle_mode(self):
-        if self.mode == tr("mode_integrated"):
+        if self.mode == _("mode_integrated"):
             self._enter_detached_mode()
         else:
             self._enter_integrated_mode()
@@ -343,8 +343,8 @@ class MainWindow(QMainWindow):
         if proposed_winA_y < screen_geom.top():
             proposed_winA_y = screen_geom.top() + offset
         from ui.dialogs import DetachedWindow
-        winA = DetachedWindow(self.viewA, f"{tr('app_title')} - {tr('game_image')}", self)
-        winB = DetachedWindow(self.viewB, f"{tr('app_title')} - {tr('real_map_image')}", self)
+        winA = DetachedWindow(self.viewA, f"{_('app_title')} - {_('game_image')}", self)
+        winB = DetachedWindow(self.viewB, f"{_('app_title')} - {_('real_map_image')}", self)
         winA.resize(default_width, default_height)
         winB.resize(default_width, default_height)
         winA.move(proposed_winA_x, proposed_winA_y)
@@ -361,9 +361,9 @@ class MainWindow(QMainWindow):
         winA.show()
         winB.show()
         self.detached_windows.extend([winA, winB])
-        self.mode = tr("mode_detached")
+        self.mode = _("mode_detached")
         self._update_window_title()
-        self.statusBar().showMessage(tr("mode_switch_message").format(mode=self.mode), 3000)
+        self.statusBar().showMessage(_("mode_switch_message").format(mode=self.mode), 3000)
         logger.info("Entered detached mode")
 
     def _enter_integrated_mode(self):
@@ -387,12 +387,12 @@ class MainWindow(QMainWindow):
         else:
             total_width = self.splitter.width()
             self.splitter.setSizes([total_width // 2, total_width - total_width // 2])
-        self.mode = tr("mode_integrated")
+        self.mode = _("mode_integrated")
         self._update_window_title()
-        self.statusBar().showMessage(tr("mode_switch_message").format(mode=self.mode), 3000)
+        self.statusBar().showMessage(_("mode_switch_message").format(mode=self.mode), 3000)
         msg_box = QMessageBox(self)
-        msg_box.setWindowTitle(tr("mode_switch_title"))
-        msg_box.setText(tr("mode_switch_text").format(mode=self.mode))
+        msg_box.setWindowTitle(_("mode_switch_title"))
+        msg_box.setText(_("mode_switch_text").format(mode=self.mode))
         msg_box.setIcon(QMessageBox.Information)
         msg_box.setWindowModality(Qt.ApplicationModal)
         msg_box.setWindowFlags(msg_box.windowFlags() | Qt.WindowStaysOnTopHint)
@@ -403,9 +403,9 @@ class MainWindow(QMainWindow):
         self.active_scene = scene
         if hasattr(scene, "image_type"):
             if scene.image_type == "game":
-                self.statusBar().showMessage(tr("status_active_scene_game"), 3000)
+                self.statusBar().showMessage(_("status_active_scene_game"), 3000)
             else:
-                self.statusBar().showMessage(tr("status_active_scene_real"), 3000)
+                self.statusBar().showMessage(_("status_active_scene_real"), 3000)
         logger.debug("Active scene set")
 
     def toggle_dark_mode(self):
@@ -420,32 +420,32 @@ class MainWindow(QMainWindow):
         current = config.get("display/grid_overlay", False)
         new_state = not current
         config.set("display/grid_overlay", new_state)
-        self.statusBar().showMessage(f"{tr('grid_overlay')} {'ON' if new_state else 'OFF'}", 2000)
+        self.statusBar().showMessage(f"{_('grid_overlay')} {'ON' if new_state else 'OFF'}", 2000)
         self.grid_overlay_action.setChecked(new_state)
         self.sceneA.update()
         self.sceneB.update()
         logger.debug("Grid overlay toggled to %s", new_state)
 
     def show_usage(self):
-        message = tr("usage_text").format(
-            load_game_image=tr("load_game_image"),
-            load_real_map_image=tr("load_real_map_image"),
-            execute_tps=tr("execute_tps"),
-            export_scene=tr("export_scene")
+        message = _("usage_text").format(
+            load_game_image=_("load_game_image"),
+            load_real_map_image=_("load_real_map_image"),
+            execute_tps=_("execute_tps"),
+            export_scene=_("export_scene")
         )
-        QMessageBox.information(self, tr("usage"), message)
+        QMessageBox.information(self, _("usage"), message)
         logger.debug("Usage information shown")
 
     def show_about(self):
-        QMessageBox.about(self, tr("about"), tr("about_text"))
+        QMessageBox.about(self, _("about"), _("about_text"))
         logger.debug("About dialog shown")
 
     def closeEvent(self, event):
         if self.project and self.project.modified:
             ret = QMessageBox.question(
                 self,
-                tr("unsaved_changes_title"),
-                tr("unsaved_exit_message"),
+                _("unsaved_changes_title"),
+                _("unsaved_exit_message"),
                 QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
                 QMessageBox.Save
             )
