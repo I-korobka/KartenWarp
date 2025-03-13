@@ -121,3 +121,94 @@ def save_json(file_path, data):
 
 def qimage_to_qpixmap(qimage: QImage) -> QPixmap:
     return QPixmap.fromImage(qimage)
+
+# 削除: from gettext import gettext as _
+import builtins
+# ここでは、実行時に builtins._ を呼び出すラッパー関数を定義
+def _(message):
+    return builtins.__dict__.get('_', lambda s: s)(message)
+
+# 各言語コードに対応するネイティブな表示名（固定）
+LANGUAGE_NATIVE_NAMES = {
+    "ja_JP": "日本語",
+    "en_US": "English",
+    "en_GB": "English",
+    "de_DE": "Deutsch",
+    "bar": "Bairisch",
+    "de_AT": "Österreichisches Deutsch",
+    "hu_HU": "Magyar",
+    "cs_CZ": "Čeština",
+    "sk_SK": "Slovenčina",
+    "pl_PL": "Polski",
+    "uk_UA": "Українська",
+    "hr_HR": "Hrvatski",
+    "sl_SI": "Slovenščina",
+    "ro_RO": "Română",
+    "it_IT": "Italiano",
+    "sr_RS": "Српски",
+    "ru_RU": "Русский",
+    "yi": "ייִדיש",
+    "la": "Latina"
+}
+
+SUPPORTED_LANGUAGE_DISPLAY_KEYS = {
+    "ja_JP": "language_name_ja_JP",
+    "en_US": "language_name_en_US",
+    "en_GB": "language_name_en_GB",
+    "de_DE": "language_name_de_DE",
+    "bar": "language_name_bar",
+    "de_AT": "language_name_de_AT",
+    "hu_HU": "language_name_hu_HU",
+    "cs_CZ": "language_name_cs_CZ",
+    "sk_SK": "language_name_sk_SK",
+    "pl_PL": "language_name_pl_PL",
+    "uk_UA": "language_name_uk_UA",
+    "hr_HR": "language_name_hr_HR",
+    "sl_SI": "language_name_sl_SI",
+    "ro_RO": "language_name_ro_RO",
+    "it_IT": "language_name_it_IT",
+    "sr_RS": "language_name_sr_RS",
+    "ru_RU": "language_name_ru_RU",
+    "yi":    "language_name_yi",
+    "la":    "language_name_la"
+}
+
+# 既存の LANGUAGE_NATIVE_NAMES はそのまま
+
+# ★修正案：各言語の翻訳キーを _() で囲んだ静的ディクショナリとして定義する
+LANGUAGE_DISPLAY = {
+    "ja_JP": _("language_name_ja_JP"),
+    "en_US": _("language_name_en_US"),
+    "en_GB": _("language_name_en_GB"),
+    "de_DE": _("language_name_de_DE"),
+    "bar":   _("language_name_bar"),
+    "de_AT": _("language_name_de_AT"),
+    "hu_HU": _("language_name_hu_HU"),
+    "cs_CZ": _("language_name_cs_CZ"),
+    "sk_SK": _("language_name_sk_SK"),
+    "pl_PL": _("language_name_pl_PL"),
+    "uk_UA": _("language_name_uk_UA"),
+    "hr_HR": _("language_name_hr_HR"),
+    "sl_SI": _("language_name_sl_SI"),
+    "ro_RO": _("language_name_ro_RO"),
+    "it_IT": _("language_name_it_IT"),
+    "sr_RS": _("language_name_sr_RS"),
+    "ru_RU": _("language_name_ru_RU"),
+    "yi":    _("language_name_yi"),
+    "la":    _("language_name_la")
+}
+
+def get_available_language_options():
+    """
+    サポートする言語を (表示名, 言語コード) のタプルリストとして返します。
+    表示名は「ネイティブ名 (翻訳後の名称)」の形式です。
+    """
+    options = []
+    # SUPPORTED_LANGUAGE_CODES はサポートする言語コードのリスト、または LANGUAGE_NATIVE_NAMES のキーを利用
+    for lang_code in LANGUAGE_NATIVE_NAMES.keys():
+        native_name = LANGUAGE_NATIVE_NAMES.get(lang_code, lang_code)
+        # ここで実際に翻訳キーを評価するので、現在の言語に応じた翻訳が得られます
+        localized_name = _(f"language_name_{lang_code}")
+        display_name = f"{native_name} ({localized_name})"
+        options.append((display_name, lang_code))
+    return options

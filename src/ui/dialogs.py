@@ -177,10 +177,20 @@ class OptionsDialog(QDialog):
         self.log_max_folders_spin.setValue(config.get("logging/max_run_logs", 10))
         self.log_max_folders_spin.setToolTip(_("logging_max_run_logs_tooltip"))
         form_layout.addRow(_("logging_max_run_logs") + ":", self.log_max_folders_spin)
+
+        from common import get_available_language_options
+
         self.language_combo = QComboBox(self)
-        languages = [("日本語", "ja_JP"), ("English", "en_US"), ("Deutsch", "de_DE")]
-        for display, code in languages:
-            self.language_combo.addItem(display, code)
+        language_options = get_available_language_options()
+        if language_options:
+            for display, code in language_options:
+                self.language_combo.addItem(display, code)
+        else:
+            # 万が一利用可能な言語が見つからなかった場合は、デフォルトの３言語を追加
+            default_options = [("日本語 (Japanese)", "ja_JP"), ("English (English)", "en_US"), ("Deutsch (German)", "de_DE")]
+            for display, code in default_options:
+                self.language_combo.addItem(display, code)
+
         current_lang = config.get("language", "ja_JP")
         index = self.language_combo.findData(current_lang)
         if index >= 0:

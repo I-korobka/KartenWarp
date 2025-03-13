@@ -1,91 +1,21 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 17:03+0900\n"
-"PO-Revision-Date: 2025-03-13 00:00+0000\n"
-"Last-Translator: YOUR NAME <EMAIL@EXAMPLE.COM>\n"
+"POT-Creation-Date: 2025-03-13 16:46+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: la\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: src/common.py:178
-msgid "language_name_ja_JP"
-msgstr ""
-
-#: src/common.py:179
-msgid "language_name_en_US"
-msgstr ""
-
-#: src/common.py:180
-msgid "language_name_en_GB"
-msgstr ""
-
-#: src/common.py:181
-msgid "language_name_de_DE"
-msgstr ""
-
-#: src/common.py:182
-msgid "language_name_bar"
-msgstr ""
-
-#: src/common.py:183
-msgid "language_name_de_AT"
-msgstr ""
-
-#: src/common.py:184
-msgid "language_name_hu_HU"
-msgstr ""
-
-#: src/common.py:185
-msgid "language_name_cs_CZ"
-msgstr ""
-
-#: src/common.py:186
-msgid "language_name_sk_SK"
-msgstr ""
-
-#: src/common.py:187
-msgid "language_name_pl_PL"
-msgstr ""
-
-#: src/common.py:188
-msgid "language_name_uk_UA"
-msgstr ""
-
-#: src/common.py:189
-msgid "language_name_hr_HR"
-msgstr ""
-
-#: src/common.py:190
-msgid "language_name_sl_SI"
-msgstr ""
-
-#: src/common.py:191
-msgid "language_name_ro_RO"
-msgstr ""
-
-#: src/common.py:192
-msgid "language_name_it_IT"
-msgstr ""
-
-#: src/common.py:193
-msgid "language_name_sr_RS"
-msgstr ""
-
-#: src/common.py:194
-msgid "language_name_ru_RU"
-msgstr ""
-
-#: src/common.py:195
-msgid "language_name_yi"
-msgstr ""
-
-#: src/common.py:196
-msgid "language_name_la"
-msgstr ""
 
 #: src/core.py:94
 msgid "insufficient_correspondence_points"

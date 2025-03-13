@@ -4,7 +4,9 @@ import sys
 
 def run_command(command):
     print("Running:", " ".join(command))
-    result = subprocess.run(command, shell=False)
+    env = os.environ.copy()
+    env["LANG"] = "en_US.UTF-8"  # ここで環境変数を指定
+    result = subprocess.run(command, shell=False, stdin=subprocess.DEVNULL, env=env)
     if result.returncode != 0:
         sys.exit(result.returncode)
 
@@ -25,6 +27,7 @@ def generate_pot():
     command = [
         "xgettext",
         "--language=Python",
+        "--from-code=UTF-8",  # 追加
         "--keyword=_",
         "--output=locale/messages.pot",
         "-f", "file_list.txt"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 16:26+0900\n"
-"PO-Revision-Date: 2025-03-13 16:32+0900\n"
+"POT-Creation-Date: 2025-03-13 17:03+0900\n"
+"PO-Revision-Date: 2025-03-13 17:06+0900\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja_JP\n"
@@ -11,6 +11,82 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.5\n"
+
+#: src/common.py:178
+msgid "language_name_ja_JP"
+msgstr "日本語"
+
+#: src/common.py:179
+msgid "language_name_en_US"
+msgstr "米英語"
+
+#: src/common.py:180
+msgid "language_name_en_GB"
+msgstr "英英語"
+
+#: src/common.py:181
+msgid "language_name_de_DE"
+msgstr "標準ドイツ語"
+
+#: src/common.py:182
+msgid "language_name_bar"
+msgstr "バイエルン語"
+
+#: src/common.py:183
+msgid "language_name_de_AT"
+msgstr "オーストリア・ドイツ語"
+
+#: src/common.py:184
+msgid "language_name_hu_HU"
+msgstr "ハンガリー語"
+
+#: src/common.py:185
+msgid "language_name_cs_CZ"
+msgstr "チェコ語"
+
+#: src/common.py:186
+msgid "language_name_sk_SK"
+msgstr "スロヴァキア語"
+
+#: src/common.py:187
+msgid "language_name_pl_PL"
+msgstr "ポーランド語"
+
+#: src/common.py:188
+msgid "language_name_uk_UA"
+msgstr "ウクライナ語"
+
+#: src/common.py:189
+msgid "language_name_hr_HR"
+msgstr "クロアチア語"
+
+#: src/common.py:190
+msgid "language_name_sl_SI"
+msgstr "スロベニア語"
+
+#: src/common.py:191
+msgid "language_name_ro_RO"
+msgstr "ルーマニア語"
+
+#: src/common.py:192
+msgid "language_name_it_IT"
+msgstr "イタリア語"
+
+#: src/common.py:193
+msgid "language_name_sr_RS"
+msgstr "セルビア語"
+
+#: src/common.py:194
+msgid "language_name_ru_RU"
+msgstr "ロシア語"
+
+#: src/common.py:195
+msgid "language_name_yi"
+msgstr "イディッシュ語"
+
+#: src/common.py:196
+msgid "language_name_la"
+msgstr "ラテン語"
 
 #: src/core.py:94
 msgid "insufficient_correspondence_points"
@@ -101,7 +177,7 @@ msgstr "履歴"
 msgid "jump"
 msgstr "ジャンプ"
 
-#: src/ui/dialogs.py:106 src/ui/dialogs.py:241
+#: src/ui/dialogs.py:106 src/ui/dialogs.py:251
 msgid "close"
 msgstr "閉じる"
 
@@ -165,100 +241,100 @@ msgstr "保持するログフォルダの最大数"
 msgid "logging_max_run_logs"
 msgstr "最大ログフォルダ数"
 
-#: src/ui/dialogs.py:188
+#: src/ui/dialogs.py:198
 msgid "language"
 msgstr "言語"
 
-#: src/ui/dialogs.py:203 src/ui/dialogs.py:307
+#: src/ui/dialogs.py:213 src/ui/dialogs.py:317
 msgid "input_error_title"
 msgstr "入力エラー"
 
-#: src/ui/dialogs.py:203
+#: src/ui/dialogs.py:213
 msgid "invalid_tps_reg"
 msgstr "TPS正則化パラメータが無効です: {tps_reg} ({error})"
 
-#: src/ui/dialogs.py:227
+#: src/ui/dialogs.py:237
 msgid "result_title"
 msgstr "結果"
 
-#: src/ui/dialogs.py:238
+#: src/ui/dialogs.py:248
 msgid "export"
 msgstr "エクスポート"
 
-#: src/ui/dialogs.py:247 src/ui/main_window.py:263
+#: src/ui/dialogs.py:257 src/ui/main_window.py:263
 msgid "export_select_file"
 msgstr "エクスポート先ファイルを選択"
 
-#: src/ui/dialogs.py:252
+#: src/ui/dialogs.py:262
 msgid "export_success_title"
 msgstr "エクスポート成功"
 
-#: src/ui/dialogs.py:252
+#: src/ui/dialogs.py:262
 msgid "export_success_message"
 msgstr "シーンが正常にエクスポートされました: {output_filename}"
 
-#: src/ui/dialogs.py:262
+#: src/ui/dialogs.py:272
 msgid "new_project_title"
 msgstr "新規プロジェクト"
 
-#: src/ui/dialogs.py:270 src/ui/dialogs.py:279 src/ui/ui_manager.py:29
+#: src/ui/dialogs.py:280 src/ui/dialogs.py:289 src/ui/ui_manager.py:29
 msgid "browse"
 msgstr "参照"
 
-#: src/ui/dialogs.py:275 src/ui/interactive_scene.py:227
+#: src/ui/dialogs.py:285 src/ui/interactive_scene.py:227
 #: src/ui/interactive_scene.py:251 src/ui/interactive_scene.py:267
 #: src/ui/main_window.py:357
 msgid "game_image"
 msgstr "ゲーム画像"
 
-#: src/ui/dialogs.py:284 src/ui/interactive_scene.py:227
+#: src/ui/dialogs.py:294 src/ui/interactive_scene.py:227
 #: src/ui/interactive_scene.py:251 src/ui/interactive_scene.py:267
 #: src/ui/main_window.py:358
 msgid "real_map_image"
 msgstr "実地図画像"
 
-#: src/ui/dialogs.py:294
+#: src/ui/dialogs.py:304
 msgid "select_game_image"
 msgstr "ゲーム画像を選択"
 
-#: src/ui/dialogs.py:299
+#: src/ui/dialogs.py:309
 msgid "select_real_map_image"
 msgstr "実地図画像を選択"
 
-#: src/ui/dialogs.py:307
+#: src/ui/dialogs.py:317
 msgid "error_missing_images"
 msgstr "画像が選択されていません"
 
-#: src/ui/dialogs.py:325
+#: src/ui/dialogs.py:335
 msgid "project_selection_title"
 msgstr "プロジェクト選択"
 
-#: src/ui/dialogs.py:327
+#: src/ui/dialogs.py:337
 msgid "project_selection_prompt"
 msgstr ""
 "プロジェクトを新規作成するか、既存のプロジェクトを開くか選択してください"
 
-#: src/ui/dialogs.py:331 src/ui/ui_manager.py:80
+#: src/ui/dialogs.py:341 src/ui/ui_manager.py:80
 msgid "new_project"
 msgstr "新規プロジェクト作成"
 
-#: src/ui/dialogs.py:332
+#: src/ui/dialogs.py:342
 msgid "open_project"
 msgstr "プロジェクトを開く"
 
-#: src/ui/dialogs.py:333 src/ui/main_window.py:144 src/ui/main_window.py:461
+#: src/ui/dialogs.py:343 src/ui/main_window.py:144 src/ui/main_window.py:461
 msgid "cancel"
 msgstr "キャンセル"
 
-#: src/ui/dialogs.py:352 src/ui/main_window.py:118 src/ui/ui_manager.py:86
+#: src/ui/dialogs.py:362 src/ui/main_window.py:118 src/ui/ui_manager.py:86
 msgid "load_project"
 msgstr "開く"
 
-#: src/ui/dialogs.py:358
+#: src/ui/dialogs.py:368
 msgid "project_open_error_title"
 msgstr "プロジェクトオープンエラー"
 
-#: src/ui/dialogs.py:359
+#: src/ui/dialogs.py:369
 msgid "project_open_error_message"
 msgstr "プロジェクトの読み込みに失敗しました: {error}"
 
