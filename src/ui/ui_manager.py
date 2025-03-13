@@ -32,7 +32,7 @@ class FileSelectorWidget(QWidget):
         self.layout.addWidget(self.button)
     
     def _browse_file(self):
-        title = tr(self.dialog_title_key)
+        title = _(self.dialog_title_key)
         if self.mode == "open":
             file_path = open_file_dialog(self, title, "", self.file_filter)
         else:
@@ -174,8 +174,8 @@ class DialogManager:
         return result_win
 
     def show_message(self, title_key, message_key, **kwargs):
-        title = tr(title_key)
-        message = tr(message_key).format(**kwargs)
+        title = _(title_key)
+        message = _(message_key).format(**kwargs)
         QMessageBox.information(self.parent, title, message)
 
 # --- UIManager (統括クラス) ---

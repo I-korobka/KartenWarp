@@ -133,19 +133,30 @@ class MainWindow(QMainWindow):
 
     def _prompt_save_current_project(self) -> bool:
         if self.project and self.project.modified:
-            ret = QMessageBox.question(
-                self,
-                _("unsaved_changes_title"),
-                _("unsaved_changes_switch_message"),
-                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
-                QMessageBox.Save
-            )
-            if ret == QMessageBox.Save:
+            # カスタムメッセージボックスの作成
+            msg_box = QMessageBox(self)
+            msg_box.setWindowTitle(_("unsaved_changes_title"))
+            msg_box.setText(_("unsaved_changes_switch_message"))
+            
+            # カスタムボタンの作成（各ラベルは翻訳キーで管理）
+            save_button = msg_box.addButton(_("save_project"), QMessageBox.AcceptRole)
+            discard_button = msg_box.addButton(_("discard"), QMessageBox.DestructiveRole)
+            cancel_button = msg_box.addButton(_("cancel"), QMessageBox.RejectRole)
+            
+            # デフォルトボタンを設定（例：Save をデフォルト）
+            msg_box.setDefaultButton(save_button)
+            
+            # ダイアログ表示
+            msg_box.exec_()
+            clicked = msg_box.clickedButton()
+            
+            if clicked == save_button:
                 self.save_project()
                 if self.project.modified:
                     return False
-            elif ret == QMessageBox.Cancel:
+            elif clicked == cancel_button:
                 return False
+            # Discard が選択された場合は、プロジェクトの変更を破棄して続行
         return True
 
     def create_new_project(self):
@@ -189,14 +200,14 @@ class MainWindow(QMainWindow):
                 )
                 if ret != QMessageBox.Ok:
                     self.statusBar().showMessage(_("cancel_loading"), 2000)
-                    logger.info("%s image loading cancelled", tr(image_type_key))
+                    logger.info("%s image loading cancelled", _(image_type_key))
                     return
             pixmap, qimage = load_image(file_name)
             scene.set_image(pixmap, qimage, file_path=file_name)
             if self.mode == _("mode_integrated"):
                 # ここでfitInViewではなく、基準状態にリセットする
                 view.view.reset_zoom()
-            self.statusBar().showMessage(tr(status_key), 3000)
+            self.statusBar().showMessage(_(status_key), 3000)
             logger.info(log_msg, file_name)
         else:
             self.statusBar().showMessage(_("cancel_loading"), 2000)
@@ -442,21 +453,24 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         if self.project and self.project.modified:
-            ret = QMessageBox.question(
-                self,
-                _("unsaved_changes_title"),
-                _("unsaved_exit_message"),
-                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
-                QMessageBox.Save
-            )
-            if ret == QMessageBox.Save:
+            msg_box = QMessageBox(self)
+            msg_box.setWindowTitle(_("unsaved_changes_title"))
+            msg_box.setText(_("unsaved_exit_message"))
+            save_button = msg_box.addButton(_("save_project"), QMessageBox.AcceptRole)
+            discard_button = msg_box.addButton(_("discard"), QMessageBox.DestructiveRole)
+            cancel_button = msg_box.addButton(_("cancel"), QMessageBox.RejectRole)
+            msg_box.setDefaultButton(save_button)
+            msg_box.exec_()
+            clicked = msg_box.clickedButton()
+            if clicked == save_button:
                 self.save_project()
                 if self.project.modified:
                     event.ignore()
                     return
-            elif ret == QMessageBox.Cancel:
+            elif clicked == cancel_button:
                 event.ignore()
                 return
+            # Discard が選択された場合は、変更を破棄して閉じる
         event.accept()
 
 if __name__ == '__main__':

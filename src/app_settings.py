@@ -109,8 +109,12 @@ config = Config()
 import gettext
 
 def init_gettext():
+    # 現在のファイル(app_settings.py)があるディレクトリ（通常は src/）の親ディレクトリをプロジェクトルートとする
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    locale_dir = os.path.join(current_dir, "locale")
+    project_root = os.path.dirname(current_dir)
+    # プロジェクトルート内の locale フォルダを参照する
+    locale_dir = os.path.join(project_root, "locale")
+    
     lang_code = config.get("language", "ja_JP")
     try:
         translation = gettext.translation("messages", locale_dir, languages=[lang_code])

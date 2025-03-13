@@ -91,8 +91,8 @@ def perform_transformation(dest_points, src_points, src_qimage: QImage, output_s
     dest_points_np = np.array(dest_points, dtype=np.float64)
 
     if src_points_np.shape[0] < 3:
-        transform_logger.error("Insufficient correspondence points")
-        raise ValueError("変換には最低3点の対応点が必要です。")
+        transform_logger.error(_("insufficient_correspondence_points"))
+        raise ValueError(_("error_minimum_points_required"))
 
     if src_points_np.shape[0] == 3:
         affine_matrix = cv2.getAffineTransform(src_points_np.astype(np.float32), dest_points_np.astype(np.float32))
@@ -155,7 +155,7 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
         )
     except Exception as e:
         transform_logger.exception("Error in TPS transform")
-        return None, f"Regularization parameter setting and TPS parameter calculation failed: {str(e)}"
+        return None, _("tps_calculation_failed").format(error=str(e))
 
     try:
         warped_qimage = QImage(
