@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 22:39+0900\n"
+"POT-Creation-Date: 2025-03-14 15:54+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,6 +99,14 @@ msgstr ""
 
 #: src/core.py:95
 msgid "error_minimum_points_required"
+msgstr ""
+
+#: src/core.py:102
+msgid "affine_transformation_failed"
+msgstr ""
+
+#: src/core.py:103
+msgid "affine_transformation_failed_message"
 msgstr ""
 
 #: src/core.py:158
@@ -265,7 +273,7 @@ msgstr ""
 msgid "export_select_file"
 msgstr ""
 
-#: src/ui/dialogs.py:257
+#: src/ui/dialogs.py:257 src/ui/main_window.py:263
 msgid "png_files_label"
 msgstr ""
 
@@ -297,7 +305,7 @@ msgstr ""
 msgid "real_map_image"
 msgstr ""
 
-#: src/ui/dialogs.py:305 src/ui/dialogs.py:311
+#: src/ui/dialogs.py:305 src/ui/dialogs.py:311 src/ui/main_window.py:192
 msgid "image_files_label"
 msgstr ""
 

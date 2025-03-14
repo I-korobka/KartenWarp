@@ -99,8 +99,8 @@ def perform_transformation(dest_points, src_points, src_qimage: QImage, output_s
     else:
         affine_matrix, _ = cv2.estimateAffine2D(src_points_np, dest_points_np)
         if affine_matrix is None:
-            transform_logger.error("Affine transformation calculation failed")
-            raise ValueError("アフィン変換行列の計算に失敗しました。")
+            transform_logger.error(_("affine_transformation_failed"))
+            raise ValueError(_("affine_transformation_failed_message"))
 
     src_np = qimage_to_numpy(src_qimage)
     affine_transformed = cv2.warpAffine(

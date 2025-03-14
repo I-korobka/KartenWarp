@@ -189,7 +189,7 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, _("error_no_project_title"), _("error_no_project_message"))
             return
         from common import open_file_dialog, load_image
-        file_name = open_file_dialog(self, _(load_dialog_key), "", "画像ファイル (*.png *.jpg *.bmp)")
+        file_name = open_file_dialog(self, _(load_dialog_key), "", _("image_files_label") + " (*.png *.jpg *.bmp)")
         if file_name:
             if scene.image_loaded:
                 ret = QMessageBox.question(
@@ -260,7 +260,7 @@ class MainWindow(QMainWindow):
         if self.project is None:
             QMessageBox.warning(self, _("error_no_project_title"), _("error_no_project_message"))
             return
-        file_path = save_file_dialog(self, _("export_select_file"), "", "PNGファイル (*.png)", ".png")
+        file_path = save_file_dialog(self, _("export_select_file"), "", _("png_files_label") + " (*.png)", ".png")
         if not file_path:
             self.statusBar().showMessage(_("export_cancelled"), 3000)
             logger.info("Scene export cancelled")
