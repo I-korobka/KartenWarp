@@ -189,11 +189,11 @@ class UIManager:
         self.dialog_manager = DialogManager(main_window)
     
     def apply_theme(self):
-        from themes import get_dark_mode_stylesheet
+        from themes import get_light_mode_stylesheet, get_dark_mode_stylesheet
         if config.get("display/dark_mode", False):
             self.main_window.setStyleSheet(get_dark_mode_stylesheet())
         else:
-            self.main_window.setStyleSheet("")
+            self.main_window.setStyleSheet(get_light_mode_stylesheet())
 
     def create_menus(self):
         self.menu_manager.create_menus()
