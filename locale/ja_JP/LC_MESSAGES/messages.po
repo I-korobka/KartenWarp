@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-14 16:28+0900\n"
-"PO-Revision-Date: 2025-03-14 16:29+0900\n"
+"PO-Revision-Date: 2025-03-14 17:20+0900\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja_JP\n"
@@ -600,7 +600,7 @@ msgstr "実地図画像の取り込み"
 
 #: src/ui/main_window.py:451 src/ui/ui_manager.py:107
 msgid "execute_tps"
-msgstr "TPS変換を実行する"
+msgstr "TPS変換を実行"
 
 #: src/ui/main_window.py:452 src/ui/ui_manager.py:88
 msgid "export_scene"

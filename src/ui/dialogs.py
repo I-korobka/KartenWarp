@@ -24,7 +24,10 @@ class DetachedWindow(QMainWindow):
         self.view = view
         self.setCentralWidget(self.view)
         self.resize(800, 600)
-        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+        # 常に最前面表示フラグを Qt.Tool に変更
+        # Qt.Tool を使うと、分離ウィンドウはメインウィンドウの上には表示されますが、
+        # モーダルダイアログ（親ウィンドウがメインウィンドウの場合）はその上に表示されます
+        self.setWindowFlags(self.windowFlags() | Qt.Tool)
         self._force_closing = False
         if config.get("display/dark_mode", False):
             self.setStyleSheet(get_dark_mode_stylesheet())
@@ -254,7 +257,7 @@ class ResultWindow(QWidget):
         main_layout.addLayout(btn_layout)
     
     def export_result(self):
-        file_path, _ = QFileDialog.getSaveFileName(self, _("export_select_file"), os.getcwd(), _("png_files_label") + " (*.png)")
+        file_path, selected_filter = QFileDialog.getSaveFileName(self, _("export_select_file"), os.getcwd(), _("png_files_label") + " (*.png)")
         if not file_path:
             logger.info("Export cancelled by user")
             return

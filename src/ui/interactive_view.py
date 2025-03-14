@@ -220,6 +220,10 @@ class ZoomableViewWidget(QWidget):
         self.zoom_control.zoomChanged.connect(self.on_zoom_changed_from_control)
         self.view.zoomFactorChanged.connect(self.on_view_zoom_changed)
 
+    def scene(self):
+        # 内部の InteractiveView のシーンを返す
+        return self.view.scene()
+
     def on_zoom_changed_from_control(self, zoom):
         self.view.set_zoom_factor(zoom)
 

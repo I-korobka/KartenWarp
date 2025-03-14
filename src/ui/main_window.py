@@ -67,9 +67,14 @@ class MainWindow(QMainWindow):
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
         self.sceneA.projectModified.connect(self._update_window_title)
         self.sceneB.projectModified.connect(self._update_window_title)
+        # ここで activated 信号を接続して、シーンがフォーカスされたときに active_scene を更新する
+        self.sceneA.activated.connect(self.set_active_scene)
+        self.sceneB.activated.connect(self.set_active_scene)
+        # 起動時のデフォルトとして sceneA をアクティブシーンに設定する
+        self.set_active_scene(self.sceneA)
+        
         self.viewA = ZoomableViewWidget(self.sceneA)
         self.viewB = ZoomableViewWidget(self.sceneB)
-        # ※ QSplitter を ResettableSplitter に変更（ダブルクリックで等幅リセット）
         self.splitter = ResettableSplitter(Qt.Horizontal)
         self.splitter.addWidget(self.viewA)
         self.splitter.addWidget(self.viewB)

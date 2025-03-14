@@ -26,6 +26,8 @@ KartenWarp は、2 枚の画像間の対応点に基づいて Thin Plate Spline 
 ```bash
 KartenWarp/
 ├── assets/                           (画像などのリソースが入ったフォルダ)
+│   ├── fonts/                        (フォントが入ったフォルダ)
+│   │   └── ...
 │   ├── assets_config.json            (アセットの統合管理を行うJSONファイル)
 │   └── ...                           (各種リソース)
 ├── locale/
