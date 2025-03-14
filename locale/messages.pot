@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 16:13+0900\n"
+"POT-Creation-Date: 2025-03-14 16:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,6 +123,10 @@ msgstr ""
 
 #: src/core.py:103
 msgid "affine_transformation_failed_message"
+msgstr ""
+
+#: src/core.py:143
+msgid "game_image_error_insufficient_points"
 msgstr ""
 
 #: src/core.py:158

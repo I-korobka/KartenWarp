@@ -140,7 +140,7 @@ def perform_tps_transform(dest_points, src_points, sceneA, sceneB):
         adaptive = config.get("tps/adaptive", False)
 
         if not sceneA.project.game_pixmap:
-            return None, "ゲーム画像が読み込まれていないか、対応点が不足しています"
+            return None, _("game_image_error_insufficient_points")
 
         width = sceneA.project.game_pixmap.width()
         height = sceneA.project.game_pixmap.height()
