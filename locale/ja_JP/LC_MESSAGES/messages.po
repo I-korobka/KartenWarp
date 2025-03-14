@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 15:54+0900\n"
-"PO-Revision-Date: 2025-03-14 15:56+0900\n"
+"POT-Creation-Date: 2025-03-14 16:04+0900\n"
+"PO-Revision-Date: 2025-03-14 16:08+0900\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja_JP\n"
@@ -11,6 +11,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.5\n"
+
+#: src/app_settings.py:71
+msgid "error_loading_config_defaults"
+msgstr ""
+"設定の読み込みに失敗しました。デフォルトの設定を使用します。エラー: {error}"
+
+#: src/app_settings.py:82
+msgid "error_saving_config"
+msgstr "設定の保存に失敗しました。エラー: {error}"
+
+#: src/app_settings.py:122
+msgid "error_loading_translation"
+msgstr "翻訳ファイルの読み込みに失敗しました。言語: {lang}、エラー: {error}"
+
+#: src/app_settings.py:132
+msgid "language_set_to"
+msgstr "言語が {lang} に設定されました"
 
 #: src/common.py:190
 msgid "language_name_ja_JP"

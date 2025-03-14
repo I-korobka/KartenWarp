@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 15:54+0900\n"
+"POT-Creation-Date: 2025-03-14 16:04+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,22 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/app_settings.py:71
+msgid "error_loading_config_defaults"
+msgstr ""
+
+#: src/app_settings.py:82
+msgid "error_saving_config"
+msgstr ""
+
+#: src/app_settings.py:122
+msgid "error_loading_translation"
+msgstr ""
+
+#: src/app_settings.py:132
+msgid "language_set_to"
+msgstr ""
 
 #: src/common.py:190
 msgid "language_name_ja_JP"

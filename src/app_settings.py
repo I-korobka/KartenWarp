@@ -68,7 +68,7 @@ class Config:
             try:
                 self.config = load_json(CONFIG_FILE)
             except Exception as e:
-                print("Error loading config, using defaults:", e)
+                print(_("error_loading_config_defaults").format(error=e))
                 self.config = DEFAULT_CONFIG.copy()
         else:
             self.config = DEFAULT_CONFIG.copy()
@@ -79,7 +79,7 @@ class Config:
         try:
             save_json(CONFIG_FILE, self.config)
         except Exception as e:
-            print("Error saving config:", e)
+            print(_("error_saving_config").format(error=e))
 
     def get(self, key_path, default=None):
         keys = key_path.split("/")
@@ -119,7 +119,7 @@ def init_gettext():
     try:
         translation = gettext.translation("messages", locale_dir, languages=[lang_code])
     except Exception as e:
-        print("Error loading translations for", lang_code, ":", e)
+        print(_("error_loading_translation").format(lang=lang_code, error=e))
         translation = gettext.NullTranslations()
     translation.install(names=['gettext', 'ngettext'])
 
@@ -129,6 +129,6 @@ init_gettext()
 def set_language(lang_code):
     config.set("language", lang_code)
     init_gettext()
-    print("Language set to", lang_code)
+    print(_("language_set_to").format(lang=lang_code))
 
 # 以降、旧来の JSON ベースのローカライズ関数（load_localization, auto_update_localization_files, tr, など）は廃止
