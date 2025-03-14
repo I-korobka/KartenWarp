@@ -230,7 +230,12 @@ class InteractiveScene(QGraphicsScene):
             "id": new_id,
             "pos": QPointF(px, py),
             "pixel": (px, py),
-            "desc": f"[{image_label}] {_('point_add')}: ({px}, {py})",
+            "desc": _("[{image_label}] {point_add}: ({px}, {py})").format(
+                image_label=image_label,
+                point_add=_("point_add"),
+                px=px,
+                py=py
+            ),
             "ellipse": None,
             "text": None
         }
@@ -255,7 +260,13 @@ class InteractiveScene(QGraphicsScene):
             "old_pixel": old_pixel,
             "pixel": (new_px, new_py),
             "pos": QPointF(new_px, new_py),
-            "desc": f"[{image_label}] {_('point_move')} (ID {command['id']}): ({new_px}, {new_py})"
+            "desc": _("[{image_label}] {point_move} (ID {id}): ({new_px}, {new_py})").format(
+                image_label=image_label,
+                point_move=_("point_move"),
+                id=command["id"],
+                new_px=new_px,
+                new_py=new_py
+            )
         }
         logger.debug("Recording move command: %s", move_command)
         self.record_command(move_command)
@@ -269,7 +280,11 @@ class InteractiveScene(QGraphicsScene):
             "action": "delete",
             "id": command["id"],
             "pixel": command["pixel"],
-            "desc": f"[{image_label}] {_('point_delete')} (ID {command['id']})"
+            "desc": _("[{image_label}] {point_delete} (ID {id})").format(
+                image_label=image_label,
+                point_delete=_("point_delete"),
+                id=command["id"]
+            )
         }
         logger.debug("Recording delete command: %s", delete_command)
         self.record_command(delete_command)

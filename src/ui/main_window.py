@@ -108,7 +108,14 @@ class MainWindow(QMainWindow):
 
     def _update_window_title(self):
         mod_mark = "*" if self.project and self.project.modified else ""
-        self.setWindowTitle(f"{_('app_title')} - {self.project.name}{mod_mark} - {self.mode}")
+        self.setWindowTitle(
+            _("window_title").format(
+                app_title=_("app_title"),
+                project_name=self.project.name,
+                mod_mark=mod_mark,
+                mode=self.mode
+            )
+        )
 
     def load_project(self):
         if not self._prompt_save_current_project():
