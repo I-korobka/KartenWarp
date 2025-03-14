@@ -343,44 +343,61 @@ class MainWindow(QMainWindow):
         self._update_window_title()
 
     def _enter_detached_mode(self):
-        # 現在の統合状態のスプリッターサイズを記録（通常は左右1:1の比率）
+        # 統合状態のスプリッターサイズを保存
         self._integrated_splitter_sizes = self.splitter.sizes()
         
-        # 分離モードに入る処理（以下、既存のコードと同じ）
+        # 分離するビューを親から切り離す
         self.viewA.setParent(None)
         self.viewB.setParent(None)
         self.detached_windows = []
-        offset = 30
-        default_width = 800
-        default_height = 600
-        main_geom = self.frameGeometry()
-        screen_geom = self.screen().availableGeometry()
-        proposed_winA_x = main_geom.right() + offset
-        if proposed_winA_x + default_width > screen_geom.right():
-            proposed_winA_x = main_geom.left() - default_width - offset
-        if proposed_winA_x < screen_geom.left():
-            proposed_winA_x = screen_geom.left() + offset
-        proposed_winA_y = main_geom.top()
-        if proposed_winA_y + default_height > screen_geom.bottom():
-            proposed_winA_y = screen_geom.bottom() - default_height - offset
-        if proposed_winA_y < screen_geom.top():
-            proposed_winA_y = screen_geom.top() + offset
         from ui.dialogs import DetachedWindow
         winA = DetachedWindow(self.viewA, f"{_('app_title')} - {_('game_image')}", self)
         winB = DetachedWindow(self.viewB, f"{_('app_title')} - {_('real_map_image')}", self)
-        winA.resize(default_width, default_height)
-        winB.resize(default_width, default_height)
-        winA.move(proposed_winA_x, proposed_winA_y)
-        proposed_winB_x = proposed_winA_x
-        proposed_winB_y = proposed_winA_y + default_height + offset
-        if proposed_winB_y + default_height > screen_geom.bottom():
-            proposed_winB_x = proposed_winA_x + default_width + offset
-            proposed_winB_y = proposed_winA_y
-            if proposed_winB_x + default_width > screen_geom.right():
-                proposed_winB_x = screen_geom.right() - default_width - offset
-        if proposed_winB_x < screen_geom.left():
-            proposed_winB_x = screen_geom.left() + offset
-        winB.move(proposed_winB_x, proposed_winB_y)
+        
+        if self.isMaximized():
+            # メインウィンドウが最大化状態の場合は、強制配置を行わず
+            # OS によるネイティブなウィンドウスナップ（ドラッグ時の自動スナップ）を利用させる
+            winA.show()
+            winB.show()
+        else:
+            # 最大化状態でない場合は従来の配置ロジック（必要に応じて配置）
+            offset = 30
+            default_width = 800
+            default_height = 600
+            main_geom = self.frameGeometry()
+            screen_geom = self.screen().availableGeometry()
+            proposed_winA_x = main_geom.right() + offset
+            if proposed_winA_x + default_width > screen_geom.right():
+                proposed_winA_x = main_geom.left() - default_width - offset
+            if proposed_winA_x < screen_geom.left():
+                proposed_winA_x = screen_geom.left() + offset
+            proposed_winA_y = main_geom.top()
+            if proposed_winA_y + default_height > screen_geom.bottom():
+                proposed_winA_y = screen_geom.bottom() - default_height - offset
+            if proposed_winA_y < screen_geom.top():
+                proposed_winA_y = screen_geom.top() + offset
+            winA.resize(default_width, default_height)
+            winB.resize(default_width, default_height)
+            winA.move(proposed_winA_x, proposed_winA_y)
+            proposed_winB_x = proposed_winA_x
+            proposed_winB_y = proposed_winA_y + default_height + offset
+            if proposed_winB_y + default_height > screen_geom.bottom():
+                proposed_winB_x = proposed_winA_x + default_width + offset
+                proposed_winB_y = proposed_winA_y
+                if proposed_winB_x + default_width > screen_geom.right():
+                    proposed_winB_x = screen_geom.right() - default_width - offset
+            if proposed_winB_x < screen_geom.left():
+                proposed_winB_x = screen_geom.left() + offset
+            winB.move(proposed_winB_x, proposed_winB_y)
+            winA.show()
+            winB.show()
+        
+        self.detached_windows.extend([winA, winB])
+        self.mode = _("mode_detached")
+        self._update_window_title()
+        self.statusBar().showMessage(_("mode_switch_message").format(mode=self.mode), 3000)
+        logger.info("Entered detached mode")
+        
         winA.show()
         winB.show()
         self.detached_windows.extend([winA, winB])
@@ -393,18 +410,21 @@ class MainWindow(QMainWindow):
         from PyQt5.QtCore import QTimer
         for win in self.detached_windows:
             widget = win.forceClose()
-            widget.setParent(self.splitter)
-            self.splitter.addWidget(widget)
-            widget.show()
-            # 統合モードに戻る際、各ビューのズームをリセットしてフィット状態にする
-            if widget == self.viewA and self.sceneA.image_loaded and self.sceneA.pixmap_item:
-                QTimer.singleShot(100, lambda w=widget.view: w.reset_zoom())
-            elif widget == self.viewB and self.sceneB.image_loaded and self.sceneB.pixmap_item:
-                QTimer.singleShot(100, lambda w=widget.view: w.reset_zoom())
+            if widget is not None:
+                widget.setParent(self.splitter)
+                self.splitter.addWidget(widget)
+                widget.show()
+                # 統合モードに戻る際、各ビューのズームをリセットしてフィット状態にする
+                if widget == self.viewA and self.sceneA.image_loaded and self.sceneA.pixmap_item:
+                    QTimer.singleShot(100, lambda w=widget.view: w.reset_zoom())
+                elif widget == self.viewB and self.sceneB.image_loaded and self.sceneB.pixmap_item:
+                    QTimer.singleShot(100, lambda w=widget.view: w.reset_zoom())
+            else:
+                logger.warning("Returned widget from DetachedWindow.forceClose() is None; skipping reparenting.")
         self.detached_windows = []
         self.setCentralWidget(self.integrated_widget)
         self.integrated_widget.update()
-        # 記録しておいた統合時のウィンドウ比を復元（記録がなければ1:1に設定）
+        # 記録していた統合時のウィンドウ比率の復元（記録がなければ1:1に設定）
         if self._integrated_splitter_sizes:
             self.splitter.setSizes(self._integrated_splitter_sizes)
         else:
@@ -412,14 +432,7 @@ class MainWindow(QMainWindow):
             self.splitter.setSizes([total_width // 2, total_width - total_width // 2])
         self.mode = _("mode_integrated")
         self._update_window_title()
-        self.statusBar().showMessage(_("mode_switch_message").format(mode=self.mode), 3000)
-        msg_box = QMessageBox(self)
-        msg_box.setWindowTitle(_("mode_switch_title"))
-        msg_box.setText(_("mode_switch_text").format(mode=self.mode))
-        msg_box.setIcon(QMessageBox.Information)
-        msg_box.setWindowModality(Qt.ApplicationModal)
-        msg_box.setWindowFlags(msg_box.windowFlags() | Qt.WindowStaysOnTopHint)
-        msg_box.exec_()
+        self.statusBar().showMessage(_("mode_switched_to_integrated"), 3000)
         logger.info("Returned to integrated mode")
 
     def set_active_scene(self, scene):

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 16:13+0900\n"
-"PO-Revision-Date: 2025-03-14 16:20+0900\n"
+"POT-Creation-Date: 2025-03-14 16:28+0900\n"
+"PO-Revision-Date: 2025-03-14 17:20+0900\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja_JP\n"
@@ -121,6 +121,10 @@ msgstr "アフィン変換に失敗"
 msgid "affine_transformation_failed_message"
 msgstr ""
 "アフィン変換行列の計算に失敗しました。入力点の数や位置を確認してください"
+
+#: src/core.py:143
+msgid "game_image_error_insufficient_points"
+msgstr "ゲーム画像が読み込まれていないか、対応点が不足しています"
 
 #: src/core.py:158
 msgid "tps_calculation_failed"
@@ -596,7 +600,7 @@ msgstr "実地図画像の取り込み"
 
 #: src/ui/main_window.py:451 src/ui/ui_manager.py:107
 msgid "execute_tps"
-msgstr "TPS変換を実行する"
+msgstr "TPS変換を実行"
 
 #: src/ui/main_window.py:452 src/ui/ui_manager.py:88
 msgid "export_scene"

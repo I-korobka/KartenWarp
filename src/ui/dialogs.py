@@ -27,7 +27,7 @@ class DetachedWindow(QMainWindow):
         # 常に最前面表示フラグを Qt.Tool に変更
         # Qt.Tool を使うと、分離ウィンドウはメインウィンドウの上には表示されますが、
         # モーダルダイアログ（親ウィンドウがメインウィンドウの場合）はその上に表示されます
-        self.setWindowFlags(self.windowFlags() | Qt.Tool)
+        self.setWindowFlags(Qt.Window | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self._force_closing = False
         if config.get("display/dark_mode", False):
             self.setStyleSheet(get_dark_mode_stylesheet())
@@ -75,7 +75,7 @@ class DetachedWindow(QMainWindow):
             event.accept()
             logger.debug("DetachedWindow forced close")
             return
-        reply = QMessageBox.question(self, _("mode_switch_confirm_title"), _("mode_switch_confirm_message"), QMessageBox.Yes | QMessageBox.No)
+        reply = QMessageBox.question(self, _("mode_switch_confirm_title"), _("mode_switch_confirm_message").format(mode=self.main_window.mode), QMessageBox.Yes | QMessageBox.No)
         if reply == QMessageBox.Yes:
             event.accept()
             self.main_window.toggle_mode()
