@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (
     QMainWindow, QVBoxLayout, QSplitter, QWidget, QMessageBox, QDialog, QSplitterHandle
 )
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt, QPointF, QTimer
+from PyQt5.QtCore import Qt, QPointF, QTimer, QByteArray
 from logger import logger
 from app_settings import config
 from core import perform_tps_transform, export_scene
@@ -37,6 +37,9 @@ class ResettableSplitter(QSplitter):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        # ← ここで最低サイズを設定
+        self.setMinimumSize(800, 600)
+        
         self.mode = _("mode_integrated")
         self.project = None
         self._integrated_splitter_sizes = None  # 統合モード時のスプリッターサイズを保持
@@ -50,9 +53,18 @@ class MainWindow(QMainWindow):
             sys.exit(0)
         
         self._update_window_title()
-        width = config.get("window/default_width", 1600)
-        height = config.get("window/default_height", 900)
-        self.resize(width, height)
+
+        geom = config.get("window/geometry", "")
+        win_state = config.get("window/windowState", "")
+        if geom and win_state:
+            self.restoreGeometry(QByteArray.fromHex(geom.encode()))
+            self.restoreState(QByteArray.fromHex(win_state.encode()))
+        elif config.get("window/start_maximized", True):
+            self.showMaximized()
+        else:
+            width = config.get("window/default_width", 1600)
+            height = config.get("window/default_height", 900)
+            self.resize(width, height)
 
         self._init_scenes_and_views()
 
@@ -477,6 +489,23 @@ class MainWindow(QMainWindow):
         logger.debug("About dialog shown")
 
     def closeEvent(self, event):
+        # ウィンドウが最大化状態の場合は、状態を保存せずにクリアする
+        if self.isMaximized():
+            config.set("window/geometry", "")
+            config.set("window/windowState", "")
+        else:
+            # 現在のウィンドウサイズをチェックし、実用的な最小値未満の場合はデフォルトサイズにリサイズ
+            current_rect = self.geometry()
+            if current_rect.width() < 300 or current_rect.height() < 200:
+                default_width = config.get("window/default_width", 1600)
+                default_height = config.get("window/default_height", 900)
+                self.resize(default_width, default_height)
+            geometry_hex = self.saveGeometry().toHex().data().decode()
+            state_hex = self.saveState().toHex().data().decode()
+            config.set("window/geometry", geometry_hex)
+            config.set("window/windowState", state_hex)
+
+        # プロジェクトに未保存の変更がある場合の処理（以降は既存のコード）
         if self.project and self.project.modified:
             msg_box = QMessageBox(self)
             msg_box.setWindowTitle(_("unsaved_changes_title"))
@@ -495,7 +524,6 @@ class MainWindow(QMainWindow):
             elif clicked == cancel_button:
                 event.ignore()
                 return
-            # Discard が選択された場合は、変更を破棄して閉じる
         event.accept()
 
 if __name__ == '__main__':

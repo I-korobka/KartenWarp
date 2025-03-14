@@ -12,7 +12,13 @@ IMMUTABLE_KEYS = [
 
 # --- 基本設定 ---
 DEFAULT_CONFIG = {
-    "window": {"default_width": 1600, "default_height": 900},
+    "window": {
+        "default_width": 1600,
+        "default_height": 900,
+        "start_maximized": True,           # デフォルトは最大化状態で起動
+        "geometry": "",                    # 保存されたウィンドウのジオメトリ
+        "windowState": ""                  # 保存されたウィンドウの状態
+    },
     "export": {"base_filename": "exported_scene", "extension": ".png"},
     "project": {"extension": ".kw"},
     "language": "ja_JP",  # フルロケール（例: ja_JP）
