@@ -101,7 +101,11 @@ class InteractiveScene(QGraphicsScene):
             if cmd["action"] == "add" and cmd["id"] in self.points_dict:
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
-        update_flag = not self._loading
+        # マイグレーション済みなら常に更新フラグを True にする
+        if hasattr(self.project, "_migrated") and self.project._migrated:
+            update_flag = True
+        else:
+            update_flag = not self._loading
         if self.image_type == "game":
             self.project.update_game_points(points, update_modified=update_flag)
         else:
@@ -366,6 +370,8 @@ class InteractiveScene(QGraphicsScene):
             view.resetTransform()
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
+        if update_modified:
+            self.projectModified.emit()
 
     def clear_points(self):
         for cmd in list(self.points_dict.values()):

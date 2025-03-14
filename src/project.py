@@ -80,11 +80,14 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
 
 def migrate_project_data(data: dict) -> dict:
     file_version = data.get("version", 1)
-    if file_version > CURRENT_PROJECT_VERSION:
-        raise ValueError(_("project_version_newer").format(file_version=file_version, current_version=CURRENT_PROJECT_VERSION))
+    migrated = False
+    if file_version < CURRENT_PROJECT_VERSION:
+        migrated = True
     while file_version < CURRENT_PROJECT_VERSION:
         data = upgrade_project_data(data, file_version)
         file_version = data.get("version", file_version + 1)
+    if migrated:
+        data["_migrated"] = True
     return data
 
 class Project:
@@ -153,6 +156,12 @@ class Project:
         project.real_points = data.get("real_points", [])
         project.settings = data.get("settings", {})
         project.load_embedded_images()
+        # マイグレーションが行われた場合、未保存状態にし、フラグも保持
+        if data.get("_migrated"):
+            project.modified = True
+            project._migrated = True
+        else:
+            project._migrated = False
         return project
 
     @classmethod
@@ -163,7 +172,9 @@ class Project:
             logger.info("プロジェクトを読み込みました: %s", file_path)
             project.file_path = file_path
             project.name = os.path.splitext(os.path.basename(file_path))[0]
-            project.modified = False
+            # 変換が行われなかった場合は保存済みとする
+            if not data.get("_migrated"):
+                project.modified = False
             return project
         except Exception as e:
             logger.exception("プロジェクト読み込みエラー")

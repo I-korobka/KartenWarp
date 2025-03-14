@@ -79,7 +79,7 @@ class MainWindow(QMainWindow):
         self.sceneB = InteractiveScene(project=self.project, image_type="real")
         self.sceneA.projectModified.connect(self._update_window_title)
         self.sceneB.projectModified.connect(self._update_window_title)
-        # ここで activated 信号を接続して、シーンがフォーカスされたときに active_scene を更新する
+        # シーンがフォーカスされたときに active_scene を更新する
         self.sceneA.activated.connect(self.set_active_scene)
         self.sceneB.activated.connect(self.set_active_scene)
         # 起動時のデフォルトとして sceneA をアクティブシーンに設定する
@@ -96,15 +96,22 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(self.integrated_widget)
         layout.addWidget(self.splitter)
         self.setCentralWidget(self.integrated_widget)
+        
         if not self.project.game_qimage.isNull():
             self.sceneA.set_image(self.project.game_pixmap, self.project.game_qimage, update_modified=False)
+            self.sceneA._loading = True  # ポイント追加中は更新を抑制
             for p in self.project.game_points:
                 self.sceneA.add_point(QPointF(p[0], p[1]))
+            self.sceneA._loading = False
+            self.sceneA._update_project_state()  # 最終的に一度だけ状態更新
         if not self.project.real_qimage.isNull():
             self.sceneB.set_image(self.project.real_pixmap, self.project.real_qimage, update_modified=False)
+            self.sceneB._loading = True
             for p in self.project.real_points:
                 self.sceneB.add_point(QPointF(p[0], p[1]))
-        self.project.modified = False
+            self.sceneB._loading = False
+            self.sceneB._update_project_state()
+
         self._update_window_title()
 
     def switch_project(self, new_project):
