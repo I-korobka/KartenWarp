@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 18:32+0900\n"
+"POT-Creation-Date: 2025-03-13 22:39+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,79 +17,79 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/common.py:170
+#: src/common.py:190
 msgid "language_name_ja_JP"
 msgstr ""
 
-#: src/common.py:171
+#: src/common.py:191
 msgid "language_name_en_US"
 msgstr ""
 
-#: src/common.py:172
+#: src/common.py:192
 msgid "language_name_en_GB"
 msgstr ""
 
-#: src/common.py:173
+#: src/common.py:193
 msgid "language_name_de_DE"
 msgstr ""
 
-#: src/common.py:174
+#: src/common.py:194
 msgid "language_name_bar"
 msgstr ""
 
-#: src/common.py:175
+#: src/common.py:195
 msgid "language_name_de_AT"
 msgstr ""
 
-#: src/common.py:176
+#: src/common.py:196
 msgid "language_name_hu_HU"
 msgstr ""
 
-#: src/common.py:177
+#: src/common.py:197
 msgid "language_name_cs_CZ"
 msgstr ""
 
-#: src/common.py:178
+#: src/common.py:198
 msgid "language_name_sk_SK"
 msgstr ""
 
-#: src/common.py:179
+#: src/common.py:199
 msgid "language_name_pl_PL"
 msgstr ""
 
-#: src/common.py:180
+#: src/common.py:200
 msgid "language_name_uk_UA"
 msgstr ""
 
-#: src/common.py:181
+#: src/common.py:201
 msgid "language_name_hr_HR"
 msgstr ""
 
-#: src/common.py:182
+#: src/common.py:202
 msgid "language_name_sl_SI"
 msgstr ""
 
-#: src/common.py:183
+#: src/common.py:203
 msgid "language_name_ro_RO"
 msgstr ""
 
-#: src/common.py:184
+#: src/common.py:204
 msgid "language_name_it_IT"
 msgstr ""
 
-#: src/common.py:185
+#: src/common.py:205
 msgid "language_name_sr_RS"
 msgstr ""
 
-#: src/common.py:186
+#: src/common.py:206
 msgid "language_name_ru_RU"
 msgstr ""
 
-#: src/common.py:187
+#: src/common.py:207
 msgid "language_name_yi"
 msgstr ""
 
-#: src/common.py:188
+#: src/common.py:208
 msgid "language_name_la"
 msgstr ""
 

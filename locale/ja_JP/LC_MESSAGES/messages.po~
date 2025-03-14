@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-13 17:34+0900\n"
-"PO-Revision-Date: 2025-03-13 17:06+0900\n"
+"POT-Creation-Date: 2025-03-13 18:32+0900\n"
+"PO-Revision-Date: 2025-03-13 18:34+0900\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja_JP\n"
@@ -267,7 +267,7 @@ msgstr "エクスポート先ファイルを選択"
 
 #: src/ui/dialogs.py:257
 msgid "png_files_label"
-msgstr ""
+msgstr "PNGファイル"
 
 #: src/ui/dialogs.py:262
 msgid "export_success_title"
@@ -299,7 +299,7 @@ msgstr "実地図画像"
 
 #: src/ui/dialogs.py:305 src/ui/dialogs.py:311
 msgid "image_files_label"
-msgstr ""
+msgstr "画像ファイル"
 
 #: src/ui/dialogs.py:306
 msgid "select_game_image"
@@ -338,10 +338,9 @@ msgstr "キャンセル"
 msgid "load_project"
 msgstr "開く"
 
-#: src/ui/dialogs.py:365
-#, fuzzy
-msgid "project_files_filter"
-msgstr "プロジェクトの保存に失敗しました: {error}"
+#: src/ui/dialogs.py:365 src/ui/main_window.py:118
+msgid "project_files_label"
+msgstr "プロジェクトファイル"
 
 #: src/ui/dialogs.py:371
 msgid "project_open_error_title"
@@ -396,11 +395,6 @@ msgstr "プロジェクトが読み込まれました"
 #: src/ui/main_window.py:358
 msgid "app_title"
 msgstr "KartenWarp"
-
-#: src/ui/main_window.py:118
-#, fuzzy
-msgid "project_files_label"
-msgstr "プロジェクトの保存に失敗しました: {error}"
 
 #: src/ui/main_window.py:120
 msgid "load_cancelled"
@@ -645,3 +639,7 @@ msgstr "表示"
 #: src/ui/ui_manager.py:127
 msgid "help_menu"
 msgstr "ヘルプ"
+
+#, fuzzy
+#~ msgid "project_files_filter"
+#~ msgstr "プロジェクトの保存に失敗しました: {error}"
