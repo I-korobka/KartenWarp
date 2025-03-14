@@ -4,6 +4,7 @@ def get_dark_mode_stylesheet():
     logger.debug("Getting dark mode stylesheet")
     return """
     QWidget {
+        font-family: "Noto Sans", "Noto Sans JP", "Noto Sans Hebrew";
         background-color: #2e2e2e;
         color: #f0f0f0;
     }
