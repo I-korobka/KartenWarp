@@ -1,4 +1,3 @@
-./update_po.py
 ./src/app_settings.py
 ./src/common.py
 ./src/core.py
@@ -13,3 +12,5 @@
 ./src/ui/main_window.py
 ./src/ui/ui_manager.py
 ./src/ui/__init__.py
+./utils/update_po.py
+./utils/walker.py

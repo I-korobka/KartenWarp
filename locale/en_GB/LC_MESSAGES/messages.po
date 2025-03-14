@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 18:45+0900\n"
+"POT-Creation-Date: 2025-03-14 19:49+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,15 +157,15 @@ msgstr ""
 msgid "project_migration_failed"
 msgstr ""
 
-#: src/project.py:178
+#: src/project.py:181
 msgid "project_load_failed"
 msgstr ""
 
-#: src/project.py:203
+#: src/project.py:206
 msgid "either_file_or_pixmap_qimage_required"
 msgstr ""
 
-#: src/project.py:215
+#: src/project.py:218
 msgid "unknown_image_type"
 msgstr ""
 
@@ -177,11 +177,11 @@ msgstr ""
 msgid "return_to_integrated"
 msgstr ""
 
-#: src/ui/dialogs.py:63 src/ui/main_window.py:303
+#: src/ui/dialogs.py:63 src/ui/main_window.py:309
 msgid "status_undo_executed"
 msgstr ""
 
-#: src/ui/dialogs.py:70 src/ui/main_window.py:312
+#: src/ui/dialogs.py:70 src/ui/main_window.py:318
 msgid "status_redo_executed"
 msgstr ""
 
@@ -237,7 +237,7 @@ msgstr ""
 msgid "tps_adaptive"
 msgstr ""
 
-#: src/ui/dialogs.py:161 src/ui/main_window.py:472 src/ui/ui_manager.py:121
+#: src/ui/dialogs.py:161 src/ui/main_window.py:478 src/ui/ui_manager.py:121
 msgid "grid_overlay"
 msgstr ""
 
@@ -285,11 +285,11 @@ msgstr ""
 msgid "export"
 msgstr ""
 
-#: src/ui/dialogs.py:260 src/ui/main_window.py:288
+#: src/ui/dialogs.py:260 src/ui/main_window.py:294
 msgid "export_select_file"
 msgstr ""
 
-#: src/ui/dialogs.py:260 src/ui/main_window.py:288
+#: src/ui/dialogs.py:260 src/ui/main_window.py:294
 msgid "png_files_label"
 msgstr ""
 
@@ -309,19 +309,19 @@ msgstr ""
 msgid "browse"
 msgstr ""
 
-#: src/ui/dialogs.py:288 src/ui/interactive_scene.py:227
-#: src/ui/interactive_scene.py:256 src/ui/interactive_scene.py:278
-#: src/ui/main_window.py:367
+#: src/ui/dialogs.py:288 src/ui/interactive_scene.py:231
+#: src/ui/interactive_scene.py:260 src/ui/interactive_scene.py:282
+#: src/ui/main_window.py:373
 msgid "game_image"
 msgstr ""
 
-#: src/ui/dialogs.py:297 src/ui/interactive_scene.py:227
-#: src/ui/interactive_scene.py:256 src/ui/interactive_scene.py:278
-#: src/ui/main_window.py:368
+#: src/ui/dialogs.py:297 src/ui/interactive_scene.py:231
+#: src/ui/interactive_scene.py:260 src/ui/interactive_scene.py:282
+#: src/ui/main_window.py:374
 msgid "real_map_image"
 msgstr ""
 
-#: src/ui/dialogs.py:308 src/ui/dialogs.py:314 src/ui/main_window.py:217
+#: src/ui/dialogs.py:308 src/ui/dialogs.py:314 src/ui/main_window.py:223
 msgid "image_files_label"
 msgstr ""
 
@@ -353,15 +353,15 @@ msgstr ""
 msgid "open_project"
 msgstr ""
 
-#: src/ui/dialogs.py:349 src/ui/main_window.py:169 src/ui/main_window.py:516
+#: src/ui/dialogs.py:349 src/ui/main_window.py:175 src/ui/main_window.py:522
 msgid "cancel"
 msgstr ""
 
-#: src/ui/dialogs.py:368 src/ui/main_window.py:143 src/ui/ui_manager.py:86
+#: src/ui/dialogs.py:368 src/ui/main_window.py:149 src/ui/ui_manager.py:86
 msgid "load_project"
 msgstr ""
 
-#: src/ui/dialogs.py:368 src/ui/main_window.py:143
+#: src/ui/dialogs.py:368 src/ui/main_window.py:149
 msgid "project_files_label"
 msgstr ""
 
@@ -377,30 +377,30 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: src/ui/interactive_scene.py:233
+#: src/ui/interactive_scene.py:237
 #, python-brace-format
 msgid "[{image_label}] {point_add}: ({px}, {py})"
 msgstr ""
 
-#: src/ui/interactive_scene.py:235
+#: src/ui/interactive_scene.py:239
 msgid "point_add"
 msgstr ""
 
-#: src/ui/interactive_scene.py:263
+#: src/ui/interactive_scene.py:267
 #, python-brace-format
 msgid "[{image_label}] {point_move} (ID {id}): ({new_px}, {new_py})"
 msgstr ""
 
-#: src/ui/interactive_scene.py:265
+#: src/ui/interactive_scene.py:269
 msgid "point_move"
 msgstr ""
 
-#: src/ui/interactive_scene.py:283
+#: src/ui/interactive_scene.py:287
 #, python-brace-format
 msgid "[{image_label}] {point_delete} (ID {id})"
 msgstr ""
 
-#: src/ui/interactive_scene.py:285
+#: src/ui/interactive_scene.py:289
 msgid "point_delete"
 msgstr ""
 
@@ -416,8 +416,8 @@ msgstr ""
 msgid "zoom_label"
 msgstr ""
 
-#: src/ui/main_window.py:43 src/ui/main_window.py:232 src/ui/main_window.py:351
-#: src/ui/main_window.py:446
+#: src/ui/main_window.py:43 src/ui/main_window.py:238 src/ui/main_window.py:357
+#: src/ui/main_window.py:452
 msgid "mode_integrated"
 msgstr ""
 
@@ -425,184 +425,184 @@ msgstr ""
 msgid "status_ready"
 msgstr ""
 
-#: src/ui/main_window.py:118
+#: src/ui/main_window.py:124
 msgid "project_loaded"
 msgstr ""
 
-#: src/ui/main_window.py:130
+#: src/ui/main_window.py:136
 msgid "window_title"
 msgstr ""
 
-#: src/ui/main_window.py:131 src/ui/main_window.py:367
-#: src/ui/main_window.py:368
+#: src/ui/main_window.py:137 src/ui/main_window.py:373
+#: src/ui/main_window.py:374
 msgid "app_title"
 msgstr ""
 
-#: src/ui/main_window.py:145
+#: src/ui/main_window.py:151
 msgid "load_cancelled"
 msgstr ""
 
-#: src/ui/main_window.py:154
+#: src/ui/main_window.py:160
 msgid "load_error_title"
 msgstr ""
 
-#: src/ui/main_window.py:155
+#: src/ui/main_window.py:161
 msgid "load_error_message"
 msgstr ""
 
-#: src/ui/main_window.py:163 src/ui/main_window.py:512
+#: src/ui/main_window.py:169 src/ui/main_window.py:518
 msgid "unsaved_changes_title"
 msgstr ""
 
-#: src/ui/main_window.py:164
+#: src/ui/main_window.py:170
 msgid "unsaved_changes_switch_message"
 msgstr ""
 
-#: src/ui/main_window.py:167 src/ui/main_window.py:514 src/ui/ui_manager.py:84
+#: src/ui/main_window.py:173 src/ui/main_window.py:520 src/ui/ui_manager.py:84
 msgid "save_project"
 msgstr ""
 
-#: src/ui/main_window.py:168 src/ui/main_window.py:515
+#: src/ui/main_window.py:174 src/ui/main_window.py:521
 msgid "discard"
 msgstr ""
 
-#: src/ui/main_window.py:196
+#: src/ui/main_window.py:202
 msgid "new_project_cancelled"
 msgstr ""
 
-#: src/ui/main_window.py:214 src/ui/main_window.py:242
-#: src/ui/main_window.py:286 src/ui/main_window.py:332
+#: src/ui/main_window.py:220 src/ui/main_window.py:248
+#: src/ui/main_window.py:292 src/ui/main_window.py:338
 msgid "error_no_project_title"
 msgstr ""
 
-#: src/ui/main_window.py:214 src/ui/main_window.py:242
-#: src/ui/main_window.py:286 src/ui/main_window.py:332
+#: src/ui/main_window.py:220 src/ui/main_window.py:248
+#: src/ui/main_window.py:292 src/ui/main_window.py:338
 msgid "error_no_project_message"
 msgstr ""
 
-#: src/ui/main_window.py:222
+#: src/ui/main_window.py:228
 msgid "confirm_reset_title"
 msgstr ""
 
-#: src/ui/main_window.py:223
+#: src/ui/main_window.py:229
 msgid "confirm_reset"
 msgstr ""
 
-#: src/ui/main_window.py:227 src/ui/main_window.py:238
+#: src/ui/main_window.py:233 src/ui/main_window.py:244
 msgid "cancel_loading"
 msgstr ""
 
-#: src/ui/main_window.py:246
+#: src/ui/main_window.py:252
 msgid "confirm_overwrite_title"
 msgstr ""
 
-#: src/ui/main_window.py:247
+#: src/ui/main_window.py:253
 msgid "confirm_overwrite_message"
 msgstr ""
 
-#: src/ui/main_window.py:251 src/ui/main_window.py:270
+#: src/ui/main_window.py:257 src/ui/main_window.py:276
 msgid "save_cancelled"
 msgstr ""
 
-#: src/ui/main_window.py:255 src/ui/main_window.py:274
+#: src/ui/main_window.py:261 src/ui/main_window.py:280
 msgid "project_saved"
 msgstr ""
 
-#: src/ui/main_window.py:259 src/ui/main_window.py:278
+#: src/ui/main_window.py:265 src/ui/main_window.py:284
 msgid "save_error_title"
 msgstr ""
 
-#: src/ui/main_window.py:260 src/ui/main_window.py:262
-#: src/ui/main_window.py:279 src/ui/main_window.py:281
+#: src/ui/main_window.py:266 src/ui/main_window.py:268
+#: src/ui/main_window.py:285 src/ui/main_window.py:287
 msgid "save_error_message"
 msgstr ""
 
-#: src/ui/main_window.py:268 src/ui/ui_manager.py:85
+#: src/ui/main_window.py:274 src/ui/ui_manager.py:85
 msgid "save_project_as"
 msgstr ""
 
-#: src/ui/main_window.py:290
+#: src/ui/main_window.py:296
 msgid "export_cancelled"
 msgstr ""
 
-#: src/ui/main_window.py:294
+#: src/ui/main_window.py:300
 msgid "export_success"
 msgstr ""
 
-#: src/ui/main_window.py:299 src/ui/main_window.py:308
-#: src/ui/main_window.py:317
+#: src/ui/main_window.py:305 src/ui/main_window.py:314
+#: src/ui/main_window.py:323
 msgid "error_no_active_scene_message"
 msgstr ""
 
-#: src/ui/main_window.py:317
+#: src/ui/main_window.py:323
 msgid "error_no_active_scene_title"
 msgstr ""
 
-#: src/ui/main_window.py:325
+#: src/ui/main_window.py:331
 msgid "options_saved"
 msgstr ""
 
-#: src/ui/main_window.py:337
+#: src/ui/main_window.py:343
 msgid "error_insufficient_points"
 msgstr ""
 
-#: src/ui/main_window.py:347
+#: src/ui/main_window.py:353
 msgid "transform_complete"
 msgstr ""
 
-#: src/ui/main_window.py:409 src/ui/main_window.py:417
+#: src/ui/main_window.py:415 src/ui/main_window.py:423
 msgid "mode_detached"
 msgstr ""
 
-#: src/ui/main_window.py:411 src/ui/main_window.py:419
+#: src/ui/main_window.py:417 src/ui/main_window.py:425
 msgid "mode_switch_message"
 msgstr ""
 
-#: src/ui/main_window.py:448
+#: src/ui/main_window.py:454
 msgid "mode_switched_to_integrated"
 msgstr ""
 
-#: src/ui/main_window.py:455
+#: src/ui/main_window.py:461
 msgid "status_active_scene_game"
 msgstr ""
 
-#: src/ui/main_window.py:457
+#: src/ui/main_window.py:463
 msgid "status_active_scene_real"
 msgstr ""
 
-#: src/ui/main_window.py:479
+#: src/ui/main_window.py:485
 msgid "usage_text"
 msgstr ""
 
-#: src/ui/main_window.py:480 src/ui/ui_manager.py:81
+#: src/ui/main_window.py:486 src/ui/ui_manager.py:81
 msgid "load_game_image"
 msgstr ""
 
-#: src/ui/main_window.py:481 src/ui/ui_manager.py:82
+#: src/ui/main_window.py:487 src/ui/ui_manager.py:82
 msgid "load_real_map_image"
 msgstr ""
 
-#: src/ui/main_window.py:482 src/ui/ui_manager.py:107
+#: src/ui/main_window.py:488 src/ui/ui_manager.py:107
 msgid "execute_tps"
 msgstr ""
 
-#: src/ui/main_window.py:483 src/ui/ui_manager.py:88
+#: src/ui/main_window.py:489 src/ui/ui_manager.py:88
 msgid "export_scene"
 msgstr ""
 
-#: src/ui/main_window.py:485 src/ui/ui_manager.py:129
+#: src/ui/main_window.py:491 src/ui/ui_manager.py:129
 msgid "usage"
 msgstr ""
 
-#: src/ui/main_window.py:489 src/ui/ui_manager.py:130
+#: src/ui/main_window.py:495 src/ui/ui_manager.py:130
 msgid "about"
 msgstr ""
 
-#: src/ui/main_window.py:489
+#: src/ui/main_window.py:495
 msgid "about_text"
 msgstr ""
 
-#: src/ui/main_window.py:513
+#: src/ui/main_window.py:519
 msgid "unsaved_exit_message"
 msgstr ""
 
