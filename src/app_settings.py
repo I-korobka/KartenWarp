@@ -1,17 +1,19 @@
+# src/app_settings.py
+
 import os
 import sys
-import ast
-from datetime import datetime
 import json
+import gettext
+from typing import Any, Optional, Dict
 from common import load_json, save_json  # 絶対インポート
 
 # --- 不変（GUIで変更不可）な設定キー ---
-IMMUTABLE_KEYS = [
+IMMUTABLE_KEYS: list[str] = [
     "project/extension"
 ]
 
 # --- 基本設定 ---
-DEFAULT_CONFIG = {
+DEFAULT_CONFIG: Dict[str, Any] = {
     "window": {
         "default_width": 1600,
         "default_height": 900,
@@ -30,7 +32,22 @@ DEFAULT_CONFIG = {
     "scene": {"margin_ratio": 0.01}
 }
 
-def enforce_immutable_defaults(user_config, default_config, immutable_keys):
+
+def enforce_immutable_defaults(user_config: Dict[str, Any],
+                               default_config: Dict[str, Any],
+                               immutable_keys: list[str]) -> bool:
+    """
+    指定された不変キーに対して、ユーザ設定がデフォルト値と一致しているかをチェックし、
+    一致していなければデフォルト値に修正します。
+
+    Args:
+        user_config (Dict[str, Any]): ユーザが保持する設定辞書
+        default_config (Dict[str, Any]): デフォルト設定の辞書
+        immutable_keys (list[str]): 不変とするキーのパスリスト（"/"区切り）
+
+    Returns:
+        bool: 変更があった場合 True を返す
+    """
     changed = False
     for key_path in immutable_keys:
         keys = key_path.split("/")
@@ -48,8 +65,16 @@ def enforce_immutable_defaults(user_config, default_config, immutable_keys):
             changed = True
     return changed
 
-def get_user_config_dir():
-    test_config_dir = os.environ.get("KARTENWARP_CONFIG_DIR")
+
+def get_user_config_dir() -> str:
+    """
+    ユーザ設定用ディレクトリのパスを取得します。環境変数 'KARTENWARP_CONFIG_DIR'
+    が指定されていればそれを利用し、なければOSごとに適切なディレクトリを返します。
+
+    Returns:
+        str: ユーザ設定ディレクトリの絶対パス
+    """
+    test_config_dir: Optional[str] = os.environ.get("KARTENWARP_CONFIG_DIR")
     if test_config_dir:
         config_dir = test_config_dir
     else:
@@ -62,14 +87,25 @@ def get_user_config_dir():
     os.makedirs(config_dir, exist_ok=True)
     return config_dir
 
-CONFIG_FILE = os.path.join(get_user_config_dir(), "config.json")
+
+CONFIG_FILE: str = os.path.join(get_user_config_dir(), "config.json")
+
 
 class Config:
-    def __init__(self):
-        self.config = DEFAULT_CONFIG.copy()
+    """
+    Config クラスは、アプリケーションの設定を管理します。
+    設定の読み込み・保存、キーによるアクセス・更新を行います。
+    """
+    def __init__(self) -> None:
+        self.config: Dict[str, Any] = DEFAULT_CONFIG.copy()
         self.load()
 
-    def load(self):
+    def load(self) -> None:
+        """
+        ユーザ設定ファイル（JSON）から設定を読み込みます。
+        ファイルが存在しないか読み込みエラーが発生した場合はデフォルト設定を利用します。
+        また、不変キーのチェックを行い、必要に応じて保存します。
+        """
         if os.path.exists(CONFIG_FILE):
             try:
                 self.config = load_json(CONFIG_FILE)
@@ -81,15 +117,28 @@ class Config:
         if enforce_immutable_defaults(self.config, DEFAULT_CONFIG, IMMUTABLE_KEYS):
             self.save()
 
-    def save(self):
+    def save(self) -> None:
+        """
+        現在の設定をユーザ設定ファイルに保存します。
+        """
         try:
             save_json(CONFIG_FILE, self.config)
         except Exception as e:
             print(_("error_saving_config").format(error=e))
 
-    def get(self, key_path, default=None):
+    def get(self, key_path: str, default: Any = None) -> Any:
+        """
+        キーパス（"/"区切り）に基づいて設定値を取得します。
+
+        Args:
+            key_path (str): 取得するキーのパス（例："window/geometry"）
+            default (Any, optional): キーが存在しない場合のデフォルト値
+
+        Returns:
+            Any: キーに対応する設定値、存在しなければ default を返す
+        """
         keys = key_path.split("/")
-        d = self.config
+        d: Any = self.config
         for k in keys:
             if isinstance(d, dict):
                 d = d.get(k)
@@ -99,9 +148,16 @@ class Config:
                 return default
         return d
 
-    def set(self, key_path, value):
+    def set(self, key_path: str, value: Any) -> None:
+        """
+        キーパス（"/"区切り）に基づいて設定値を更新し、設定ファイルに保存します。
+
+        Args:
+            key_path (str): 更新するキーのパス（例："language" や "window/geometry"）
+            value (Any): 設定する値
+        """
         keys = key_path.split("/")
-        d = self.config
+        d: Dict[str, Any] = self.config
         for k in keys[:-1]:
             if k not in d or not isinstance(d[k], dict):
                 d[k] = {}
@@ -109,19 +165,21 @@ class Config:
         d[keys[-1]] = value
         self.save()
 
-config = Config()
 
-# --- GNU gettext によるローカライズ管理 ---
-import gettext
+# グローバルな設定オブジェクト
+config: Config = Config()
 
-def init_gettext():
-    # 現在のファイル(app_settings.py)があるディレクトリ（通常は src/）の親ディレクトリをプロジェクトルートとする
+
+def init_gettext() -> None:
+    """
+    GNU gettext を利用してローカライズを初期化します。
+    プロジェクトルート内の locale ディレクトリから翻訳ファイルを読み込みます。
+    """
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_dir)
-    # プロジェクトルート内の locale フォルダを参照する
     locale_dir = os.path.join(project_root, "locale")
     
-    lang_code = config.get("language", "ja_JP")
+    lang_code: str = config.get("language", "ja_JP")
     try:
         translation = gettext.translation("messages", locale_dir, languages=[lang_code])
     except Exception as e:
@@ -129,12 +187,18 @@ def init_gettext():
         translation = gettext.NullTranslations()
     translation.install(names=['gettext', 'ngettext'])
 
+
 # モジュール読込時に gettext の初期化を実施
 init_gettext()
 
-def set_language(lang_code):
+
+def set_language(lang_code: str) -> None:
+    """
+    言語設定を更新し、ローカライズの再初期化を行います。
+
+    Args:
+        lang_code (str): 新たに設定する言語コード（例："en_US"）
+    """
     config.set("language", lang_code)
     init_gettext()
     print(_("language_set_to").format(lang=lang_code))
-
-# 以降、旧来の JSON ベースのローカライズ関数（load_localization, auto_update_localization_files, tr, など）は廃止
