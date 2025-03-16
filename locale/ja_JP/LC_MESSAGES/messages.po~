@@ -1,0 +1,692 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-14 18:45+0900\n"
+"PO-Revision-Date: 2025-03-14 17:50+0900\n"
+"Last-Translator: \n"
+"Language-Team: Japanese <ja@li.org>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+
+#: src/app_settings.py:77
+msgid "error_loading_config_defaults"
+msgstr ""
+"設定の読み込みに失敗しました。デフォルトの設定を使用します。エラー: {error}"
+
+#: src/app_settings.py:88
+msgid "error_saving_config"
+msgstr "設定の保存に失敗しました。エラー: {error}"
+
+#: src/app_settings.py:128
+msgid "error_loading_translation"
+msgstr "翻訳ファイルの読み込みに失敗しました。言語: {lang}、エラー: {error}"
+
+#: src/app_settings.py:138
+msgid "language_set_to"
+msgstr "言語が {lang} に設定されました"
+
+#: src/common.py:190
+msgid "language_name_ja_JP"
+msgstr "日本語"
+
+#: src/common.py:191
+msgid "language_name_en_US"
+msgstr "米英語"
+
+#: src/common.py:192
+msgid "language_name_en_GB"
+msgstr "英英語"
+
+#: src/common.py:193
+msgid "language_name_de_DE"
+msgstr "標準ドイツ語"
+
+#: src/common.py:194
+msgid "language_name_bar"
+msgstr "バイエルン語"
+
+#: src/common.py:195
+msgid "language_name_de_AT"
+msgstr "オーストリア・ドイツ語"
+
+#: src/common.py:196
+msgid "language_name_hu_HU"
+msgstr "ハンガリー語"
+
+#: src/common.py:197
+msgid "language_name_cs_CZ"
+msgstr "チェコ語"
+
+#: src/common.py:198
+msgid "language_name_sk_SK"
+msgstr "スロヴァキア語"
+
+#: src/common.py:199
+msgid "language_name_pl_PL"
+msgstr "ポーランド語"
+
+#: src/common.py:200
+msgid "language_name_uk_UA"
+msgstr "ウクライナ語"
+
+#: src/common.py:201
+msgid "language_name_hr_HR"
+msgstr "クロアチア語"
+
+#: src/common.py:202
+msgid "language_name_sl_SI"
+msgstr "スロベニア語"
+
+#: src/common.py:203
+msgid "language_name_ro_RO"
+msgstr "ルーマニア語"
+
+#: src/common.py:204
+msgid "language_name_it_IT"
+msgstr "イタリア語"
+
+#: src/common.py:205
+msgid "language_name_sr_RS"
+msgstr "セルビア語"
+
+#: src/common.py:206
+msgid "language_name_ru_RU"
+msgstr "ロシア語"
+
+#: src/common.py:207
+msgid "language_name_yi"
+msgstr "イディッシュ語"
+
+#: src/common.py:208
+msgid "language_name_la"
+msgstr "ラテン語"
+
+#: src/core.py:94
+msgid "insufficient_correspondence_points"
+msgstr "変換に必要な対応点が不足しています"
+
+#: src/core.py:95
+msgid "error_minimum_points_required"
+msgstr "変換には最低3点の対応点が必要です"
+
+#: src/core.py:102
+msgid "affine_transformation_failed"
+msgstr "アフィン変換に失敗"
+
+#: src/core.py:103
+msgid "affine_transformation_failed_message"
+msgstr ""
+"アフィン変換行列の計算に失敗しました。入力点の数や位置を確認してください"
+
+#: src/core.py:143
+msgid "game_image_error_insufficient_points"
+msgstr "ゲーム画像が読み込まれていないか、対応点が不足しています"
+
+#: src/core.py:158
+msgid "tps_calculation_failed"
+msgstr "プロジェクトの移行に失敗しました: {error}"
+
+#: src/project.py:39
+msgid "project_migration_title"
+msgstr "プロジェクト移行の確認"
+
+#: src/project.py:40
+msgid "project_migration_text"
+msgstr ""
+"プロジェクトのバージョンが古いため、最新バージョンにアップグレードします。"
+"アップグレードしますか？（旧バージョン: {old_version} → 新バージョン: "
+"{target_version}）"
+
+#: src/project.py:55
+msgid "project_migration_rejected"
+msgstr "プロジェクトの移行が拒否されました"
+
+#: src/project.py:95
+msgid "unsaved_project"
+msgstr "未保存のプロジェクト"
+
+#: src/project.py:142
+msgid "project_save_failed"
+msgstr "プロジェクトの保存に失敗しました: {error}"
+
+#: src/project.py:150
+msgid "project_migration_failed"
+msgstr "プロジェクトの移行に失敗しました: {error}"
+
+#: src/project.py:178
+msgid "project_load_failed"
+msgstr "プロジェクトの読み込みに失敗しました: {error}"
+
+#: src/project.py:203
+msgid "either_file_or_pixmap_qimage_required"
+msgstr "ファイルパスまたはPixmap/QImageのいずれかが必要です"
+
+#: src/project.py:215
+msgid "unknown_image_type"
+msgstr "不明な画像タイプ: {image_type}"
+
+#: src/ui/dialogs.py:41
+msgid "mode_toolbar"
+msgstr "モードツールバー"
+
+#: src/ui/dialogs.py:43
+msgid "return_to_integrated"
+msgstr "統合モードに戻る"
+
+#: src/ui/dialogs.py:63 src/ui/main_window.py:303
+msgid "status_undo_executed"
+msgstr "操作を元に戻しました"
+
+#: src/ui/dialogs.py:70 src/ui/main_window.py:312
+msgid "status_redo_executed"
+msgstr "操作をやり直しました"
+
+#: src/ui/dialogs.py:78
+msgid "mode_switch_confirm_title"
+msgstr "モード切替の確認"
+
+#: src/ui/dialogs.py:78
+msgid "mode_switch_confirm_message"
+msgstr "モードを切り替えますか？ 現在のモード: {mode}"
+
+#: src/ui/dialogs.py:100
+msgid "history_title"
+msgstr "履歴"
+
+#: src/ui/dialogs.py:106
+msgid "jump"
+msgstr "ジャンプ"
+
+#: src/ui/dialogs.py:109 src/ui/dialogs.py:254
+msgid "close"
+msgstr "閉じる"
+
+#: src/ui/dialogs.py:129
+msgid "error_select_history_title"
+msgstr "履歴選択エラー"
+
+#: src/ui/dialogs.py:129
+msgid "error_select_history_message"
+msgstr "履歴項目が選択されていません"
+
+#: src/ui/dialogs.py:141
+msgid "options_title"
+msgstr "オプション"
+
+#: src/ui/dialogs.py:146
+msgid "undo_key"
+msgstr "元に戻すキー"
+
+#: src/ui/dialogs.py:149
+msgid "redo_key"
+msgstr "やり直しキー"
+
+#: src/ui/dialogs.py:152
+msgid "toggle_mode_key"
+msgstr "モード切替キー"
+
+#: src/ui/dialogs.py:155
+msgid "tps_reg"
+msgstr "TPS正則化パラメータ"
+
+#: src/ui/dialogs.py:158
+msgid "tps_adaptive"
+msgstr "適応型正則化を使用"
+
+#: src/ui/dialogs.py:161 src/ui/main_window.py:472 src/ui/ui_manager.py:121
+msgid "grid_overlay"
+msgstr "グリッドオーバーレイ"
+
+#: src/ui/dialogs.py:165
+msgid "grid_size"
+msgstr "グリッドサイズ"
+
+#: src/ui/dialogs.py:168
+msgid "grid_color"
+msgstr "グリッド色"
+
+#: src/ui/dialogs.py:174
+msgid "grid_opacity"
+msgstr "グリッド不透明度"
+
+#: src/ui/dialogs.py:177 src/ui/ui_manager.py:117
+msgid "dark_mode"
+msgstr "ダークモード"
+
+#: src/ui/dialogs.py:181
+msgid "logging_max_run_logs_tooltip"
+msgstr "保持するログフォルダの最大数"
+
+#: src/ui/dialogs.py:182
+msgid "logging_max_run_logs"
+msgstr "最大ログフォルダ数"
+
+#: src/ui/dialogs.py:201
+msgid "language"
+msgstr "言語"
+
+#: src/ui/dialogs.py:216 src/ui/dialogs.py:323
+msgid "input_error_title"
+msgstr "入力エラー"
+
+#: src/ui/dialogs.py:216
+msgid "invalid_tps_reg"
+msgstr "TPS正則化パラメータが無効です: {tps_reg} ({error})"
+
+#: src/ui/dialogs.py:240
+msgid "result_title"
+msgstr "結果"
+
+#: src/ui/dialogs.py:251
+msgid "export"
+msgstr "エクスポート"
+
+#: src/ui/dialogs.py:260 src/ui/main_window.py:288
+msgid "export_select_file"
+msgstr "エクスポート先ファイルを選択"
+
+#: src/ui/dialogs.py:260 src/ui/main_window.py:288
+msgid "png_files_label"
+msgstr "PNGファイル"
+
+#: src/ui/dialogs.py:265
+msgid "export_success_title"
+msgstr "エクスポート成功"
+
+#: src/ui/dialogs.py:265
+msgid "export_success_message"
+msgstr "シーンが正常にエクスポートされました: {output_filename}"
+
+#: src/ui/dialogs.py:275
+msgid "new_project_title"
+msgstr "新規プロジェクト"
+
+#: src/ui/dialogs.py:283 src/ui/dialogs.py:292 src/ui/ui_manager.py:29
+msgid "browse"
+msgstr "参照"
+
+#: src/ui/dialogs.py:288 src/ui/interactive_scene.py:227
+#: src/ui/interactive_scene.py:256 src/ui/interactive_scene.py:278
+#: src/ui/main_window.py:367
+msgid "game_image"
+msgstr "ゲーム画像"
+
+#: src/ui/dialogs.py:297 src/ui/interactive_scene.py:227
+#: src/ui/interactive_scene.py:256 src/ui/interactive_scene.py:278
+#: src/ui/main_window.py:368
+msgid "real_map_image"
+msgstr "実地図画像"
+
+#: src/ui/dialogs.py:308 src/ui/dialogs.py:314 src/ui/main_window.py:217
+msgid "image_files_label"
+msgstr "画像ファイル"
+
+#: src/ui/dialogs.py:309
+msgid "select_game_image"
+msgstr "ゲーム画像を選択"
+
+#: src/ui/dialogs.py:315
+msgid "select_real_map_image"
+msgstr "実地図画像を選択"
+
+#: src/ui/dialogs.py:323
+msgid "error_missing_images"
+msgstr "画像が選択されていません"
+
+#: src/ui/dialogs.py:341
+msgid "project_selection_title"
+msgstr "プロジェクト選択"
+
+#: src/ui/dialogs.py:343
+msgid "project_selection_prompt"
+msgstr ""
+"プロジェクトを新規作成するか、既存のプロジェクトを開くか選択してください"
+
+#: src/ui/dialogs.py:347 src/ui/ui_manager.py:80
+msgid "new_project"
+msgstr "新規プロジェクト作成"
+
+#: src/ui/dialogs.py:348
+msgid "open_project"
+msgstr "プロジェクトを開く"
+
+#: src/ui/dialogs.py:349 src/ui/main_window.py:169 src/ui/main_window.py:516
+msgid "cancel"
+msgstr "キャンセル"
+
+#: src/ui/dialogs.py:368 src/ui/main_window.py:143 src/ui/ui_manager.py:86
+msgid "load_project"
+msgstr "開く"
+
+#: src/ui/dialogs.py:368 src/ui/main_window.py:143
+msgid "project_files_label"
+msgstr "プロジェクトファイル"
+
+#: src/ui/dialogs.py:374
+msgid "project_open_error_title"
+msgstr "プロジェクトオープンエラー"
+
+#: src/ui/dialogs.py:375
+msgid "project_open_error_message"
+msgstr "プロジェクトの読み込みに失敗しました: {error}"
+
+#: src/ui/interactive_scene.py:69
+msgid "delete"
+msgstr "削除"
+
+#: src/ui/interactive_scene.py:233
+#, python-brace-format
+msgid "[{image_label}] {point_add}: ({px}, {py})"
+msgstr "[{image_label}] {point_add}: ({px}, {py})"
+
+#: src/ui/interactive_scene.py:235
+msgid "point_add"
+msgstr "点追加"
+
+#: src/ui/interactive_scene.py:263
+#, python-brace-format
+msgid "[{image_label}] {point_move} (ID {id}): ({new_px}, {new_py})"
+msgstr "[{image_label}] {point_move} (ID {id}): ({new_px}, {new_py})"
+
+#: src/ui/interactive_scene.py:265
+msgid "point_move"
+msgstr "点移動"
+
+#: src/ui/interactive_scene.py:283
+#, python-brace-format
+msgid "[{image_label}] {point_delete} (ID {id})"
+msgstr "[{image_label}] {point_delete} (ID {id})"
+
+#: src/ui/interactive_scene.py:285
+msgid "point_delete"
+msgstr "点削除"
+
+#: src/ui/interactive_view.py:149 src/ui/interactive_view.py:178
+msgid "zoom_percentage"
+msgstr "{percent}%"
+
+#: src/ui/interactive_view.py:154
+msgid "reset_zoom_tooltip"
+msgstr "ズームをリセット"
+
+#: src/ui/interactive_view.py:159
+msgid "zoom_label"
+msgstr "ズーム"
+
+#: src/ui/main_window.py:43 src/ui/main_window.py:232 src/ui/main_window.py:351
+#: src/ui/main_window.py:446
+msgid "mode_integrated"
+msgstr "統合モード"
+
+#: src/ui/main_window.py:72
+msgid "status_ready"
+msgstr "準備完了"
+
+#: src/ui/main_window.py:118
+msgid "project_loaded"
+msgstr "プロジェクトが読み込まれました"
+
+#: src/ui/main_window.py:130
+msgid "window_title"
+msgstr "{app_title} - {project_name}{mod_mark} - {mode}"
+
+#: src/ui/main_window.py:131 src/ui/main_window.py:367
+#: src/ui/main_window.py:368
+msgid "app_title"
+msgstr "KartenWarp"
+
+#: src/ui/main_window.py:145
+msgid "load_cancelled"
+msgstr "読み込みがキャンセルされました"
+
+#: src/ui/main_window.py:154
+msgid "load_error_title"
+msgstr "読み込みエラー"
+
+#: src/ui/main_window.py:155
+msgid "load_error_message"
+msgstr "プロジェクトの読み込みに失敗しました: {error}"
+
+#: src/ui/main_window.py:163 src/ui/main_window.py:512
+msgid "unsaved_changes_title"
+msgstr "未保存の変更"
+
+#: src/ui/main_window.py:164
+msgid "unsaved_changes_switch_message"
+msgstr "未保存の変更があります。切替を続行しますか？"
+
+#: src/ui/main_window.py:167 src/ui/main_window.py:514 src/ui/ui_manager.py:84
+msgid "save_project"
+msgstr "上書き保存"
+
+#: src/ui/main_window.py:168 src/ui/main_window.py:515
+msgid "discard"
+msgstr "破棄"
+
+#: src/ui/main_window.py:196
+msgid "new_project_cancelled"
+msgstr "新規プロジェクト作成がキャンセルされました"
+
+#: src/ui/main_window.py:214 src/ui/main_window.py:242
+#: src/ui/main_window.py:286 src/ui/main_window.py:332
+msgid "error_no_project_title"
+msgstr "プロジェクトがありません"
+
+#: src/ui/main_window.py:214 src/ui/main_window.py:242
+#: src/ui/main_window.py:286 src/ui/main_window.py:332
+msgid "error_no_project_message"
+msgstr "プロジェクトが読み込まれていません"
+
+#: src/ui/main_window.py:222
+msgid "confirm_reset_title"
+msgstr "リセットの確認"
+
+#: src/ui/main_window.py:223
+msgid "confirm_reset"
+msgstr "画像をリセットして再読み込みしますか？"
+
+#: src/ui/main_window.py:227 src/ui/main_window.py:238
+msgid "cancel_loading"
+msgstr "読み込みがキャンセルされました"
+
+#: src/ui/main_window.py:246
+msgid "confirm_overwrite_title"
+msgstr "上書き確認"
+
+#: src/ui/main_window.py:247
+msgid "confirm_overwrite_message"
+msgstr "{filename} に上書きしますか？"
+
+#: src/ui/main_window.py:251 src/ui/main_window.py:270
+msgid "save_cancelled"
+msgstr "保存がキャンセルされました"
+
+#: src/ui/main_window.py:255 src/ui/main_window.py:274
+msgid "project_saved"
+msgstr "プロジェクトが保存されました"
+
+#: src/ui/main_window.py:259 src/ui/main_window.py:278
+msgid "save_error_title"
+msgstr "保存エラー"
+
+#: src/ui/main_window.py:260 src/ui/main_window.py:262
+#: src/ui/main_window.py:279 src/ui/main_window.py:281
+msgid "save_error_message"
+msgstr "プロジェクトの保存に失敗しました: {error}"
+
+#: src/ui/main_window.py:268 src/ui/ui_manager.py:85
+msgid "save_project_as"
+msgstr "名前を付けて保存"
+
+#: src/ui/main_window.py:290
+msgid "export_cancelled"
+msgstr "エクスポートがキャンセルされました"
+
+#: src/ui/main_window.py:294
+msgid "export_success"
+msgstr "エクスポート成功: {output_filename}"
+
+#: src/ui/main_window.py:299 src/ui/main_window.py:308
+#: src/ui/main_window.py:317
+msgid "error_no_active_scene_message"
+msgstr "アクティブなシーンがありません"
+
+#: src/ui/main_window.py:317
+msgid "error_no_active_scene_title"
+msgstr "シーンエラー"
+
+#: src/ui/main_window.py:325
+msgid "options_saved"
+msgstr "オプションが保存されました"
+
+#: src/ui/main_window.py:337
+msgid "error_insufficient_points"
+msgstr "変換に必要な対応点が不足しています"
+
+#: src/ui/main_window.py:347
+msgid "transform_complete"
+msgstr "変換が完了しました"
+
+#: src/ui/main_window.py:409 src/ui/main_window.py:417
+msgid "mode_detached"
+msgstr "分離モード"
+
+#: src/ui/main_window.py:411 src/ui/main_window.py:419
+msgid "mode_switch_message"
+msgstr "モードを {mode} に切り替えました"
+
+#: src/ui/main_window.py:448
+msgid "mode_switched_to_integrated"
+msgstr "統合モードに戻りました"
+
+#: src/ui/main_window.py:455
+msgid "status_active_scene_game"
+msgstr "ゲーム画像シーンがアクティブです"
+
+#: src/ui/main_window.py:457
+msgid "status_active_scene_real"
+msgstr "実地図画像シーンがアクティブです"
+
+#: src/ui/main_window.py:479
+msgid "usage_text"
+msgstr ""
+"使い方:\n"
+"・ゲーム画像: {load_game_image}\n"
+"・実地図画像: {load_real_map_image}\n"
+"・TPS変換: {execute_tps}\n"
+"・シーンエクスポート: {export_scene}"
+
+#: src/ui/main_window.py:480 src/ui/ui_manager.py:81
+msgid "load_game_image"
+msgstr "ゲーム画像の取り込み"
+
+#: src/ui/main_window.py:481 src/ui/ui_manager.py:82
+msgid "load_real_map_image"
+msgstr "実地図画像の取り込み"
+
+#: src/ui/main_window.py:482 src/ui/ui_manager.py:107
+msgid "execute_tps"
+msgstr "TPS変換を実行"
+
+#: src/ui/main_window.py:483 src/ui/ui_manager.py:88
+msgid "export_scene"
+msgstr "エクスポート"
+
+#: src/ui/main_window.py:485 src/ui/ui_manager.py:129
+msgid "usage"
+msgstr "使い方"
+
+#: src/ui/main_window.py:489 src/ui/ui_manager.py:130
+msgid "about"
+msgstr "KartenWarpについて"
+
+#: src/ui/main_window.py:489
+msgid "about_text"
+msgstr ""
+"KartenWarp\n"
+"バージョン 1.4\n"
+"\n"
+"このツールは、2枚の画像間の対応点に基づくTPS変換を行い、変換結果のリアルタイ"
+"ムプレビューや各種補助機能（ドラッグでの点移動など）を提供します。\n"
+"\n"
+"（C) 2025 korobka"
+
+#: src/ui/main_window.py:513
+msgid "unsaved_exit_message"
+msgstr "未保存の変更があります。終了してもよろしいですか？"
+
+#: src/ui/ui_manager.py:78
+msgid "file_menu"
+msgstr "ファイル"
+
+#: src/ui/ui_manager.py:84
+msgid "save_project_tooltip"
+msgstr "現在のプロジェクトを上書き保存"
+
+#: src/ui/ui_manager.py:85
+msgid "save_project_as_tooltip"
+msgstr "別名でプロジェクトを保存"
+
+#: src/ui/ui_manager.py:86
+msgid "load_project_tooltip"
+msgstr "プロジェクトを読み込む"
+
+#: src/ui/ui_manager.py:90
+msgid "exit_program"
+msgstr "終了"
+
+#: src/ui/ui_manager.py:95
+msgid "edit_menu"
+msgstr "編集"
+
+#: src/ui/ui_manager.py:97
+msgid "undo"
+msgstr "元に戻す"
+
+#: src/ui/ui_manager.py:98
+msgid "redo"
+msgstr "やり直し"
+
+#: src/ui/ui_manager.py:100
+msgid "history_menu"
+msgstr "履歴"
+
+#: src/ui/ui_manager.py:100
+msgid "history_menu_tooltip"
+msgstr "操作履歴を表示"
+
+#: src/ui/ui_manager.py:105
+msgid "tools_menu"
+msgstr "ツール"
+
+#: src/ui/ui_manager.py:109
+msgid "toggle_mode"
+msgstr "モード切替"
+
+#: src/ui/ui_manager.py:111
+msgid "options"
+msgstr "オプション"
+
+#: src/ui/ui_manager.py:116
+msgid "view_menu"
+msgstr "表示"
+
+#: src/ui/ui_manager.py:127
+msgid "help_menu"
+msgstr "ヘルプ"
+
+#~ msgid "project_version_newer"
+#~ msgstr ""
+#~ "プロジェクトのバージョンが新しすぎます（ファイルバージョン: "
+#~ "{file_version}、現在のバージョン: {current_version}）"
+
+#~ msgid "mode_switch_text"
+#~ msgstr "現在のモードは {mode} です"
+
+#, fuzzy
+#~ msgid "project_files_filter"
+#~ msgstr "プロジェクトの保存に失敗しました: {error}"

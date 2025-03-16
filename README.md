@@ -26,13 +26,69 @@ KartenWarp は、2 枚の画像間の対応点に基づいて Thin Plate Spline 
 ```bash
 KartenWarp/
 ├── assets/                           (画像などのリソースが入ったフォルダ)
+│   ├── fonts/                        (フォントが入ったフォルダ)
+│   │   └── ...
 │   ├── assets_config.json            (アセットの統合管理を行うJSONファイル)
 │   └── ...                           (各種リソース)
+├── locale/
+│   ├── ja_JP/         ← 日本語（日本）
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── en_GB/         ← 英語（イギリス）
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── en_US/         ← 英語（アメリカ）
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── de_DE/         ← 標準ドイツ語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── bar/           ← バイエルン語（独自の言語コード）
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── de_AT/         ← オーストリアドイツ語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── hu_HU/         ← ハンガリー語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── cs_CZ/         ← チェコ語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── sk_SK/         ← スロバキア語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── pl_PL/         ← ポーランド語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── uk_UA/         ← ウクライナ語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── hr_HR/         ← クロアチア語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── sl_SI/         ← スロベニア語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── ro_RO/         ← ルーマニア語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── it_IT/         ← イタリア語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── sr_RS/         ← セルボクロアチア語（またはセルビア語としても）
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── ru_RU/         ← ロシア語
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   ├── yi/            ← イディッシュ語（言語コードは場合により "yi" で）
+│   │   └── LC_MESSAGES/
+│   │       └── messages.po (→ messages.mo)
+│   └── la/            ← ラテン語
+│       └── LC_MESSAGES/
+│           └── messages.po (→ messages.mo)
 ├── src/                              (ソースコートが入ったフォルダ)
-│   ├── locales/                      (ローカライズ用JSONファイルが入ったフォルダ)
-│   │   ├── ja.json
-│   │   ├── en.json
-│   │   └── de.json
 │   ├── ui/                           (GUI関係のファイルが入ったフォルダ)
 │   │   ├── __init__.py               (中身は from .main_window import MainWindow )
 │   │   ├── dialogs.py

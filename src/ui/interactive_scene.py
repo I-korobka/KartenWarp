@@ -4,15 +4,17 @@ import ast
 from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsTextItem, QMenu
 from PyQt5.QtGui import QPainterPath, QPen, QBrush, QColor
 from PyQt5.QtCore import QPointF, Qt, pyqtSignal, QTimer
-from app_settings import tr, config
+from app_settings import config
 from logger import logger
 
 class DraggablePointItem(QGraphicsEllipseItem):
     def __init__(self, command, *args, **kwargs):
         super().__init__(-3, -3, 6, 6, *args, **kwargs)
-        self.setFlags(QGraphicsEllipseItem.ItemIsMovable | 
-                      QGraphicsEllipseItem.ItemSendsGeometryChanges | 
-                      QGraphicsEllipseItem.ItemIsSelectable)
+        self.setFlags(
+            QGraphicsEllipseItem.ItemIsMovable |
+            QGraphicsEllipseItem.ItemSendsGeometryChanges |
+            QGraphicsEllipseItem.ItemIsSelectable
+        )
         self.setFlag(QGraphicsEllipseItem.ItemIgnoresTransformations, True)
         self.setAcceptHoverEvents(True)
         self.setCursor(Qt.OpenHandCursor)
@@ -64,7 +66,7 @@ class DraggablePointItem(QGraphicsEllipseItem):
 
     def contextMenuEvent(self, event):
         menu = QMenu()
-        delete_action = menu.addAction(tr("delete"))
+        delete_action = menu.addAction(_("delete"))
         action = menu.exec_(event.screenPos())
         if action == delete_action:
             scene = self.scene()
@@ -99,7 +101,11 @@ class InteractiveScene(QGraphicsScene):
             if cmd["action"] == "add" and cmd["id"] in self.points_dict:
                 pt = self.points_dict[cmd["id"]]["pos"]
                 points.append([pt.x(), pt.y()])
-        update_flag = not self._loading
+        # マイグレーション済みなら常に更新フラグを True にする
+        if hasattr(self.project, "_migrated") and self.project._migrated:
+            update_flag = True
+        else:
+            update_flag = not self._loading
         if self.image_type == "game":
             self.project.update_game_points(points, update_modified=update_flag)
         else:
@@ -222,13 +228,18 @@ class InteractiveScene(QGraphicsScene):
             return
         new_id = self.point_id_counter
         self.point_id_counter += 1
-        image_label = tr("game_image") if self.image_type == "game" else tr("real_map_image")
+        image_label = _("game_image") if self.image_type == "game" else _("real_map_image")
         command = {
             "action": "add",
             "id": new_id,
             "pos": QPointF(px, py),
             "pixel": (px, py),
-            "desc": f"[{image_label}] {tr('point_add')}: ({px}, {py})",
+            "desc": _("[{image_label}] {point_add}: ({px}, {py})").format(
+                image_label=image_label,
+                point_add=_("point_add"),
+                px=px,
+                py=py
+            ),
             "ellipse": None,
             "text": None
         }
@@ -246,14 +257,20 @@ class InteractiveScene(QGraphicsScene):
         if existing_id is not None and existing_id != command["id"]:
             logger.debug("Pixel (%s, %s) occupied by ID %s. Skipping move.", new_px, new_py, existing_id)
             return
-        image_label = tr("game_image") if self.image_type == "game" else tr("real_map_image")
+        image_label = _("game_image") if self.image_type == "game" else _("real_map_image")
         move_command = {
             "action": "move",
             "id": command["id"],
             "old_pixel": old_pixel,
             "pixel": (new_px, new_py),
             "pos": QPointF(new_px, new_py),
-            "desc": f"[{image_label}] {tr('point_move')} (ID {command['id']}): ({new_px}, {new_py})"
+            "desc": _("[{image_label}] {point_move} (ID {id}): ({new_px}, {new_py})").format(
+                image_label=image_label,
+                point_move=_("point_move"),
+                id=command["id"],
+                new_px=new_px,
+                new_py=new_py
+            )
         }
         logger.debug("Recording move command: %s", move_command)
         self.record_command(move_command)
@@ -262,12 +279,16 @@ class InteractiveScene(QGraphicsScene):
         if self.project is None:
             logger.warning("No project set in InteractiveScene. Operation aborted.")
             return
-        image_label = tr("game_image") if self.image_type == "game" else tr("real_map_image")
+        image_label = _("game_image") if self.image_type == "game" else _("real_map_image")
         delete_command = {
             "action": "delete",
             "id": command["id"],
             "pixel": command["pixel"],
-            "desc": f"[{image_label}] {tr('point_delete')} (ID {command['id']})"
+            "desc": _("[{image_label}] {point_delete} (ID {id})").format(
+                image_label=image_label,
+                point_delete=_("point_delete"),
+                id=command["id"]
+            )
         }
         logger.debug("Recording delete command: %s", delete_command)
         self.record_command(delete_command)
@@ -349,6 +370,8 @@ class InteractiveScene(QGraphicsScene):
             view.resetTransform()
             QTimer.singleShot(300, lambda: view.fitInView(self.pixmap_item.boundingRect(), Qt.KeepAspectRatio))
             view.viewport().setUpdatesEnabled(True)
+        if update_modified:
+            self.projectModified.emit()
 
     def clear_points(self):
         for cmd in list(self.points_dict.values()):
