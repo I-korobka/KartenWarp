@@ -1,6 +1,8 @@
 # src/project.py
 import os
 import base64
+import zipfile
+import json
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox, QApplication
 from app_settings import config
@@ -74,11 +76,13 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
         upgraded_data["real_image_data"] = real_image_data
         upgraded_data["version"] = 2
     elif from_version == 2:
-        # 自動変換：バージョン2から3への移行
-        # バージョン3では画像データはZIPコンテナ内に格納するため、
-        # メタデータからは Base64 エンコードされた画像データを除去します。
-        upgraded_data.pop("game_image_data", None)
-        upgraded_data.pop("real_image_data", None)
+        # バージョン2から3への移行時も、ユーザー確認を実施する
+        if ("game_image_data" in upgraded_data and upgraded_data["game_image_data"]) or \
+        ("real_image_data" in upgraded_data and upgraded_data["real_image_data"]):
+            if not confirm_migration(2, 3):
+                raise IOError(_("project_migration_rejected"))
+        # マイグレーション後は保存時にZIP形式で出力されるため、
+        # ここでは画像データはそのまま保持し、versionのみ更新する
         upgraded_data["version"] = 3
     else:
         upgraded_data["version"] = from_version + 1
@@ -136,16 +140,51 @@ class Project:
     def save(self, file_path):
         if not file_path.endswith(DEFAULT_PROJECT_EXTENSION):
             file_path += DEFAULT_PROJECT_EXTENSION
-        data = self.to_dict()
-        try:
-            save_json(file_path, data)
-            logger.info("プロジェクトを保存しました: %s", file_path)
-            self.file_path = file_path
-            self.name = os.path.splitext(os.path.basename(file_path))[0]
-            self.modified = False
-        except Exception as e:
-            logger.exception("プロジェクト保存エラー")
-            raise IOError(_("project_save_failed").format(error=str(e)))
+        if CURRENT_PROJECT_VERSION == 3:
+            try:
+                # 作成済みのメタデータは、to_dict()から画像データを除外して生成
+                metadata = self.to_dict()
+                metadata.pop("game_image_data", None)
+                metadata.pop("real_image_data", None)
+                # 画像ファイル名を明示（固定名）
+                metadata["game_image_file"] = "game.png"
+                metadata["real_image_file"] = "real.png"
+                # ZIPコンテナとして保存（ZIP_LZMA により高圧縮）
+                with zipfile.ZipFile(file_path, "w", compression=zipfile.ZIP_LZMA) as zf:
+                    # metadata.json の保存
+                    meta_str = json.dumps(metadata, indent=4, ensure_ascii=False)
+                    zf.writestr("metadata.json", meta_str)
+                    # ゲーム画像を PNG として保存
+                    buffer = QBuffer()
+                    buffer.open(QBuffer.WriteOnly)
+                    self.game_qimage.save(buffer, "PNG")
+                    zf.writestr("game.png", bytes(buffer.data()))
+                    buffer.close()
+                    # 実地図画像を PNG として保存
+                    buffer = QBuffer()
+                    buffer.open(QBuffer.WriteOnly)
+                    self.real_qimage.save(buffer, "PNG")
+                    zf.writestr("real.png", bytes(buffer.data()))
+                    buffer.close()
+                logger.info("プロジェクトを保存しました (ZIP形式): %s", file_path)
+                self.file_path = file_path
+                self.name = os.path.splitext(os.path.basename(file_path))[0]
+                self.modified = False
+            except Exception as e:
+                logger.exception("プロジェクト保存エラー (ZIP形式)")
+                raise IOError(_("project_save_failed").format(error=str(e)))
+        else:
+            # （念のための旧形式保存。通常は発生しません）
+            data = self.to_dict()
+            try:
+                save_json(file_path, data)
+                logger.info("プロジェクトを保存しました (JSON形式): %s", file_path)
+                self.file_path = file_path
+                self.name = os.path.splitext(os.path.basename(file_path))[0]
+                self.modified = False
+            except Exception as e:
+                logger.exception("プロジェクト保存エラー (JSON形式)")
+                raise IOError(_("project_save_failed").format(error=str(e)))
 
     @classmethod
     def from_dict(cls, data):
@@ -155,14 +194,13 @@ class Project:
             logger.exception("プロジェクトデータのマイグレーションに失敗しました")
             raise IOError(_("project_migration_failed").format(error=str(e)))
         project = cls(
-            game_image_data=data.get("game_image_data", ""),
-            real_image_data=data.get("real_image_data", "")
+            game_image_data=data.get("game_image_data", "")
+            , real_image_data=data.get("real_image_data", "")
         )
         project.game_points = data.get("game_points", [])
         project.real_points = data.get("real_points", [])
         project.settings = data.get("settings", {})
         project.load_embedded_images()
-        # マイグレーションが行われた場合、未保存状態にし、フラグも保持
         if data.get("_migrated"):
             project.modified = True
             project._migrated = True
@@ -173,15 +211,44 @@ class Project:
     @classmethod
     def load(cls, file_path):
         try:
-            data = load_json(file_path)
-            project = cls.from_dict(data)
-            logger.info("プロジェクトを読み込みました: %s", file_path)
-            project.file_path = file_path
-            project.name = os.path.splitext(os.path.basename(file_path))[0]
-            # 変換が行われなかった場合は保存済みとする
-            if not data.get("_migrated"):
-                project.modified = False
-            return project
+            if zipfile.is_zipfile(file_path):
+                with zipfile.ZipFile(file_path, "r") as zf:
+                    # ZIP形式の場合、metadata.json を読み込み
+                    meta_str = zf.read("metadata.json").decode("utf-8")
+                    metadata = json.loads(meta_str)
+                    # Project オブジェクトを作成（画像データは ZIP 内の画像から読み込む）
+                    project = cls(game_image_data="", real_image_data="")
+                    project.game_points = metadata.get("game_points", [])
+                    project.real_points = metadata.get("real_points", [])
+                    project.settings = metadata.get("settings", {})
+                    project.file_path = file_path
+                    project.name = os.path.splitext(os.path.basename(file_path))[0]
+                    # ゲーム画像の読み込み
+                    game_data = zf.read("game.png")
+                    game_image = QImage()
+                    game_image.loadFromData(game_data, "PNG")
+                    project.game_qimage = game_image
+                    # 実地図画像の読み込み
+                    real_data = zf.read("real.png")
+                    real_image = QImage()
+                    real_image.loadFromData(real_data, "PNG")
+                    project.real_qimage = real_image
+                    from common import qimage_to_qpixmap
+                    project.game_pixmap = qimage_to_qpixmap(game_image)
+                    project.real_pixmap = qimage_to_qpixmap(real_image)
+                    project.modified = False
+                    logger.info("プロジェクトを読み込みました (ZIP形式): %s", file_path)
+                    return project
+            else:
+                # 従来の JSON 形式の場合（自動マイグレーションを実施）
+                data = load_json(file_path)
+                project = cls.from_dict(data)
+                logger.info("プロジェクトを読み込みました (JSON形式): %s", file_path)
+                project.file_path = file_path
+                project.name = os.path.splitext(os.path.basename(file_path))[0]
+                if not data.get("_migrated"):
+                    project.modified = False
+                return project
         except Exception as e:
             logger.exception("プロジェクト読み込みエラー")
             raise IOError(_("project_load_failed").format(error=str(e)))
