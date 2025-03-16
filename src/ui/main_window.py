@@ -14,7 +14,9 @@ from ui.interactive_view import ZoomableViewWidget
 from ui.ui_manager import UIManager  # 統合 UI マネージャーを利用
 from project import Project
 
-# --- 新たに追加：ResettableSplitter の定義 ---
+MODE_INTEGRATED = "integrated"
+MODE_DETACHED = "detached"
+
 class ResettableSplitterHandle(QSplitterHandle):
     def mouseDoubleClickEvent(self, event):
         splitter = self.splitter()
@@ -37,10 +39,11 @@ class ResettableSplitter(QSplitter):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        # ← ここで最低サイズを設定
+        # 最低サイズの設定などはそのまま
         self.setMinimumSize(800, 600)
         
-        self.mode = _("mode_integrated")
+        # 内部状態は翻訳済み文字列ではなく定数を使用する
+        self.mode = MODE_INTEGRATED
         self.project = None
         self._integrated_splitter_sizes = None  # 統合モード時のスプリッターサイズを保持
 
@@ -132,12 +135,14 @@ class MainWindow(QMainWindow):
 
     def _update_window_title(self):
         mod_mark = "*" if self.project and self.project.modified else ""
+        # 内部状態（self.mode）は定数なので、表示用に翻訳する
+        mode_display = _("mode_integrated") if self.mode == MODE_INTEGRATED else _("mode_detached")
         self.setWindowTitle(
             _("window_title").format(
                 app_title=_("app_title"),
                 project_name=self.project.name,
                 mod_mark=mod_mark,
-                mode=self.mode
+                mode=mode_display
             )
         )
 
@@ -354,7 +359,8 @@ class MainWindow(QMainWindow):
         logger.info("TPS transformation executed successfully")
 
     def toggle_mode(self):
-        if self.mode == _("mode_integrated"):
+        # 内部状態の比較は定数で行う
+        if self.mode == MODE_INTEGRATED:
             self._enter_detached_mode()
         else:
             self._enter_integrated_mode()
@@ -374,12 +380,9 @@ class MainWindow(QMainWindow):
         winB = DetachedWindow(self.viewB, f"{_('app_title')} - {_('real_map_image')}", self)
         
         if self.isMaximized():
-            # メインウィンドウが最大化状態の場合は、強制配置を行わず
-            # OS によるネイティブなウィンドウスナップ（ドラッグ時の自動スナップ）を利用させる
             winA.show()
             winB.show()
         else:
-            # 最大化状態でない場合は従来の配置ロジック（必要に応じて配置）
             offset = 30
             default_width = 800
             default_height = 600
@@ -412,17 +415,10 @@ class MainWindow(QMainWindow):
             winB.show()
         
         self.detached_windows.extend([winA, winB])
-        self.mode = _("mode_detached")
+        # 内部状態は定数で更新（翻訳文字列に上書きしない）
+        self.mode = MODE_DETACHED
         self._update_window_title()
-        self.statusBar().showMessage(_("mode_switch_message").format(mode=self.mode), 3000)
-        logger.info("Entered detached mode")
-        
-        winA.show()
-        winB.show()
-        self.detached_windows.extend([winA, winB])
-        self.mode = _("mode_detached")
-        self._update_window_title()
-        self.statusBar().showMessage(_("mode_switch_message").format(mode=self.mode), 3000)
+        self.statusBar().showMessage(_("mode_switch_message").format(mode=_("mode_detached")), 3000)
         logger.info("Entered detached mode")
 
     def _enter_integrated_mode(self):
@@ -449,9 +445,9 @@ class MainWindow(QMainWindow):
         else:
             total_width = self.splitter.width()
             self.splitter.setSizes([total_width // 2, total_width - total_width // 2])
-        self.mode = _("mode_integrated")
+        self.mode = MODE_INTEGRATED
         self._update_window_title()
-        self.statusBar().showMessage(_("mode_switched_to_integrated"), 3000)
+        self.statusBar().showMessage(_("mode_switched_to_integrated").format(mode=_("mode_integrated")), 3000)
         logger.info("Returned to integrated mode")
 
     def set_active_scene(self, scene):
