@@ -9,7 +9,7 @@ from common import save_json, load_json
 from PyQt5.QtCore import QBuffer
 
 DEFAULT_PROJECT_EXTENSION = ".kw"
-CURRENT_PROJECT_VERSION = 2
+CURRENT_PROJECT_VERSION = 3
 
 def image_to_base64(qimage: QImage) -> str:
     if qimage is None or qimage.isNull():
@@ -51,7 +51,6 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
     upgraded_data = data.copy()
     if from_version == 1:
         if not confirm_migration(1, 2):
-            # ユーザーに拒否された場合のエラーメッセージは翻訳キーで管理
             raise IOError(_("project_migration_rejected"))
         game_path = data.get("game_image_path", "")
         real_path = data.get("real_image_path", "")
@@ -74,6 +73,13 @@ def upgrade_project_data(data: dict, from_version: int) -> dict:
         upgraded_data["game_image_data"] = game_image_data
         upgraded_data["real_image_data"] = real_image_data
         upgraded_data["version"] = 2
+    elif from_version == 2:
+        # 自動変換：バージョン2から3への移行
+        # バージョン3では画像データはZIPコンテナ内に格納するため、
+        # メタデータからは Base64 エンコードされた画像データを除去します。
+        upgraded_data.pop("game_image_data", None)
+        upgraded_data.pop("real_image_data", None)
+        upgraded_data["version"] = 3
     else:
         upgraded_data["version"] = from_version + 1
     return upgraded_data
