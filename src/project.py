@@ -3,6 +3,9 @@ import os
 import base64
 import zipfile
 import json
+import tempfile
+import shutil
+import hashlib
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMessageBox, QApplication
 from app_settings import config
@@ -12,6 +15,15 @@ from PyQt5.QtCore import QBuffer
 
 DEFAULT_PROJECT_EXTENSION = ".kw"
 CURRENT_PROJECT_VERSION = 3
+
+def compute_image_hash(qimage: QImage) -> str:
+    buffer = QBuffer()
+    buffer.open(QBuffer.WriteOnly)
+    # PNG形式で保存してハッシュ計算
+    qimage.save(buffer, "PNG")
+    data = buffer.data()
+    buffer.close()
+    return hashlib.md5(bytes(data)).hexdigest()
 
 def image_to_base64(qimage: QImage) -> str:
     if qimage is None or qimage.isNull():
@@ -129,54 +141,135 @@ class Project:
     def to_dict(self):
         data = {
             "version": CURRENT_PROJECT_VERSION,
-            "game_image_data": self.game_image_data if self.game_image_data else image_to_base64(self.game_qimage),
-            "real_image_data": self.real_image_data if self.real_image_data else image_to_base64(self.real_qimage),
+            # ここでは画像データは含めず、後で別ファイルとして管理する
             "game_points": self.game_points,
             "real_points": self.real_points,
             "settings": self.settings,
+            # 画像ハッシュもメタデータに含める（差分判定用）
+            "game_image_hash": compute_image_hash(self.game_qimage) if not self.game_qimage.isNull() else "",
+            "real_image_hash": compute_image_hash(self.real_qimage) if not self.real_qimage.isNull() else "",
+            # 画像ファイル名は固定
+            "game_image_file": "game.png",
+            "real_image_file": "real.png",
         }
         return data
+
+    def _full_save(self, file_path):
+        # 従来のフルセーブ処理（差分検出なし）
+        metadata = self.to_dict()
+        try:
+            with zipfile.ZipFile(file_path, "w", compression=zipfile.ZIP_LZMA) as zf:
+                # metadata.json の保存
+                meta_str = json.dumps(metadata, indent=4, ensure_ascii=False)
+                zf.writestr("metadata.json", meta_str)
+                # ゲーム画像の保存
+                buffer = QBuffer()
+                buffer.open(QBuffer.WriteOnly)
+                self.game_qimage.save(buffer, "PNG")
+                zf.writestr("game.png", bytes(buffer.data()))
+                buffer.close()
+                # 実地図画像の保存
+                buffer = QBuffer()
+                buffer.open(QBuffer.WriteOnly)
+                self.real_qimage.save(buffer, "PNG")
+                zf.writestr("real.png", bytes(buffer.data()))
+                buffer.close()
+            logger.info("プロジェクトをフルセーブしました: %s", file_path)
+            self.file_path = file_path
+            self.name = os.path.splitext(os.path.basename(file_path))[0]
+            self.modified = False
+        except Exception as e:
+            logger.exception("プロジェクト保存エラー (フルセーブ)")
+            raise IOError(_("project_save_failed").format(error=str(e)))
+
+    def _save_partial(self, file_path):
+        """
+        差分更新によるプロジェクトファイルの保存実装。
+        既存ZIPコンテナ内の metadata.json および画像ファイルのハッシュを比較し、
+        変更がなければ既存データを再利用します。
+        """
+        # 新しいメタデータを生成
+        new_metadata = self.to_dict()
+        # 一時的に新規ZIPを作成
+        temp_fd, temp_path = tempfile.mkstemp(suffix=DEFAULT_PROJECT_EXTENSION)
+        os.close(temp_fd)  # ZIPライブラリで書き込むため閉じる
+
+        try:
+            with zipfile.ZipFile(file_path, "r") as old_zip:
+                try:
+                    old_meta = json.loads(old_zip.read("metadata.json").decode("utf-8"))
+                except Exception:
+                    old_meta = {}
+                # 差分判定
+                metadata_changed = (new_metadata != old_meta)
+                game_changed = new_metadata.get("game_image_hash") != old_meta.get("game_image_hash")
+                real_changed = new_metadata.get("real_image_hash") != old_meta.get("real_image_hash")
+
+                # 新規ZIP作成（差分更新）
+                with zipfile.ZipFile(temp_path, "w", compression=zipfile.ZIP_LZMA) as new_zip:
+                    # metadata.json を必ず新規生成（または、変更がなければ同じ内容でも上書き）
+                    meta_str = json.dumps(new_metadata, indent=4, ensure_ascii=False)
+                    new_zip.writestr("metadata.json", meta_str)
+
+                    # ゲーム画像
+                    if game_changed or "game.png" not in old_zip.namelist():
+                        buffer = QBuffer()
+                        buffer.open(QBuffer.WriteOnly)
+                        self.game_qimage.save(buffer, "PNG")
+                        new_zip.writestr("game.png", bytes(buffer.data()))
+                        buffer.close()
+                        logger.debug("ゲーム画像が更新されたため再保存しました")
+                    else:
+                        # 変更がなければ既存の内容をコピー
+                        new_zip.writestr("game.png", old_zip.read("game.png"))
+                        logger.debug("ゲーム画像は変更なしのため、既存データを再利用しました")
+
+                    # 実地図画像
+                    if real_changed or "real.png" not in old_zip.namelist():
+                        buffer = QBuffer()
+                        buffer.open(QBuffer.WriteOnly)
+                        self.real_qimage.save(buffer, "PNG")
+                        new_zip.writestr("real.png", bytes(buffer.data()))
+                        buffer.close()
+                        logger.debug("実地図画像が更新されたため再保存しました")
+                    else:
+                        new_zip.writestr("real.png", old_zip.read("real.png"))
+                        logger.debug("実地図画像は変更なしのため、既存データを再利用しました")
+
+                    # その他、既存ZIPに含まれる余分なファイルがあればそのままコピー
+                    for item in old_zip.infolist():
+                        if item.filename not in ("metadata.json", "game.png", "real.png"):
+                            new_zip.writestr(item, old_zip.read(item.filename))
+            # 部分更新ZIPが正常に作成できたら、元ファイルと入れ替える
+            shutil.move(temp_path, file_path)
+            logger.info("プロジェクトを差分更新保存しました: %s", file_path)
+            self.file_path = file_path
+            self.name = os.path.splitext(os.path.basename(file_path))[0]
+            self.modified = False
+        except Exception as e:
+            # エラー時は一時ファイルを削除し、例外を再送出
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+            logger.exception("プロジェクト差分保存エラー")
+            raise
 
     def save(self, file_path):
         if not file_path.endswith(DEFAULT_PROJECT_EXTENSION):
             file_path += DEFAULT_PROJECT_EXTENSION
         if CURRENT_PROJECT_VERSION == 3:
-            try:
-                # 作成済みのメタデータは、to_dict()から画像データを除外して生成
-                metadata = self.to_dict()
-                metadata.pop("game_image_data", None)
-                metadata.pop("real_image_data", None)
-                # 画像ファイル名を明示（固定名）
-                metadata["game_image_file"] = "game.png"
-                metadata["real_image_file"] = "real.png"
-                # ZIPコンテナとして保存（ZIP_LZMA により高圧縮）
-                with zipfile.ZipFile(file_path, "w", compression=zipfile.ZIP_LZMA) as zf:
-                    # metadata.json の保存
-                    meta_str = json.dumps(metadata, indent=4, ensure_ascii=False)
-                    zf.writestr("metadata.json", meta_str)
-                    # ゲーム画像を PNG として保存
-                    buffer = QBuffer()
-                    buffer.open(QBuffer.WriteOnly)
-                    self.game_qimage.save(buffer, "PNG")
-                    zf.writestr("game.png", bytes(buffer.data()))
-                    buffer.close()
-                    # 実地図画像を PNG として保存
-                    buffer = QBuffer()
-                    buffer.open(QBuffer.WriteOnly)
-                    self.real_qimage.save(buffer, "PNG")
-                    zf.writestr("real.png", bytes(buffer.data()))
-                    buffer.close()
-                logger.info("プロジェクトを保存しました (ZIP形式): %s", file_path)
-                self.file_path = file_path
-                self.name = os.path.splitext(os.path.basename(file_path))[0]
-                self.modified = False
-            except Exception as e:
-                logger.exception("プロジェクト保存エラー (ZIP形式)")
-                raise IOError(_("project_save_failed").format(error=str(e)))
+            # 既存ファイルがあれば差分更新を試みる
+            if os.path.exists(file_path) and zipfile.is_zipfile(file_path):
+                try:
+                    self._save_partial(file_path)
+                except Exception as e:
+                    logger.warning("差分保存に失敗したため、フルセーブにフォールバックします: %s", str(e))
+                    self._full_save(file_path)
+            else:
+                self._full_save(file_path)
         else:
-            # （念のための旧形式保存。通常は発生しません）
-            data = self.to_dict()
+            # バージョン3以外は既存処理（旧形式）を利用
             try:
+                data = self.to_dict()
                 save_json(file_path, data)
                 logger.info("プロジェクトを保存しました (JSON形式): %s", file_path)
                 self.file_path = file_path
